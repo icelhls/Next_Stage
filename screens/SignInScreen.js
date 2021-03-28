@@ -235,7 +235,7 @@ const SignInScreen = ({navigation}) => {
                 >
                     <Text style={[styles.textSign, {
                         color: '#009387'
-                    }]}>Register</Text>
+                    }]}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
         </Animatable.View>
