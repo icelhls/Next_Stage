@@ -22,16 +22,19 @@ import {
 } from 'react-native-paper';
 
 import { DrawerContent } from './screens/DrawerContent';
-
+// Drawer
 import MainTabScreen from './screens/MainTabScreen';
 import SupportScreen from './screens/SupportScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import BookmarkScreen from './screens/BookmarkScreen';
 
+// Auth
 import { AuthContext } from './components/context';
 
+// Root of app
 import RootStackScreen from './screens/RootStackScreen';
 
+// login and register Storage token
 import AsyncStorage from '@react-native-community/async-storage';
 
 const Drawer = createDrawerNavigator();
@@ -69,9 +72,10 @@ const App = () => {
       text: '#ffffff'
     }
   }
-
+  // theme of app
   const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
 
+  // login reducer
   const loginReducer = (prevState, action) => {
     switch( action.type ) {
       case 'RETRIEVE_TOKEN': 
@@ -103,7 +107,8 @@ const App = () => {
         };
     }
   };
-
+    // App states
+   // login state 
   const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
 
   const authContext = React.useMemo(() => ({

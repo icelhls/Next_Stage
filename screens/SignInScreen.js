@@ -221,7 +221,7 @@ const SignInScreen = ({navigation}) => {
                 >
                     <Text style={[styles.textSign, {
                         color:'#fff'
-                    }]}>Sign In</Text>
+                    }]}>Login</Text>
                 </LinearGradient>
                 </TouchableOpacity>
 
@@ -235,7 +235,7 @@ const SignInScreen = ({navigation}) => {
                 >
                     <Text style={[styles.textSign, {
                         color: '#009387'
-                    }]}>Sign Up</Text>
+                    }]}>Register</Text>
                 </TouchableOpacity>
             </View>
         </Animatable.View>
