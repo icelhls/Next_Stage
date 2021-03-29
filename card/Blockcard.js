@@ -3,16 +3,21 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import Title from '../card/Title';
 import Subtitle from '../card/Subtitle';
 
-function Blockcard() {
+function Blockcard({style, imageStyle, item}) {
+  const {title, desc, thumbnail} = item
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Image
-        source={require('../assets/images/food-banner4.jpg')}
-        style={styles.image}
+        // source={require('../assets/images/food-banner4.jpg')}
+        source ={{uri: thumbnail}}
+        style={[styles.image, imageStyle]}
+      
       />
       <View style={styles.contentContainer}>
-        <Title> some title</Title>
-        <Subtitle> Desccribtion</Subtitle>
+        {/* <Title > Some title</Title> */}
+        <Title>{title}</Title>
+        {/* <Subtitle > Desccribtion</Subtitle> */}
+        <Subtitle>{desc}</Subtitle>
       </View>
     </View>
   );

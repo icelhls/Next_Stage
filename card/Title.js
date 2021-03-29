@@ -10,6 +10,7 @@ export default function Title({children, numberOfLine=2, size = 18}) {
                 {children}
             </Text>
         </View>
+    
     )
 }
 
