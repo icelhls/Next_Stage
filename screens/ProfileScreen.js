@@ -48,7 +48,7 @@ const ProfileScreen = () => {
         <View style={styles.row}>
           <Icon name="email" color="#777777" size={20} />
           <Text style={{color: '#777777', marginLeft: 20}}>
-            john_doe@email.com
+            user_name@email.com
           </Text>
         </View>
       </View>
@@ -90,12 +90,12 @@ const ProfileScreen = () => {
             <Text style={styles.menuItemText}>print</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        {/* <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
             <Icon name="account-check-outline" color="#FF6347" size={25}/>
             <Text style={styles.menuItemText}>Support</Text>
           </View>
-        </TouchableRipple>
+        </TouchableRipple> */}
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
             <Icon name="settings-outline" color="#FF6347" size={25}/>

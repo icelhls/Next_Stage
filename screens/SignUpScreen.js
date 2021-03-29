@@ -21,6 +21,7 @@ const SignInScreen = ({navigation}) => {
     const [data, setData] = React.useState({
         username: '',
         password: '',
+        email: '',
         confirm_password: '',
         check_textInputChange: false,
         secureTextEntry: true,
@@ -38,6 +39,21 @@ const SignInScreen = ({navigation}) => {
             setData({
                 ...data,
                 username: val,
+                check_textInputChange: false
+            });
+        }
+    }
+    const emailInputChange = (val) => {
+        if( val.length !== 0 ) {
+            setData({
+                ...data,
+                email: val,
+                check_textInputChange: true
+            });
+        } else {
+            setData({
+                ...data,
+                email: val,
                 check_textInputChange: false
             });
         }
@@ -94,6 +110,57 @@ const SignInScreen = ({navigation}) => {
                     style={styles.textInput}
                     autoCapitalize="none"
                     onChangeText={(val) => textInputChange(val)}
+                />
+                {data.check_textInputChange ? 
+                <Animatable.View
+                    animation="bounceIn"
+                >
+                    <Feather 
+                        name="check-circle"
+                        color="green"
+                        size={20}
+                    />
+                </Animatable.View>
+                : null}
+            </View>
+            <Text style={styles.text_footer}>Email</Text>
+            <View style={styles.action}>
+                <FontAwesome 
+                    name="envelope-o"
+                    color="#05375a"
+                    size={20}
+                />
+                <TextInput 
+                    placeholder="Email"
+                    style={styles.textInput}
+                    autoCapitalize="none"
+                    onChangeText={(val) => emailInputChange(val)}
+                />
+                {data.check_textInputChange ? 
+                <Animatable.View
+                    animation="bounceIn"
+                >
+                    <Feather 
+                        name="check-circle"
+                        color="green"
+                        size={20}
+                    />
+                </Animatable.View>
+                : null}
+            </View>
+            <Text style={styles.text_footer}>Phone</Text>
+            <View style={styles.action}>
+                <FontAwesome 
+                    name="mobile-phone"
+                    color="#05375a"
+                    size={20}
+                />
+                <TextInput 
+                    placeholder="phone"
+                    keyboardType = "numeric"
+                    style={styles.textInput}
+                    autoCapitalize="none"
+                    onChangeText={(val) => phoneInputChange(val)}
                 />
                 {data.check_textInputChange ? 
                 <Animatable.View
