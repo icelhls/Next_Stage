@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, StatusBar, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, Button, StyleSheet, StatusBar, TouchableOpacity, FlatList, ScrollView,SafeAreaView } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import {globalStyles} from '../styles/global'
 // import Blockcard from '../card/Blockcard'
 import FeaturedNews from '../card/FeaturedNews'
 import SmallCard from '../card/SmallCard'
 import HorizalList from '../screens/HorizalList'
+
 
 const HomeScreen = ({navigation}) => {
   const [reviews, setReviews] = useState([
@@ -19,9 +20,11 @@ const HomeScreen = ({navigation}) => {
   const theme = useTheme();
   
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
         <StatusBar barStyle= { theme.dark ? "light-content" : "dark-content" }/>
         <Text style={{color: colors.text}}>Home Screen</Text>
+        
       {/* <Button
         title="Go to details screen"
         onPress={() => navigation.navigate("Details")}
@@ -35,13 +38,18 @@ const HomeScreen = ({navigation}) => {
        }} />
        {/* <SmallCard /> */}
        <HorizalList />
+       <HorizalList />
+       {/* <HorizalList /> */}
+     
+    
 
        {/* <FlatList data={reviews} renderItem={({ item }) => (
         <TouchableOpacity onPress={() => navigation.navigate('Profile', item)}>
           <Text style={globalStyles.titleText}>{ item.title }</Text>
         </TouchableOpacity>
       )} /> */}
-      </View>
+      </ScrollView>
+      </SafeAreaView>
     );
 };
 
@@ -52,5 +60,9 @@ const styles = StyleSheet.create({
     flex: 1, 
     alignItems: 'center', 
     justifyContent: 'center'
+  },
+  scrollView: {
+    // backgroundColor: 'pink',
+    marginHorizontal: 20,
   },
 });

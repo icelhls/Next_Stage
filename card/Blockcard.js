@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import Title from '../card/Title';
 import Subtitle from '../card/Subtitle';
+import Price from '../card/Price'
 
 function Blockcard({style, imageStyle, item}) {
   const {title, desc, thumbnail} = item
@@ -14,8 +15,13 @@ function Blockcard({style, imageStyle, item}) {
       
       />
       <View style={styles.contentContainer}>
-        {/* <Title > Some title</Title> */}
+        <View style ={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <Title>{title}</Title>
+        <Price>Price: $ 10</Price>
+
+        </View>
+        {/* <Title > Some title</Title> */}
+       
         {/* <Subtitle > Desccribtion</Subtitle> */}
         <Subtitle>{desc}</Subtitle>
       </View>
