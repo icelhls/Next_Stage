@@ -6,6 +6,7 @@ import {globalStyles} from '../styles/global'
 import FeaturedNews from '../card/FeaturedNews'
 import SmallCard from '../card/SmallCard'
 import HorizalList from '../screens/HorizalList'
+import VerticalList  from '../screens/VerticalList'
 
 
 const HomeScreen = ({navigation}) => {
@@ -38,7 +39,8 @@ const HomeScreen = ({navigation}) => {
        }} />
        {/* <SmallCard /> */}
        <HorizalList />
-       <HorizalList />
+       <VerticalList />
+      
        {/* <HorizalList /> */}
      
     
