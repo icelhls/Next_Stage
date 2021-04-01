@@ -19,6 +19,7 @@ export default function VerticalList({title}) {
     keyExtractor ={(item)=> item.id}
     renderItem = {({item})=> <SmallCard item ={item}/>}
     numColumns={2}
+    
     // showsHorizontalScrollIndicator = {false}
       />
       
