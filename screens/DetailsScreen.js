@@ -5,7 +5,7 @@ import { globalStyles } from '../styles/global';
 const DetailsScreen = ({navigation}) => {
     return (
       <View style={styles.container}>
-        <Text>Details Screen</Text>
+        {/* <Text>Details Screen</Text> */}
         {/* <Text>{ navigation.getParam('title') }</Text>
       <Text>{ navigation.getParam('body') }</Text>
       <Text>{ navigation.getParam('rating') }</Text> */}

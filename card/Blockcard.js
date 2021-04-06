@@ -33,10 +33,12 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: 300,
-    borderRadius: 10,
+    // borderRadius: 10,
     backgroundColor: '#87cefa',
     overflow: 'hidden',
     elevation: 2,
+    borderTopLeftRadius: 50,
+    borderBottomRightRadius:50,
   
     
   },

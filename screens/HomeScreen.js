@@ -24,7 +24,7 @@ const HomeScreen = ({navigation}) => {
       <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <StatusBar barStyle= { theme.dark ? "light-content" : "dark-content" }/>
-        <Text style={{color: colors.text}}>Home Screen</Text>
+        {/* <Text style={{color: colors.text}}>Home Screen</Text> */}
         
       {/* <Button
         title="Go to details screen"
