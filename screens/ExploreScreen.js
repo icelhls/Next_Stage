@@ -1,12 +1,24 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
-
+import {
+  Avatar,
+  Title,
+  Caption,
+  TouchableRipple,
+  Headline
+} from 'react-native-paper';
 const ExploreScreen = () => {
     return (
       <View style={styles.container}>
-        <Text>Settings</Text>
+        <Headline>Current Balance</Headline>
+        <Title>50.0 JD</Title>
+
+
+
+    
         <Button
-          title="Click Here"
+          color='#7e102c'
+          title="RECHARGE"
           onPress={() => alert('Button Clicked!')}
         />
       </View>
