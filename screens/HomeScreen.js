@@ -1,12 +1,22 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, StatusBar, TouchableOpacity, FlatList, ScrollView,SafeAreaView } from 'react-native';
+import { View, Text, Button,  StatusBar, TouchableOpacity, FlatList, ScrollView,SafeAreaView } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import {globalStyles} from '../styles/global'
 // import Blockcard from '../card/Blockcard'
-import FeaturedNews from '../card/FeaturedNews'
 import SmallCard from '../card/SmallCard'
 import HorizalList from '../screens/HorizalList'
 import VerticalList  from '../screens/VerticalList'
+import CartItem from '../screens/CartItem'
+import {
+  Avatar,
+  Title,
+  Caption,
+  TouchableRipple,
+  Headline
+} from 'react-native-paper';
+import StyleSheet from 'react-native-media-query';
+
+
 
 
 const HomeScreen = ({navigation}) => {
@@ -21,6 +31,8 @@ const HomeScreen = ({navigation}) => {
   const theme = useTheme();
   
     return (
+      <>
+      <View style={styles.example}>
       <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <StatusBar barStyle= { theme.dark ? "light-content" : "dark-content" }/>
@@ -30,15 +42,42 @@ const HomeScreen = ({navigation}) => {
         title="Go to details screen"
         onPress={() => navigation.navigate("Details")}
       /> */}
-       <FeaturedNews item ={{
-         id: '1',
-         title: 'This is the title no one.',
-         desc:
-           'Desc is the short form of description and this format is the actual same as our real database.',
-         thumbnail: 'https://picsum.photos/seed/picsum/200/300',
-       }} />
+            <View style={styles.infoBoxWrapper}  >
+        <View
+          style={[
+            styles.infoBox,
+            {
+              borderRightColor: '#dddddd',
+              borderRightWidth: 1,
+            },
+          ]}>
+          
+          <Avatar.Image
+            rounded
+            source={require('../assets/logo.png')}
+            size={80}
+            color= 'white'
+            
+         
+             />
+           
+
+        </View>
+        <View style={styles.infoBox}>
+          <Title>50 JOD</Title>
+          <Caption>Current Balance</Caption>
+        </View>
+      </View>
+      <Headline style={{textAlign: 'center', fontSize: 30}}>-عروض اليوم-</Headline>
+
        {/* <SmallCard /> */}
-       <HorizalList />
+       {/* <HorizalList /> */}
+       <CartItem />
+       <Headline style={{textAlign: 'center', fontSize: 30, marginTop: 30}}>-كل الباقات-</Headline>
+
+       
+        
+
        <VerticalList />
       
        {/* <HorizalList /> */}
@@ -52,6 +91,10 @@ const HomeScreen = ({navigation}) => {
       )} /> */}
       </ScrollView>
       </SafeAreaView>
+
+      </View>
+
+      </>
     );
 };
 
@@ -67,4 +110,28 @@ const styles = StyleSheet.create({
     // backgroundColor: 'pink',
     marginHorizontal: 20,
   },
+  infoBoxWrapper: {
+    borderBottomColor: '#dddddd',
+    borderBottomWidth: 2,
+    borderTopColor: '#dddddd',
+    borderTopWidth: 2,
+    flexDirection: 'row',
+    height: 100,
+    margin: 15
+  },
+  infoBox: {
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  example: {
+    
+  
+    '@media (max-width: 700px)': {
+        backgroundColor: 'blue',
+    },
+}
+
+
+
 });

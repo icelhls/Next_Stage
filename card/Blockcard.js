@@ -3,11 +3,18 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import Title from '../card/Title';
 import Subtitle from '../card/Subtitle';
 import Price from '../card/Price'
+import {
+  Avatar,
+  Caption,
+  TouchableRipple,
+  Headline
+} from 'react-native-paper';
 
 function Blockcard({style, imageStyle, item}) {
-  const {title, desc, thumbnail} = item
+  const {title, desc, thumbnail, icon} = item
   return (
     <View style={[styles.container, style]}>
+     {/* <Headline style={{textAlign: 'center', fontSize: 30}}>{icon}</Headline> */}
       <Image
         // source={require('../assets/images/food-banner4.jpg')}
         source ={{uri: thumbnail}}
@@ -15,15 +22,17 @@ function Blockcard({style, imageStyle, item}) {
       
       />
       <View style={styles.contentContainer}>
+     
+        
         <View style ={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Title>{title}</Title>
-        <Price>Price: $ 10</Price>
-
+        <Title style={{textAlign: 'center'}}>{title}</Title>
+      
+        {/* <Price style={{top: 50, }}>{icon}</Price> */}
         </View>
         {/* <Title > Some title</Title> */}
        
         {/* <Subtitle > Desccribtion</Subtitle> */}
-        <Subtitle>{desc}</Subtitle>
+        {/* <Subtitle>{desc}</Subtitle> */}
       </View>
     </View>
   );
@@ -32,9 +41,9 @@ function Blockcard({style, imageStyle, item}) {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 300,
+    height: 200,
     // borderRadius: 10,
-    backgroundColor: '#87cefa',
+    backgroundColor: '#7e102c',
     overflow: 'hidden',
     elevation: 2,
     borderTopLeftRadius: 50,

@@ -61,7 +61,7 @@ const MainTabScreen = () => (
           ),
         }}
       />
-      <Tab.Screen
+        <Tab.Screen
         name="Explore"
         component={ExploreStackScreen}
         options={{
@@ -72,6 +72,7 @@ const MainTabScreen = () => (
           ),
         }}
       />
+   
     </Tab.Navigator>
 );
 
@@ -181,10 +182,10 @@ const ExploreStackScreen = ({navigation})=>(
     }
   }}>
     <ExploreStack.Screen name="Explore" component={ExploreScreen} options ={{
-      headerLeft: ()=> (
-        <Icon.Button name="ios-menu" size={25} backgroundColor='#7e102c' ></Icon.Button>
-      )
-    }}  />
+     headerLeft: () => (
+      <Icon.Button name="ios-menu" size={25} backgroundColor="#7e102c" onPress={() => navigation.openDrawer()}></Icon.Button>
+  )
+  }} />
 
   </ExploreStack.Navigator>
 

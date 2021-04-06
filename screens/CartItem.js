@@ -1,12 +1,12 @@
 import React,{useState} from 'react'
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
 import Title from '../card/Title'
 import Subtitle from '../card/Subtitle'
 // import data from '../model/fakeData'
 import data from '../assets/data'
 import SmallCard from '../card/SmallCard'
 import Blockcard from '../card/Blockcard'
-export default function VerticalList({title}) {
+export default function CartItem({title}) {
     const [items, setItems] = useState(data)
     console.log('mustafa dataaa', items)
     // const renderItem =({item})=> (
@@ -18,10 +18,11 @@ export default function VerticalList({title}) {
     <Title>{title}</Title>
     <FlatList data = {data}
     keyExtractor ={(item)=> item.id}
-    renderItem = {({item})=> <SmallCard item ={item}/>}
-    numColumns={2}
-    
-    // showsHorizontalScrollIndicator = {false}
+    renderItem = {({item})=>
+
+     <SmallCard item ={item}/>}
+    horizontal
+    showsHorizontalScrollIndicator = {false}
       />
       
     </>

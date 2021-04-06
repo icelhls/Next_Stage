@@ -82,12 +82,12 @@ export function DrawerContent(props) {
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="bookmark-outline" 
+                                name="credit-card" 
                                 color={color}
                                 size={size}
                                 />
                             )}
-                            label="Bookmarks"
+                            label="Payment"
                             onPress={() => {props.navigation.navigate('BookmarkScreen')}}
                         />
                         <DrawerItem 
