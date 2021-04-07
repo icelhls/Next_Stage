@@ -8,8 +8,7 @@ import {
   Headline,
   Paragraph,
 } from 'react-native-paper';
-
-const SupportScreen = () => {
+const ContactScreen = () => {
   return (
     <View style={styles.container}>
       <Paragraph style={{fontSize: 20}}>
@@ -23,13 +22,13 @@ const SupportScreen = () => {
   );
 };
 
-export default SupportScreen;
+export default ContactScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
     marginTop: 20,
     marginLeft: 5,
     marginRight: 5,

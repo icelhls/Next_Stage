@@ -7,7 +7,7 @@ import {
   TouchableRipple,
   Headline
 } from 'react-native-paper';
-const ExploreScreen = () => {
+const RechargeScreen = () => {
     return (
       <View style={styles.container}>
         <Headline>Current Balance</Headline>
@@ -25,7 +25,7 @@ const ExploreScreen = () => {
     );
 };
 
-export default ExploreScreen;
+export default RechargeScreen;
 
 const styles = StyleSheet.create({
   container: {

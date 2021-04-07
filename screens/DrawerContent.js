@@ -68,7 +68,7 @@ export function DrawerContent(props) {
                             label="Home"
                             onPress={() => {props.navigation.navigate('Home')}}
                         />
-                        <DrawerItem 
+                        {/* <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
                                 name="account-outline" 
@@ -78,18 +78,18 @@ export function DrawerContent(props) {
                             )}
                             label="Profile"
                             onPress={() => {props.navigation.navigate('Profile')}}
-                        />
-                        <DrawerItem 
+                        /> */}
+                        {/* <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="credit-card" 
+                                name="cart-outline" 
                                 color={color}
                                 size={size}
                                 />
                             )}
-                            label="Payment"
-                            onPress={() => {props.navigation.navigate('BookmarkScreen')}}
-                        />
+                            label="Purchase"
+                            // onPress={() => {props.navigation.navigate('Purchase')}}
+                        /> */}
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 

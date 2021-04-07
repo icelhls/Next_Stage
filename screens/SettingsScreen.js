@@ -57,43 +57,37 @@ const SettingsScreen = ({navigation}) => {
       <View style={styles.menuWrapper}>
       <TouchableRipple onPress={() => navigation.navigate('Profile')}>
           <View style={styles.menuItem}>
-            <Icon name="ios-person" color="#FF6347" size={25}/>
+            <Icon name="account" color="#7e102c" size={25}/>
             <Text style={styles.menuItemText}>Profile</Text>
           </View>
         </TouchableRipple>
-      <TouchableRipple onPress={() => {}}>
+      <TouchableRipple onPress={() => navigation.navigate('Change')}>
           <View style={styles.menuItem}>
-            <Icon name="podium" color="#FF6347" size={25}/>
+            <Icon name="lock" color="#7e102c" size={25}/>
             <Text style={styles.menuItemText}>Change Password</Text>
           </View>
         </TouchableRipple>
-      <TouchableRipple onPress={() => {}}>
+      <TouchableRipple onPress={() => navigation.navigate('Purchase')}>
           <View style={styles.menuItem}>
-            <Icon name="podium" color="#FF6347" size={25}/>
+            <Icon name="cart-outline" color="#7e102c" size={25}/>
             <Text style={styles.menuItemText}>Purchase</Text>
           </View>
         </TouchableRipple>
-      <TouchableRipple onPress={() => {}}>
+      <TouchableRipple onPress={() => navigation.navigate('Term')}>
           <View style={styles.menuItem}>
-            <Icon name="podium" color="#FF6347" size={25}/>
+            <Icon name="file-document-outline" color="#7e102c" size={25}/>
             <Text style={styles.menuItemText}>Term and Conditions</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={() => navigation.navigate('Privacy')}>
           <View style={styles.menuItem}>
-            <Icon name="podium" color="#FF6347" size={25}/>
+            <Icon name="shield" color="#7e102c" size={25}/>
             <Text style={styles.menuItemText}>Privacy and Policy</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={()=>navigation.navigate('Contact')}>
           <View style={styles.menuItem}>
-            <Icon name="credit-card" color="#FF6347" size={25}/>
-            <Text style={styles.menuItemText}>Purchase</Text>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={()=>{}}>
-          <View style={styles.menuItem}>
-            <Icon name="printer-settings" color="#FF6347" size={25}/>
+            <Icon name="email" color="#7e102c" size={25}/>
             <Text style={styles.menuItemText}>Contact Us</Text>
           </View>
         </TouchableRipple>
@@ -103,15 +97,15 @@ const SettingsScreen = ({navigation}) => {
             <Text style={styles.menuItemText}>Support</Text>
           </View>
         </TouchableRipple> */}
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={() => navigation.navigate('About')}>
           <View style={styles.menuItem}>
-            <Icon name="settings-outline" color="#FF6347" size={25}/>
+            <Icon name="file-document-outline" color="#7e102c" size={25}/>
             <Text style={styles.menuItemText}>About Us</Text>
           </View>
         </TouchableRipple>
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
-            <Icon name="settings-outline" color="#FF6347" size={25}/>
+            <Icon name="star" color="#7e102c" size={25}/>
             <Text style={styles.menuItemText}>Rate Our App</Text>
           </View>
         </TouchableRipple>

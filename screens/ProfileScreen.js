@@ -10,7 +10,7 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const ProfileScreen = () => {
+const ProfileScreen = ({navigation}) => {
   return (
     <SafeAreaView  style={styles.container}>
       <View style={styles.userInfoSection}>
@@ -78,10 +78,10 @@ const ProfileScreen = () => {
             <Text style={styles.menuItemText}>Rank</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={() => navigation.navigate('Purchase')}>
           <View style={styles.menuItem}>
             <Icon name="credit-card" color="#FF6347" size={25}/>
-            <Text style={styles.menuItemText}>Payment</Text>
+            <Text style={styles.menuItemText}>Purchase</Text>
           </View>
         </TouchableRipple>
         <TouchableRipple onPress={()=>{}}>
@@ -96,7 +96,7 @@ const ProfileScreen = () => {
             <Text style={styles.menuItemText}>Support</Text>
           </View>
         </TouchableRipple> */}
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={() => navigation.navigate('Settings')}>
           <View style={styles.menuItem}>
             <Icon name="settings-outline" color="#FF6347" size={25}/>
             <Text style={styles.menuItemText}>Settings</Text>

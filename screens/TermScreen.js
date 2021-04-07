@@ -8,8 +8,7 @@ import {
   Headline,
   Paragraph,
 } from 'react-native-paper';
-
-const SupportScreen = () => {
+const TermScreen = () => {
   return (
     <View style={styles.container}>
       <Paragraph style={{fontSize: 20}}>
@@ -17,19 +16,21 @@ const SupportScreen = () => {
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
         commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur.{' '}
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum
       </Paragraph>
     </View>
   );
 };
 
-export default SupportScreen;
+export default TermScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
     marginTop: 20,
     marginLeft: 5,
     marginRight: 5,
