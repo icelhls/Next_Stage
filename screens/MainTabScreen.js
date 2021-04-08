@@ -22,6 +22,8 @@ import PrivacyScreen from './PrivacyScreen';
 import ContactScreen from './ContactScreen';
 import AboutScreen from './AboutScreen';
 import OfferScreen from './OfferScreen';
+import SupportScreen from './SupportScreen';
+
 
 // Create Stack
 const HomeStack = createStackNavigator();
@@ -216,6 +218,8 @@ const HomeStackScreen = ({navigation}) => (
         ),
       }}
     />
+
+
   </HomeStack.Navigator>
 );
 const SettingsStackScreen = ({navigation}) => (

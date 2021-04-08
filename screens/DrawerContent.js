@@ -39,8 +39,8 @@ export function DrawerContent(props) {
                                 size={50}
                             />
                             <View style={{marginLeft:15, flexDirection:'column'}}>
-                                <Title style={styles.title}>Mustaf</Title>
-                                <Caption style={styles.caption}>@ahmed</Caption>
+                                <Title style={styles.title}>Next Stage</Title>
+                                <Caption style={styles.caption}>@next stage</Caption>
                             </View>
                         </View>
 
@@ -57,7 +57,7 @@ export function DrawerContent(props) {
                     </View>
 
                     <Drawer.Section style={styles.drawerSection}>
-                        <DrawerItem 
+                        {/* <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
                                 name="home-outline" 
@@ -67,8 +67,8 @@ export function DrawerContent(props) {
                             )}
                             label="Home"
                             onPress={() => {props.navigation.navigate('Home')}}
-                        />
-                        {/* <DrawerItem 
+                        /> */}
+                        <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
                                 name="account-outline" 
@@ -78,8 +78,8 @@ export function DrawerContent(props) {
                             )}
                             label="Profile"
                             onPress={() => {props.navigation.navigate('Profile')}}
-                        /> */}
-                        {/* <DrawerItem 
+                        />
+                        <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
                                 name="cart-outline" 
@@ -88,8 +88,8 @@ export function DrawerContent(props) {
                                 />
                             )}
                             label="Purchase"
-                            // onPress={() => {props.navigation.navigate('Purchase')}}
-                        /> */}
+                            onPress={() => {props.navigation.navigate('Purchase')}}
+                        />
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
