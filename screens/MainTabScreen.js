@@ -263,7 +263,7 @@ const OfferStackScreen = ({navigation}) => (
       },
     }}>
     <OfferStack.Screen
-      name="Offer"
+      name="Offers"
       component={OfferScreen}
       options={{
         headerLeft: () => (

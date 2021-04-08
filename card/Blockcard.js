@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Title from '../card/Title';
 import Subtitle from '../card/Subtitle';
 import Price from '../card/Price'
@@ -14,7 +14,8 @@ function Blockcard({style, imageStyle, item}) {
   const {title, desc, thumbnail, icon} = item
   return (
     <View style={[styles.container, style]}>
-     {/* <Headline style={{textAlign: 'center', fontSize: 30}}>{icon}</Headline> */}
+      <TouchableOpacity onPress={()=>console.log('You clicked cart')}>
+        {/* <Headline style={{textAlign: 'center', fontSize: 30}}>{icon}</Headline> */}
       <Image
         // source={require('../assets/images/food-banner4.jpg')}
         source ={{uri: thumbnail}}
@@ -34,6 +35,10 @@ function Blockcard({style, imageStyle, item}) {
         {/* <Subtitle > Desccribtion</Subtitle> */}
         {/* <Subtitle>{desc}</Subtitle> */}
       </View>
+
+      </TouchableOpacity>
+
+     
     </View>
   );
 }

@@ -52,9 +52,9 @@ const OfferScreen = () => {
           <ListItem key={i} bottomDivider>
             <Avatar source={{uri: l.avatar_url}} />
             <ListItem.Content>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'  }}>
+              <View style={{flexDirection: 'row', alignItems: 'space-around' }}>
               <ListItem.Title>{l.name}</ListItem.Title>
-              <ListItem.Title style={{alignSelf: 'flex-end'}}>{l.price}</ListItem.Title>
+              <ListItem.Subtitle style={{alignSelf: 'flex-end', fontSize: 16, marginLeft: 200}}>   $50.0</ListItem.Subtitle>
               </View>
               
               <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>

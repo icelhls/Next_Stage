@@ -1,13 +1,14 @@
 import React from 'react';
 import {View, SafeAreaView, StyleSheet} from 'react-native';
 import {
-  Avatar,
   Title,
   Caption,
   Text,
   TouchableRipple,
   Drawer
 } from 'react-native-paper';
+
+import { Avatar } from 'react-native-elements';
 import {
   DrawerContentScrollView,
   DrawerItem
@@ -29,10 +30,8 @@ const SettingsScreen = ({navigation}) => {
 
       <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
-          <Avatar.Image
-            source={{
-              uri: 'https://api.adorable.io/avatars/80/abott@adorable.png',
-            }}
+          <Avatar
+            source={require('../assets/images/profile.jpg')}
             size={80}
           />
           <View style={{marginLeft: 20}}>

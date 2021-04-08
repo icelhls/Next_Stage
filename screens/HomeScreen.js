@@ -1,30 +1,22 @@
 import React, {useState} from 'react';
 import {
   View,
-  Text,
-  Button,
   StatusBar,
-  TouchableOpacity,
-  FlatList,
   ScrollView,
   SafeAreaView,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {Image} from 'react-native-elements';
-import {globalStyles} from '../styles/global';
-// import Blockcard from '../card/Blockcard'
-import SmallCard from '../card/SmallCard';
-import HorizalList from '../screens/HorizalList';
 import VerticalList from '../screens/VerticalList';
 import CartItem from '../screens/CartItem';
 import {
-  Avatar,
   Title,
   Caption,
   TouchableRipple,
   Headline,
+  Text
 } from 'react-native-paper';
 import StyleSheet from 'react-native-media-query';
+import {Image,Card } from 'react-native-elements'
 
 const HomeScreen = ({navigation}) => {
   const [reviews, setReviews] = useState([
@@ -77,6 +69,9 @@ const HomeScreen = ({navigation}) => {
             {/* <SmallCard /> */}
             {/* <HorizalList /> */}
             <CartItem />
+          
+            
+       
             <Headline
               style={{textAlign: 'center', fontSize: 30, marginTop: 30}}>
               -كل الباقات-
@@ -127,6 +122,7 @@ const styles = StyleSheet.create({
   sizeMedia: {
     '@media (max-width: 700px)': {
       backgroundColor: 'blue',
+     
     },
   },
   imageStyle: {

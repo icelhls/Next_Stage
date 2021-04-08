@@ -1,17 +1,54 @@
 import React from 'react';
-import {View, SafeAreaView, StyleSheet} from 'react-native';
+import {View, SafeAreaView, StyleSheet, FlatList, ScrollView} from 'react-native';
 import {
   Avatar,
   Title,
   Caption,
   Text,
   TouchableRipple,
-  Subheading
+  Subheading,
+  Headline,
+  List,
 } from 'react-native-paper';
+import {ListItem} from 'react-native-elements';
 const PurchaseScreen = () => {
+  const list = [
+    {
+      title: 'Orders Name',
+      subTitle: 'Description.....',
+      price: 50,
+    },
+    {
+      title: 'Orders Name',
+      subTitle: 'Description.....',
+      price: 25,
+    },
+    {
+      title: 'Orders Name',
+      subTitle: 'description.....',
+      price: 30,
+    },
+    {
+      title: 'Orders Name',
+      subTitle: 'Description.....',
+      price: 15,
+    },
+    {
+      title: 'Orders Name',
+      subTitle: 'Description.....',
+      price: 50,
+    },
+    {
+      title: 'Orders Name',
+      subTitle: 'description.....',
+      price: 50,
+    },
+  ];
   return (
-    <View style={styles.container}>
-      {/* <Headline>Purchases</Headline> */}
+    <>
+        <View style={styles.container}>
+          <ScrollView>
+             {/* <Headline>Purchases</Headline> */}
       <View style={styles.infoBoxWrapper}>
         <View
           style={[
@@ -46,24 +83,35 @@ const PurchaseScreen = () => {
           <Title>Completed</Title>
         </View>
       </View>
-     
-      <Subheading>Orders Name</Subheading>
+
+      <Headline style={{fontSize: 25}}>Orders History</Headline>
       {/* <Subheading style={{alignSelf: 'flex-end'}}>price</Subheading> */}
+      <FlatList
+        data={list}
+        keyExtractor={item => item.title}
+        renderItem={({item}) => (
+          <>
+            <List.Section>
+              <View style={{flexDirection: 'row'}}>
+              <Title>{item.title}</Title>
+              {/* <Title style={{marginLeft: 210}}>{item.price}</Title> */}
+              <Text style={{marginLeft: 210}}>{item.price} JD</Text>
 
+            
+
+              </View>
+              
+              <Subheading>{item.subTitle}</Subheading>
+            </List.Section>
+          </>
+        )}
+      />
+
+          </ScrollView>
      
-     
-     
-      
-
-
-
-      {/*     
-        <Button
-          color='#7e102c'
-          title="RECHARGE"
-          onPress={() => alert('Button Clicked!')}
-        /> */}
     </View>
+    </>
+
   );
 };
 
