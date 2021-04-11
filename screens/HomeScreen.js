@@ -16,10 +16,10 @@ import {
   Text
 } from 'react-native-paper';
 import StyleSheet from 'react-native-media-query';
-import {Image,Card } from 'react-native-elements'
+import {Image } from 'react-native-elements'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const HomeScreen = ({navigation}) => {
-
   const {colors} = useTheme();
 
   const theme = useTheme();
@@ -32,10 +32,10 @@ const HomeScreen = ({navigation}) => {
             <StatusBar
               barStyle={theme.dark ? 'light-content' : 'dark-content'}
             />
-            <View  style={{flexDirection: 'row'}}>
+            <View  style={{flexDirection: 'row', justifyContent: 'space-around'}}>
                 <Image
                   source={ require('../assets/images/profile.jpg')}
-                  style={{width: 180, height: 180, margin: 10, marginBottom: 30, }}
+                  style={{ width: wp('50%') , height: hp('25%'), margin: 10, marginBottom: 30, flex: 1 }}
                 />
               
                <View  style={{justifyContent:'center', backgroundColor: '#7e102c', margin: 10, width: 180, marginBottom: 30 }}>

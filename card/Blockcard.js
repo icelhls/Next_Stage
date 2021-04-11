@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#7e102c',
     overflow: 'hidden',
     elevation: 2,
-    borderTopLeftRadius: 50,
-    borderBottomRightRadius:50,
+    borderTopLeftRadius: 60,
+    borderBottomRightRadius:55,
     
   },
   image: {
