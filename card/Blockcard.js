@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     elevation: 2,
     borderTopLeftRadius: 50,
     borderBottomRightRadius:50,
-  
     
   },
   image: {

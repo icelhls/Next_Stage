@@ -13,11 +13,11 @@ export default function SmallCard({item}) {
 
 const styles = StyleSheet.create({
     container: {
-        width: width / 2,
-        marginRight: 15,
+        width: width / 2.12,
+        marginRight: 5,
         height: 190,
-        margin: 5
-       
+        margin: 5,
+        
     },
     image: {
         height: 150

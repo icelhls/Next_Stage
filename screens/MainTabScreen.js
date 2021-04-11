@@ -162,7 +162,7 @@ const HomeStackScreen = ({navigation}) => (
       name="Term"
       component={TermScreen}
       options={{
-        title: 'Term & Conditin',
+        title: 'Term & Condition',
         headerLeft: () => (
           <Icon.Button
             name="menu"

@@ -56,37 +56,37 @@ const SettingsScreen = ({navigation}) => {
       <View style={styles.menuWrapper}>
       <TouchableRipple onPress={() => navigation.navigate('Profile')}>
           <View style={styles.menuItem}>
-            <Icon name="account" color="#7e102c" size={25}/>
+            <Icon name="account" color="#7e102c" size={30}/>
             <Text style={styles.menuItemText}>Profile</Text>
           </View>
         </TouchableRipple>
       <TouchableRipple onPress={() => navigation.navigate('Change')}>
           <View style={styles.menuItem}>
-            <Icon name="lock" color="#7e102c" size={25}/>
+            <Icon name="lock" color="#7e102c" size={30}/>
             <Text style={styles.menuItemText}>Change Password</Text>
           </View>
         </TouchableRipple>
       <TouchableRipple onPress={() => navigation.navigate('Purchase')}>
           <View style={styles.menuItem}>
-            <Icon name="cart-outline" color="#7e102c" size={25}/>
+            <Icon name="cart-outline" color="#7e102c" size={30}/>
             <Text style={styles.menuItemText}>Purchase</Text>
           </View>
         </TouchableRipple>
       <TouchableRipple onPress={() => navigation.navigate('Term')}>
           <View style={styles.menuItem}>
-            <Icon name="file-document-outline" color="#7e102c" size={25}/>
+            <Icon name="file-document-outline" color="#7e102c" size={30}/>
             <Text style={styles.menuItemText}>Term and Conditions</Text>
           </View>
         </TouchableRipple>
         <TouchableRipple onPress={() => navigation.navigate('Privacy')}>
           <View style={styles.menuItem}>
-            <Icon name="shield" color="#7e102c" size={25}/>
+            <Icon name="shield" color="#7e102c" size={30}/>
             <Text style={styles.menuItemText}>Privacy and Policy</Text>
           </View>
         </TouchableRipple>
         <TouchableRipple onPress={()=>navigation.navigate('Contact')}>
           <View style={styles.menuItem}>
-            <Icon name="email" color="#7e102c" size={25}/>
+            <Icon name="email" color="#7e102c" size={30}/>
             <Text style={styles.menuItemText}>Contact Us</Text>
           </View>
         </TouchableRipple>
@@ -98,13 +98,13 @@ const SettingsScreen = ({navigation}) => {
         </TouchableRipple> */}
         <TouchableRipple onPress={() => navigation.navigate('About')}>
           <View style={styles.menuItem}>
-            <Icon name="file-document-outline" color="#7e102c" size={25}/>
+            <Icon name="file-document-outline" color="#7e102c" size={30}/>
             <Text style={styles.menuItemText}>About Us</Text>
           </View>
         </TouchableRipple>
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
-            <Icon name="star" color="#7e102c" size={25}/>
+            <Icon name="star" color="#7e102c" size={30}/>
             <Text style={styles.menuItemText}>Rate Our App</Text>
           </View>
         </TouchableRipple>
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     color: '#777777',
     marginLeft: 20,
     fontWeight: '600',
-    fontSize: 16,
+    fontSize: 18,
     lineHeight: 26,
   },
   bottomDrawerSection: {
