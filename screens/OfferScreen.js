@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { globalStyles } from '../styles/global';
 import { ListItem, Avatar } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -45,7 +45,10 @@ const OfferScreen = () => {
     
       ]
         return (
-          <View>
+          <>
+          <SafeAreaView>
+            <ScrollView>
+            <View>
             {/* <Text>Details Screen</Text> */}
             {
         list.map((l, i) => (
@@ -79,6 +82,12 @@ const OfferScreen = () => {
             /> */}
      
           </View>
+            </ScrollView>
+            
+
+          </SafeAreaView>
+          </>
+         
         );
 };
 

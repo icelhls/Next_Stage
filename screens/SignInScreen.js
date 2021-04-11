@@ -7,7 +7,10 @@ import {
     Platform,
     StyleSheet ,
     StatusBar,
-    Alert
+    Alert,
+    SafeAreaView,
+    ScrollView
+    
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -113,7 +116,10 @@ const SignInScreen = ({navigation}) => {
     }
 
     return (
-      <View style={styles.container}>
+        <>
+        <SafeAreaView>
+            <ScrollView>
+            <View style={styles.container}>
           <StatusBar backgroundColor='#7e102c' barStyle="light-content"/>
         <View style={styles.header}>
             <Text style={styles.text_header}>Welcome!</Text>
@@ -240,6 +246,15 @@ const SignInScreen = ({navigation}) => {
             </View>
         </Animatable.View>
       </View>
+
+
+            </ScrollView>
+            
+       
+        </SafeAreaView>
+        
+        </>
+     
     );
 };
 
