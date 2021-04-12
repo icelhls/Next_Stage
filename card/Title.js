@@ -6,7 +6,7 @@ export default function Title({children, numberOfLine=2, size = 18}) {
         <View>
             <Text
              numberOfLines={numberOfLine} 
-             style={{fontWeight: 'bold',  fontSize: size, color: 'white' }}>
+             style={{fontWeight: 'bold',  fontSize: size, color: 'white', bottom: 5 }}>
                 {children}
             </Text>
         </View>

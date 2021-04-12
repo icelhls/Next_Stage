@@ -23,12 +23,14 @@ function Blockcard({style, imageStyle, item}) {
       
       />
       <View style={styles.contentContainer}>
+      {/* <Price >{icon}</Price> */}
      
         
         <View style ={{flexDirection: 'row', justifyContent: 'space-between'}}>
+ 
         <Title style={{textAlign: 'center'}}>{title}</Title>
       
-        {/* <Price style={{top: 50, }}>{icon}</Price> */}
+        
         </View>
         {/* <Title > Some title</Title> */}
        
