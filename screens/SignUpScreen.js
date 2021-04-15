@@ -19,7 +19,8 @@ import Feather from 'react-native-vector-icons/Feather';
 const SignInScreen = ({navigation}) => {
 
     const [data, setData] = React.useState({
-        username: '',
+        name_en: '',
+        name_ar: '',
         password: '',
         email: '',
         confirm_password: '',
@@ -28,7 +29,23 @@ const SignInScreen = ({navigation}) => {
         confirm_secureTextEntry: true,
     });
 
-    const textInputChange = (val) => {
+    const textInputEnglishChange = (val) => {
+        if( val.length !== 0 ) {
+            setData({
+                ...data,
+                username: val,
+                check_textInputChange: true
+            });
+        } else {
+            setData({
+                ...data,
+                username: val,
+                check_textInputChange: false
+            });
+        }
+    }
+
+    const textInputArabicChange = (val) => {
         if( val.length !== 0 ) {
             setData({
                 ...data,
@@ -98,7 +115,7 @@ const SignInScreen = ({navigation}) => {
             style={styles.footer}
         >
             <ScrollView>
-            <Text style={styles.text_footer}>Username</Text>
+            <Text style={styles.text_footer}>Name_English</Text>
             <View style={styles.action}>
                 <FontAwesome 
                     name="user-o"
@@ -106,10 +123,10 @@ const SignInScreen = ({navigation}) => {
                     size={20}
                 />
                 <TextInput 
-                    placeholder="Your Username"
+                    placeholder="Name English"
                     style={styles.textInput}
                     autoCapitalize="none"
-                    onChangeText={(val) => textInputChange(val)}
+                    onChangeText={(val) => textInputEnglishChange(val)}
                 />
                 {data.check_textInputChange ? 
                 <Animatable.View
@@ -123,6 +140,34 @@ const SignInScreen = ({navigation}) => {
                 </Animatable.View>
                 : null}
             </View>
+            <Text style={styles.text_footer}>Name_Arbic</Text>
+
+            <View style={styles.action}>
+                <FontAwesome 
+                    name="user-o"
+                    color="#05375a"
+                    size={20}
+                />
+                <TextInput 
+                    placeholder="Name Arabic"
+                    style={styles.textInput}
+                    autoCapitalize="none"
+                    onChangeText={(val) => textInputArabicChange(val)}
+                />
+                {data.check_textInputChange ? 
+                <Animatable.View
+                    animation="bounceIn"
+                >
+                    <Feather 
+                        name="check-circle"
+                        color="green"
+                        size={20}
+                    />
+                </Animatable.View>
+                : null}
+            </View>
+
+
             <Text style={styles.text_footer}>Email</Text>
             <View style={styles.action}>
                 <FontAwesome 
@@ -255,7 +300,7 @@ const SignInScreen = ({navigation}) => {
             <View style={styles.button}>
                 <TouchableOpacity
                     style={styles.signIn}
-                    onPress={() => {}}
+                    onPress={() => {console.log('sing up')}}
                 >
                 <LinearGradient
                     colors={['#7e102c', '#7e102c']}

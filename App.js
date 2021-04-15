@@ -41,14 +41,14 @@ const Drawer = createDrawerNavigator();
 
 const App = () => {
   // const [isLoading, setIsLoading] = React.useState(true);
-  // const [userToken, setUserToken] = React.useState(null); 
+  // const [api_tocken, setapi_tocken] = React.useState(null); 
 
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
 
   const initialLoginState = {
     isLoading: true,
-    userName: null,
-    userToken: null,
+    email: null,
+    api_tocken: null,
   };
 
   const CustomDefaultTheme = {
@@ -81,28 +81,33 @@ const App = () => {
       case 'RETRIEVE_TOKEN': 
         return {
           ...prevState,
-          userToken: action.token,
+          api_tocken: action.token,
           isLoading: false,
+
         };
       case 'LOGIN': 
         return {
           ...prevState,
-          userName: action.id,
-          userToken: action.token,
+          email: action.email,
+          api_tocken: action.token,
           isLoading: false,
+          password: action.password
+
         };
       case 'LOGOUT': 
         return {
           ...prevState,
-          userName: null,
-          userToken: null,
+          email: null,
+          api_tocken: null,
           isLoading: false,
+
         };
       case 'REGISTER': 
         return {
           ...prevState,
-          userName: action.id,
-          userToken: action.token,
+          email: action.id,
+          // api_tocken: action.token,
+          password: action.password,
           isLoading: false,
         };
     }
@@ -112,33 +117,120 @@ const App = () => {
   const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
 
   const authContext = React.useMemo(() => ({
-    signIn: async(foundUser) => {
-      // setUserToken('fgkj');
-      // setIsLoading(false);
-      const userToken = String(foundUser[0].userToken);
-      const userName = foundUser[0].username;
-      
+    signIn: async(email, password) => {
       try {
-        await AsyncStorage.setItem('userToken', userToken);
-      } catch(e) {
-        console.log(e);
+        let data ={
+          email: email,
+          password: password
+        }
+        let response = await fetch('http://192.168.1.46:8000/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify(data)
+        });
+
+        let responseJson = await response.json();
+      // alert(responseJson.data.email);
+      console.log('mustafa responseJson', responseJson.data);
+
+    
+              await  AsyncStorage.setItem('api_tocken', responseJson.data.api_tocken);
+      //           console.log(responseJson.data.email);
+      //           console.log('api_tocken', responseJson.data.api_tocken);
+      //           console.log('mustafaaajson', responseJson.data.email );
+                dispatch({type: 'LOGIN', api_token: responseJson.data.api_tocken})    
+      //         } else {
+                
+      //           console.log('Please check your email id or password');
+      //           console.log('mustafaaajson', responseJson.data.email )
+      //         }
+
+        // await AsyncStorage.setItem('api_tocken', response.data.api_tocken);
+        // dispatch({type: 'LOGIN', api_tocken: response.data.api_tocken })
+        
+        
+      } catch (error) {
+        alert('Please check your number or password')
+      
+        
       }
-      // console.log('user token: ', userToken);
-      dispatch({ type: 'LOGIN', id: userName, token: userToken });
+
     },
+
     signOut: async() => {
       // setUserToken(null);
       // setIsLoading(false);
       try {
-        await AsyncStorage.removeItem('userToken');
+        await AsyncStorage.removeItem('api_token');
       } catch(e) {
         console.log(e);
       }
       dispatch({ type: 'LOGOUT' });
     },
-    signUp: () => {
-      // setUserToken('fgkj');
+
+
+    signUp: async ({email, password}) => {
+      // setapi_tocken('fgkj');
       // setIsLoading(false);
+
+      try {
+        // let response = await fetch(
+        //   'http://192.168.1.46:8000/api/login'
+        // );
+        // let json = await response.json();
+        // return json.data.api_tocken
+        
+        let data ={
+          email: email,
+          password: password
+        }
+        let response = await fetch('http://192.168.1.46:8000/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify(data)
+        });
+
+        let responseJson = await response.json();
+      // alert(responseJson.data.email);
+      console.log('mustafa responseJson', responseJson.data);
+
+      // if (responseJson.status === 'success') {
+              await  AsyncStorage.setItem('api_tocken', responseJson.data.api_tocken);
+      //           console.log(responseJson.data.email);
+      //           console.log('api_tocken', responseJson.data.api_tocken);
+      //           console.log('mustafaaajson', responseJson.data.email );
+                dispatch({type: 'LOGIN', api_token: response.data.api_tocken})
+                
+                      
+      //         } else {
+                
+      //           console.log('Please check your email id or password');
+      //           console.log('mustafaaajson', responseJson.data.email )
+      //         }
+
+              
+    
+
+     
+
+
+        // await AsyncStorage.setItem('api_tocken', response.data.api_tocken);
+        // dispatch({type: 'LOGIN', api_tocken: response.data.api_tocken })
+        
+        
+      } catch (error) {
+        
+    
+        
+      }
+
+
+
+
     },
     toggleTheme: () => {
       setIsDarkTheme( isDarkTheme => !isDarkTheme );
@@ -148,15 +240,15 @@ const App = () => {
   useEffect(() => {
     setTimeout(async() => {
       // setIsLoading(false);
-      let userToken;
-      userToken = null;
+      let api_tocken;
+      api_tocken = null;
       try {
-        userToken = await AsyncStorage.getItem('userToken');
+        api_tocken = await AsyncStorage.getItem('api_tocken');
       } catch(e) {
         console.log(e);
       }
-      // console.log('user token: ', userToken);
-      dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
+      // console.log('user token: ', api_tocken);
+      dispatch({ type: 'RETRIEVE_TOKEN', token: api_tocken });
     }, 1000);
   }, []);
 
@@ -171,7 +263,7 @@ const App = () => {
     <PaperProvider theme={theme}>
     <AuthContext.Provider value={authContext}>
     <NavigationContainer theme={theme}>
-      { loginState.userToken !== null ? (
+      { loginState.api_tocken !== null ? (
         <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
           <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
           <Drawer.Screen name="SupportScreen" component={SupportScreen} />
