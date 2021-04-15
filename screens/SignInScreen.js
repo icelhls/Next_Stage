@@ -39,7 +39,7 @@ const SignInScreen = ({navigation}) => {
     const { signIn } = React.useContext(AuthContext);
 
     const textInputChange = (val) => {
-        if( val.trim().length >= 4 ) {
+        if( val.trim().length >= 10 ) {
             setData({
                 ...data,
                 email: val,
@@ -153,7 +153,7 @@ const SignInScreen = ({navigation}) => {
             </View>
             { data.isValidUser ? null : 
             <Animatable.View animation="fadeInLeft" duration={500}>
-            <Text style={styles.errorMsg}>Username must be number .</Text>
+            <Text style={styles.errorMsg}>Phone number must be 10 characters long.</Text>
             </Animatable.View>
             }
             

@@ -105,8 +105,12 @@ const App = () => {
       case 'REGISTER': 
         return {
           ...prevState,
+          // name_en: action.name_en,
+          // name_ar: action.name_ar,
+          // trade_name: action.trade_name,
+          // phone: action.phone,
           email: action.id,
-          // api_tocken: action.token,
+          api_tocken: action.token,
           password: action.password,
           isLoading: false,
         };
@@ -152,7 +156,8 @@ const App = () => {
         
         
       } catch (error) {
-        alert('Please check your number or password')
+        // alert('Please check your number or password')
+        console.log('not register')
       
         
       }
@@ -171,7 +176,7 @@ const App = () => {
     },
 
 
-    signUp: async ({email, password}) => {
+    signUp: async (name_en, name_ar, trade_name, phone, email, password, confirm_password) => {
       // setapi_tocken('fgkj');
       // setIsLoading(false);
 
@@ -183,10 +188,15 @@ const App = () => {
         // return json.data.api_tocken
         
         let data ={
+          name_en: name_en,
+          name_ar: name_ar,
+          trade_name: trade_name,
+          phone: phone,
           email: email,
-          password: password
+          password: password,
+          confirm_password: confirm_password
         }
-        let response = await fetch('http://192.168.1.46:8000/api/login', {
+        let response = await fetch('http://192.168.1.46:8000/api/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -196,14 +206,14 @@ const App = () => {
 
         let responseJson = await response.json();
       // alert(responseJson.data.email);
-      console.log('mustafa responseJson', responseJson.data);
+      console.log('mustafa responseJson', responseJson);
 
       // if (responseJson.status === 'success') {
               await  AsyncStorage.setItem('api_tocken', responseJson.data.api_tocken);
       //           console.log(responseJson.data.email);
       //           console.log('api_tocken', responseJson.data.api_tocken);
       //           console.log('mustafaaajson', responseJson.data.email );
-                dispatch({type: 'LOGIN', api_token: response.data.api_tocken})
+                dispatch({type: 'REGISTER', api_token: responseJson.data.api_tocken})
                 
                       
       //         } else {
@@ -223,6 +233,7 @@ const App = () => {
         
         
       } catch (error) {
+        console.log('errors')
         
     
         
