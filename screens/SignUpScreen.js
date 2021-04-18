@@ -10,14 +10,17 @@ import {
   StyleSheet,
   ScrollView,
   StatusBar,
-  Alert
+  Alert,
+  Image,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 
-import { AuthContext } from '../components/context';
+
+
+import {AuthContext} from '../components/context';
 
 const SignInScreen = ({navigation}) => {
   const [data, setData] = React.useState({
@@ -34,7 +37,7 @@ const SignInScreen = ({navigation}) => {
     confirm_secureTextEntry: true,
   });
 
-  const { signUp } = React.useContext(AuthContext);
+  const {signUp} = React.useContext(AuthContext);
 
   const textInputEnglishChange = val => {
     if (val.length !== 0) {
@@ -99,7 +102,6 @@ const SignInScreen = ({navigation}) => {
     }
   };
 
-
   const emailInputChange = val => {
     if (val.length !== 0) {
       setData({
@@ -135,8 +137,7 @@ const SignInScreen = ({navigation}) => {
       ...data,
       config_pass: val,
     });
-
-  }
+  };
 
   const updateSecureTextEntry = () => {
     setData({
@@ -152,10 +153,16 @@ const SignInScreen = ({navigation}) => {
     });
   };
 
-  const signUpHandle = (name_en, name_ar, trade_name, phone, email, password, config_pass) => {
+  const signUpHandle = (
+    name_en,
+    name_ar,
+    trade_name,
+    phone,
+    email,
+    password,
+    config_pass,
+  ) => {
     if (
-
-
       data.name_en.length == 0 ||
       data.name_ar.length == 0 ||
       data.trade_name.length == 0 ||
@@ -170,9 +177,7 @@ const SignInScreen = ({navigation}) => {
       return;
     }
     // signIn(email, password);
-    signUp(name_en, name_ar, trade_name, phone, email, password, config_pass)
- 
-    
+    signUp(name_en, name_ar, trade_name, phone, email, password, config_pass);
   };
 
   return (
@@ -230,7 +235,7 @@ const SignInScreen = ({navigation}) => {
             ) : null}
           </View>
 
-      <Text style={styles.text_footer}>Phone</Text>
+          <Text style={styles.text_footer}>Phone</Text>
           <View style={styles.action}>
             <FontAwesome name="mobile-phone" color="#05375a" size={20} />
             <TextInput
@@ -245,7 +250,7 @@ const SignInScreen = ({navigation}) => {
                 <Feather name="check-circle" color="green" size={20} />
               </Animatable.View>
             ) : null}
-          </View> 
+          </View>
 
           <Text style={styles.text_footer}>Email</Text>
           <View style={styles.action}>
@@ -262,7 +267,6 @@ const SignInScreen = ({navigation}) => {
               </Animatable.View>
             ) : null}
           </View>
-       
 
           <Text
             style={[
@@ -343,8 +347,10 @@ const SignInScreen = ({navigation}) => {
                   data.email,
                   data.password,
                   data.config_pass,
-                
                 );
+
+                navigation.navigate('SignInScreen');
+                alert('Registration Successful');
               }}>
               <LinearGradient
                 colors={['#7e102c', '#7e102c']}
