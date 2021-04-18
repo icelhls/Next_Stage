@@ -27,7 +27,8 @@ const SignInScreen = ({navigation}) => {
     phone: '',
     email: '',
     password: '',
-    confirm_password: '',
+    // confirm_password: '',
+    config_pass: '',
     check_textInputChange: false,
     secureTextEntry: true,
     confirm_secureTextEntry: true,
@@ -122,12 +123,20 @@ const SignInScreen = ({navigation}) => {
     });
   };
 
-  const handleConfirmPasswordChange = val => {
+  // const handleConfirmPasswordChange = val => {
+  //   setData({
+  //     ...data,
+  //     confirm_password: val,
+  //   });
+  // };
+
+  const handleConfigPass = val => {
     setData({
       ...data,
-      confirm_password: val,
+      config_pass: val,
     });
-  };
+
+  }
 
   const updateSecureTextEntry = () => {
     setData({
@@ -143,7 +152,7 @@ const SignInScreen = ({navigation}) => {
     });
   };
 
-  const signUpHandle = (name_en, name_ar, trade_name, phone, email, password, confirm_password) => {
+  const signUpHandle = (name_en, name_ar, trade_name, phone, email, password, config_pass) => {
     if (
 
 
@@ -153,7 +162,7 @@ const SignInScreen = ({navigation}) => {
       data.phone.length == 0 ||
       data.email.length == 0 ||
       data.password.length == 0 ||
-      data.confirm_password == 0
+      data.config_pass.length == 0
     ) {
       Alert.alert('Wrong Input!', 'Phone or password field cannot be empty.', [
         {text: 'Okay'},
@@ -161,7 +170,8 @@ const SignInScreen = ({navigation}) => {
       return;
     }
     // signIn(email, password);
-    signUp(name_en, name_ar, trade_name, phone, email, password, confirm_password)
+    signUp(name_en, name_ar, trade_name, phone, email, password, config_pass)
+ 
     
   };
 
@@ -297,7 +307,7 @@ const SignInScreen = ({navigation}) => {
               secureTextEntry={data.confirm_secureTextEntry ? true : false}
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={val => handleConfirmPasswordChange(val)}
+              onChangeText={val => handleConfigPass(val)}
             />
             <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
               {data.secureTextEntry ? (
@@ -332,7 +342,7 @@ const SignInScreen = ({navigation}) => {
                   data.phone,
                   data.email,
                   data.password,
-                  data.confirm_password,
+                  data.config_pass,
                 
                 );
               }}>
