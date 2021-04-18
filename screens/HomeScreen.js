@@ -59,17 +59,18 @@ const HomeScreen = ({navigation}) => {
                 </Title>
               </View>
             </View>
+              <Headline
+              style={{textAlign: 'center', fontSize: 30, marginTop: 30}}>
+              -كل الباقات-
+            </Headline>
+            <CartItem />
+            <VerticalList />
+            
+
             <Headline style={{textAlign: 'center', fontSize: 30}}>
               -عروض اليوم-
             </Headline>
             <CartItem />
-
-            <Headline
-              style={{textAlign: 'center', fontSize: 30, marginTop: 30}}>
-              -كل الباقات-
-            </Headline>
-
-            <VerticalList />
           </ScrollView>
         </SafeAreaView>
       </View>

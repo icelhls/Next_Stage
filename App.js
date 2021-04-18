@@ -127,7 +127,7 @@ const App = () => {
           email: email,
           password: password
         }
-        let response = await fetch('http://192.168.1.46:8000/api/login', {
+        let response = await fetch('https://nextstageksa.com/cards/api/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -157,7 +157,7 @@ const App = () => {
         
       } catch (error) {
         // alert('Please check your number or password')
-        console.log('not register')
+        console.log('Please check Phone or Password')
       
         
       }
@@ -253,11 +253,11 @@ const App = () => {
       // setIsLoading(false);
       let api_tocken;
       api_tocken = null;
-      try {
-        api_tocken = await AsyncStorage.getItem('api_tocken');
-      } catch(e) {
-        console.log(e);
-      }
+      // try {
+      //   api_tocken = await AsyncStorage.getItem('api_tocken');
+      // } catch(e) {
+      //   console.log(e);
+      // }
       // console.log('user token: ', api_tocken);
       dispatch({ type: 'RETRIEVE_TOKEN', token: api_tocken });
     }, 1000);
