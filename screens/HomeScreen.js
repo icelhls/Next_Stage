@@ -63,7 +63,6 @@ const HomeScreen = ({navigation}) => {
               style={{textAlign: 'center', fontSize: 30, marginTop: 30}}>
               -كل الباقات-
             </Headline>
-            <CartItem />
             <VerticalList />
             
 
