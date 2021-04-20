@@ -9,7 +9,7 @@ function Blockcard({style, imageStyle, item}) {
   const {title, desc, thumbnail, icon, name_en, name_ar} = item;
   return (
     <View style={[styles.container, style]}>
-      <TouchableOpacity onPress={() => console.log('You clicked cart')}>
+      {/* <TouchableOpacity onPress={() => console.log('You clicked cart')}> */}
         {/* <Headline style={{textAlign: 'center', fontSize: 30}}>{icon}</Headline> */}
         <Image
           // source={require('../assets/images/food-banner4.jpg')}
@@ -32,7 +32,7 @@ function Blockcard({style, imageStyle, item}) {
           {/* <Subtitle > Desccribtion</Subtitle> */}
           {/* <Subtitle>{desc}</Subtitle> */}
         </View>
-      </TouchableOpacity>
+      {/* </TouchableOpacity> */}
     </View>
   );
 }

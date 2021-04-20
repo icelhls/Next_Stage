@@ -27,11 +27,11 @@ const AboutScreen = ({navigation}) => {
         <Text> hello word</Text>
         <Text> hello word</Text>
       </MainSubCard> */}
-      {dataPayment.map((item)=>(
+      {/* {dataPayment.map((item)=>(
         <Text>{item.title}</Text>
         // <Image >{item.img}</Image>
 
-      ))}
+      ))} */}
     </View>
   );
 };

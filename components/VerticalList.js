@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react'
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 import Title from '../card/Title'
 import Subtitle from '../card/Subtitle'
 // import data from '../model/fakeData'
@@ -8,9 +9,12 @@ import SmallCard from '../card/SmallCard'
 import Blockcard from '../card/Blockcard'
 const url = 'https://nextstageksa.com/cards/api/category/index'
 
+
 export default function VerticalList({title}) {
     // const [items, setItems] = useState(data)
     const [categories, setCategories] = useState([])
+    const navigation = useNavigation();
+  
 
     const fetchCategories = async () => {
   
@@ -34,7 +38,12 @@ export default function VerticalList({title}) {
     <Title>{title}</Title>
     <FlatList data = {categories}
     keyExtractor ={(item)=> item.id}
-    renderItem = {({item})=> <SmallCard item ={item}/>}
+    renderItem = {({item})=>(
+      <TouchableOpacity onPress={()=>navigation.navigate('MainSub')}>
+         <SmallCard item ={item}/>
+      </TouchableOpacity>
+    )
+    }
     numColumns={2}
       />
       
