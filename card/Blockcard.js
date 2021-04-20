@@ -6,7 +6,7 @@ import Price from '../card/Price';
 import {Avatar, Caption, TouchableRipple, Headline} from 'react-native-paper';
 
 function Blockcard({style, imageStyle, item}) {
-  const {title, desc, thumbnail, icon, name_en} = item;
+  const {title, desc, thumbnail, icon, name_en, name_ar} = item;
   return (
     <View style={[styles.container, style]}>
       <TouchableOpacity onPress={() => console.log('You clicked cart')}>
@@ -19,10 +19,14 @@ function Blockcard({style, imageStyle, item}) {
         <View style={styles.contentContainer}>
           {/* <Price >{icon}</Price> */}
 
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Title style={{textAlign: 'center'}}>{name_en}</Title>
-            <Title style={{textAlign: 'center'}}>{title}</Title>
+          <View style={{ justifyContent: 'center'}}>
+          <Title  >{name_ar}</Title>
+            <Title >{name_en}</Title>
+           
+         
           </View>
+
+           {/* <Title >{title}</Title> */}
           {/* <Title > Some title</Title> */}
 
           {/* <Subtitle > Desccribtion</Subtitle> */}

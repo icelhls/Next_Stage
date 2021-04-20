@@ -220,19 +220,33 @@ const App = () => {
     [],
   );
 
+  const storeStoken = async()=>{
+    let api_tocken;
+    api_tocken = null;
+    try {
+      api_tocken = await AsyncStorage.getItem('api_tocken');
+    } catch(e) {
+      console.log(e);
+    }
+    console.log('user token: ', api_tocken);
+    dispatch({type: 'RETRIEVE_TOKEN', token: api_tocken});
+
+  }
+
   useEffect(() => {
-    setTimeout(async () => {
-      // setIsLoading(false);
-      let api_tocken;
-      api_tocken = null;
-      // try {
-      //   api_tocken = await AsyncStorage.getItem('api_tocken');
-      // } catch(e) {
-      //   console.log(e);
-      // }
-      // console.log('user token: ', api_tocken);
-      dispatch({type: 'RETRIEVE_TOKEN', token: api_tocken});
-    }, 1000);
+    // setTimeout(async () => {
+    //   // setIsLoading(false);
+    //   let api_tocken;
+    //   api_tocken = null;
+    //   try {
+    //     api_tocken = await AsyncStorage.getItem('api_tocken');
+    //   } catch(e) {
+    //     console.log(e);
+    //   }
+    //   console.log('user token: ', api_tocken);
+    //   dispatch({type: 'RETRIEVE_TOKEN', token: api_tocken});
+    // }, 1000);
+    storeStoken()
   }, []);
 
   if (loginState.isLoading) {

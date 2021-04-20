@@ -25,6 +25,7 @@ import OfferScreen from './OfferScreen';
 import SupportScreen from './SupportScreen';
 import MainSubScreen from './MainSubScreen';
 import SubCategoriesScreen from './SubCategoriesScreen';
+import PaymentScreen from './PaymentScreen'
 
 
 // Create Stack
@@ -160,6 +161,25 @@ const HomeStackScreen = ({navigation}) => (
         ),
       }}
     />
+
+<HomeStack.Screen
+      name="Payment"
+      component={PaymentScreen}
+      options={{
+        title: 'Payment Method',
+        headerLeft: () => (
+          <Icon.Button
+            name="menu"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+      }}
+    />
+
+
+
     <HomeStack.Screen
       name="Term"
       component={TermScreen}

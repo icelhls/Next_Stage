@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {View, Text, Button, StyleSheet, Image} from 'react-native';
 import {
   Avatar,
   Title,
@@ -9,24 +9,29 @@ import {
   Paragraph,
 } from 'react-native-paper';
 
-import MainSubCard from '../card/MainSubCard'
+import dataPayment from '../assets/dataPayment'
+
+import MainSubCard from '../card/MainSubCard';
 const AboutScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Paragraph style={{fontSize: 20}}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.{' '}
+        تم إنشاء شركة رويال كاردز من أجل تقديم منتج ممتاز لعملائنا بسرعة وأمان
+        وخالية من المتاعب. يتمتع فريقنا بسنوات من الخبرة في مجال التجارة
+        الإلكترونية والتجارة الدولية وتصنيف رضا العملاء من فئة الخمس نجوم. .{' '}
       </Paragraph>
       {/* <Button title="go mainsub" onPress={()=>navigation.navigate('MainSub')} />
       <Button title="sub categories" onPress={()=>navigation.navigate('SubCategories')} /> */}
-      <MainSubCard>
+      {/* <MainSubCard>
         <Text> hello word</Text>
         <Text> hello word</Text>
         <Text> hello word</Text>
-      </MainSubCard>
+      </MainSubCard> */}
+      {dataPayment.map((item)=>(
+        <Text>{item.title}</Text>
+        // <Image >{item.img}</Image>
 
+      ))}
     </View>
   );
 };

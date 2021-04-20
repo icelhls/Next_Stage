@@ -22,8 +22,13 @@ const styles = StyleSheet.create({
         marginLeft: 7,
         flex: 1,
         marginTop: 3,
-        padding: 2,
-        margin: 2.18
+        padding: 3,
+        margin: 2.18,
+        elevation: 1,
+        shadowOffset: {width: 1, height: 1},
+        margin: 8
+        
+
     
         
     },
