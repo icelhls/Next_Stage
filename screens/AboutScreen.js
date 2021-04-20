@@ -8,6 +8,8 @@ import {
   Headline,
   Paragraph,
 } from 'react-native-paper';
+
+import MainSubCard from '../card/MainSubCard'
 const AboutScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
@@ -19,6 +21,11 @@ const AboutScreen = ({navigation}) => {
       </Paragraph>
       {/* <Button title="go mainsub" onPress={()=>navigation.navigate('MainSub')} />
       <Button title="sub categories" onPress={()=>navigation.navigate('SubCategories')} /> */}
+      <MainSubCard>
+        <Text> hello word</Text>
+        <Text> hello word</Text>
+        <Text> hello word</Text>
+      </MainSubCard>
 
     </View>
   );
