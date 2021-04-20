@@ -8,7 +8,7 @@ import {
   Headline,
   Paragraph,
 } from 'react-native-paper';
-const AboutScreen = () => {
+const AboutScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Paragraph style={{fontSize: 20}}>
@@ -17,6 +17,8 @@ const AboutScreen = () => {
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
         commodo consequat.{' '}
       </Paragraph>
+      <Button title="go mainsub" onPress={()=>navigation.navigate('MainSub')} />
+
     </View>
   );
 };
