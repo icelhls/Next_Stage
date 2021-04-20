@@ -47,7 +47,7 @@ const PaymentScreen = () => {
 <Card>
   <Card.Title>{l.title}</Card.Title>
   <Card.Divider/>
-  <Card.Image>{l.img}
+  <Card.Image>
     <Text style={{marginBottom: 10}}>
         {l.subTitle}
    
