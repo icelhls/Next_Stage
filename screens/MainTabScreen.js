@@ -24,6 +24,7 @@ import AboutScreen from './AboutScreen';
 import OfferScreen from './OfferScreen';
 import SupportScreen from './SupportScreen';
 import MainSubScreen from './MainSubScreen';
+import SubCategoriesScreen from './SubCategoriesScreen';
 
 
 // Create Stack
@@ -225,6 +226,22 @@ const HomeStackScreen = ({navigation}) => (
       component={MainSubScreen}
       options={{
         title: 'Main SubCategories',
+        headerLeft: () => (
+          <Icon.Button
+            name="menu"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+      }}
+    />
+
+<HomeStack.Screen
+      name="SubCategories"
+      component={SubCategoriesScreen}
+      options={{
+        title: 'Sub Categories',
         headerLeft: () => (
           <Icon.Button
             name="menu"

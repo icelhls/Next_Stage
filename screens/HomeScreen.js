@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {View, StatusBar, ScrollView, SafeAreaView} from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import VerticalList from '../screens/VerticalList';
-import CartItem from '../screens/CartItem';
+import VerticalList from '../components/VerticalList';
+// import CartItem from '../screens/CartItem';
+import CartItem from '../components/CartItem'
 import {
   Title,
   Caption,

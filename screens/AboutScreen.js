@@ -17,7 +17,8 @@ const AboutScreen = ({navigation}) => {
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
         commodo consequat.{' '}
       </Paragraph>
-      <Button title="go mainsub" onPress={()=>navigation.navigate('MainSub')} />
+      {/* <Button title="go mainsub" onPress={()=>navigation.navigate('MainSub')} />
+      <Button title="sub categories" onPress={()=>navigation.navigate('SubCategories')} /> */}
 
     </View>
   );
