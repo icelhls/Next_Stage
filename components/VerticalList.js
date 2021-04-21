@@ -40,7 +40,7 @@ export default function VerticalList({title}) {
     <FlatList data = {categories}
     keyExtractor ={(item)=> item.id}
     renderItem = {({item})=>(
-      <TouchableOpacity onPress={()=>navigation.navigate('MainSub')}>
+      <TouchableOpacity onPress={()=> navigation.navigate('MainSub', item.id)}>
          <SmallCard item ={item}/>
 
       </TouchableOpacity>

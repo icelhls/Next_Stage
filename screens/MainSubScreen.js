@@ -6,27 +6,31 @@ import {
   StyleSheet,
   FlatList,
   SafeAreaView,
+  TouchableOpacity
 } from 'react-native';
 
 // import { useNavigation } from '@react-navigation/native';
 import MainSubCard from '../card/MainSubCard';
 
-const MainSubScreen = () => {
+const MainSubScreen = ({ route, navigation}) => {
   const [mainsubs, setMainsubs] = useState();
   // const navigation = useNavigation();
-  // console.log('hdhdhdhdhd', navigation)
-  // const data = route.params
+  const id = route.params;
+
+
+
+
+
 
   const fetchMainSub = async () => {
+
     try {
       let data = {
-        category_id: 16,
+        category_id: id,
 
       };
-      // let category_id = 16
-      // let category_id = 16;
       let response = await fetch(
-        `http://nextstageksa.com/cards/api/mainsub/index`,
+        `https://nextstageksa.com/cards/api/mainsub/index`,
         {
           method: 'POST',
           headers: {
@@ -38,12 +42,13 @@ const MainSubScreen = () => {
 
       let responseJson = await response.json();
       console.log('ResponseMainSub', responseJson);
-      // let mainsubs =  responseJson
-      // console.log('ResponseJsonMainSub', mainsubs)
-      // setMain_sub(main_sub)
-      // setMainsubs()
+      let mainsubs =  responseJson.mainsubs
+      console.log('ResponseJsonMainSub', mainsubs)
+      setMainsubs(mainsubs)
+    
+     
     } catch (error) {
-      console.log(' wronggggggg', error);
+      console.log('  Wrong response', error);
     }
   };
   useEffect(() => {
@@ -54,20 +59,20 @@ const MainSubScreen = () => {
     <>
       <View>
         <SafeAreaView>
-          {/* <FlatList data = {main_sub}
-      keyExtractor ={(item)=> item.id}
-      renderItem = {({item})=>(
-        <TouchableOpacity onPress={()=>alert('ok')}>
-           <MainSubCard>
-             <Text>{item.name_en}</Text>
-           </MainSubCard>
-  
-        </TouchableOpacity>
-      )
-      }
-      numColumns={2}
-        /> */}
-          <Text>hi there </Text>
+        <FlatList data = {mainsubs}
+    keyExtractor ={(item)=> item.id}
+    renderItem = {({item})=>(
+      <TouchableOpacity onPress={()=> console.log('you clicked mainsub')}>
+       
+      <MainSubCard>
+        <Text>{item.name_en}</Text>
+      </MainSubCard>
+      </TouchableOpacity>
+    )
+    }
+    numColumns={2}
+      />
+     
         </SafeAreaView>
       </View>
     </>
