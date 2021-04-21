@@ -14,6 +14,7 @@ export default function VerticalList({title}) {
     // const [items, setItems] = useState(data)
     const [categories, setCategories] = useState([])
     const navigation = useNavigation();
+    console.log(navigation)
   
 
     const fetchCategories = async () => {
@@ -21,7 +22,7 @@ export default function VerticalList({title}) {
       try {
         let response = await fetch(url)
         let  responseJson = await response.json()
-        // console.log('yes hhahah', responseJson)
+        // console.log('responseCategpries--', responseJson)
         let categories =  responseJson.categories
         console.log('ResponseJsonCategories', categories)
         setCategories(categories)
@@ -41,6 +42,7 @@ export default function VerticalList({title}) {
     renderItem = {({item})=>(
       <TouchableOpacity onPress={()=>navigation.navigate('MainSub')}>
          <SmallCard item ={item}/>
+
       </TouchableOpacity>
     )
     }
