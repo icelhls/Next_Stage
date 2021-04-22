@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import MainSubCard from '../card/MainSubCard';
+import SubCateCard from '../card/SubCateCard'
 import Title from '../card/Title';
 
 const SubCategoriesScreen = ({route}) => {
@@ -58,12 +59,12 @@ const SubCategoriesScreen = ({route}) => {
             renderItem={({item}) => (
               <TouchableOpacity
                 onPress={() => console.log('you clicked mainsub')}>
-                <MainSubCard>
+                <SubCateCard>
                   <View style={{margin: 18, marginTop: 40, alignSelf: 'center', justifyContent: 'center',  }}>
                     <Title>{item.name_ar}</Title>
                     <Title>{item.name_en}</Title>
                   </View>
-                </MainSubCard>
+                </SubCateCard>
               </TouchableOpacity>
             )}
             numColumns={2}
