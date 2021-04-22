@@ -19,7 +19,7 @@ function Blockcard({style, imageStyle, item}) {
         <View style={styles.contentContainer}>
           {/* <Price >{icon}</Price> */}
 
-          <View style={{ justifyContent: 'center'}}>
+          <View style={{ justifyContent: 'center', marginBottom: 40, alignItems: 'center'}}>
           <Title  >{name_ar}</Title>
             <Title >{name_en}</Title>
            

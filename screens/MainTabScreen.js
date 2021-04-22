@@ -39,7 +39,7 @@ const OfferStack = createStackNavigator();
 // Create Tab Bottom
 const Tab = createMaterialBottomTabNavigator();
 
-const MainTabScreen = () => (
+const MainTabScreen = (z) => (
   <Tab.Navigator initialRouteName="Home" activeColor="#fff">
     <Tab.Screen
       name="Home"

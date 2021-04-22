@@ -58,7 +58,7 @@ const MainSubScreen = ({route, navigation}) => {
               <TouchableOpacity
                 onPress={() => console.log('you clicked mainsub')}>
                 <MainSubCard>
-                  <View style={{margin: 5, marginTop: 26}}>
+                  <View style={{margin: 18, marginTop: 40, alignSelf: 'center', justifyContent: 'center',  }}>
                     <Title>{item.name_ar}</Title>
                     <Title>{item.name_en}</Title>
                   </View>
