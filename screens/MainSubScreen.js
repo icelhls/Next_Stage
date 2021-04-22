@@ -6,28 +6,22 @@ import {
   StyleSheet,
   FlatList,
   SafeAreaView,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
 // import { useNavigation } from '@react-navigation/native';
 import MainSubCard from '../card/MainSubCard';
+import Title from '../card/Title';
 
-const MainSubScreen = ({ route, navigation}) => {
+const MainSubScreen = ({route, navigation}) => {
   const [mainsubs, setMainsubs] = useState();
   // const navigation = useNavigation();
   const id = route.params;
 
-
-
-
-
-
   const fetchMainSub = async () => {
-
     try {
       let data = {
         category_id: id,
-
       };
       let response = await fetch(
         `https://nextstageksa.com/cards/api/mainsub/index`,
@@ -42,11 +36,9 @@ const MainSubScreen = ({ route, navigation}) => {
 
       let responseJson = await response.json();
       console.log('ResponseMainSub', responseJson);
-      let mainsubs =  responseJson.mainsubs
-      console.log('ResponseJsonMainSub', mainsubs)
-      setMainsubs(mainsubs)
-    
-     
+      let mainsubs = responseJson.mainsubs;
+      console.log('ResponseJsonMainSub', mainsubs);
+      setMainsubs(mainsubs);
     } catch (error) {
       console.log('  Wrong response', error);
     }
@@ -59,20 +51,22 @@ const MainSubScreen = ({ route, navigation}) => {
     <>
       <View>
         <SafeAreaView>
-        <FlatList data = {mainsubs}
-    keyExtractor ={(item)=> item.id}
-    renderItem = {({item})=>(
-      <TouchableOpacity onPress={()=> console.log('you clicked mainsub')}>
-       
-      <MainSubCard>
-        <Text>{item.name_en}</Text>
-      </MainSubCard>
-      </TouchableOpacity>
-    )
-    }
-    numColumns={2}
-      />
-     
+          <FlatList
+            data={mainsubs}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                onPress={() => console.log('you clicked mainsub')}>
+                <MainSubCard>
+                  <View style={{margin: 5, marginTop: 26}}>
+                    <Title>{item.name_ar}</Title>
+                    <Title>{item.name_en}</Title>
+                  </View>
+                </MainSubCard>
+              </TouchableOpacity>
+            )}
+            numColumns={2}
+          />
         </SafeAreaView>
       </View>
     </>
