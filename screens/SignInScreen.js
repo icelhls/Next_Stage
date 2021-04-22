@@ -203,7 +203,7 @@ const SignInScreen = ({navigation}) => {
             }
             
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.navigate('Forgot')}>
                 <Text style={{color: '#7e102c', marginTop:15}}>Forgot password?</Text>
             </TouchableOpacity>
             <View style={styles.button}>
