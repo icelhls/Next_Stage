@@ -52,6 +52,11 @@ const HomeScreen = () => {
                   margin: 10,
                   width: 180,
                   marginBottom: 30,
+                  elevation: 1,
+                  borderTopLeftRadius: 50,
+                  borderBottomRightRadius: 50,
+                  elevation: 2,
+                   shadowOffset: {width: 1, height: 1},
                 }}>
                   {/* ORDERS*/}
                 {/* <Caption style={{fontSize: 15, color: '#fff', marginLeft: 10}}>
@@ -73,11 +78,15 @@ const HomeScreen = () => {
                   margin: 10,
                   width: 180,
                   marginBottom: 30,
+                  borderTopLeftRadius: 50,
+                  borderBottomRightRadius: 50,
+                  elevation: 2,
+                   shadowOffset: {width: 1, height: 1},
                 }}>
-                <Caption style={{fontSize: 15, color: '#fff', marginLeft: 10}}>
+                <Caption style={{fontSize: 15, color: '#fff', marginLeft: 10, alignSelf: 'center'}}>
                   Current Balance
                 </Caption>
-                <Title style={{fontSize: 18, color: '#fff', marginLeft: 10}}>
+                <Title style={{fontSize: 18, color: '#fff', marginLeft: 10,  alignSelf: 'center'}}>
                   50.0 JD
                 </Title>
               </View>

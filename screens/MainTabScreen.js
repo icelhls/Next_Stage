@@ -287,12 +287,12 @@ const HomeStackScreen = ({navigation}) => (
             onPress={() => navigation.openDrawer()}
           />
         ),
-        headerLeft: () => (
+        headerRight: () => (
           <Icon.Button
-            name="menu"
+            name="chevron-left"
             size={25}
             backgroundColor="#7e102c"
-            onPress={() => navigation.openDrawer()}
+            onPress={() => navigation.goBack()}
           />
         ),
       }}
