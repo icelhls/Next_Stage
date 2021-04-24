@@ -86,7 +86,7 @@ const HomeScreen = () => {
                 <Caption style={{fontSize: 15, color: '#fff', marginLeft: 10, alignSelf: 'center'}}>
                   Current Balance
                 </Caption>
-                <Title style={{fontSize: 18, color: '#fff', marginLeft: 10,  alignSelf: 'center'}}>
+                <Title style={{fontSize: 16, color: '#fff', marginLeft: 10,  alignSelf: 'center'}}>
                   50.0 JD
                 </Title>
               </View>

@@ -27,6 +27,7 @@ import MainSubScreen from './MainSubScreen';
 import SubCategoriesScreen from './SubCategoriesScreen';
 import PaymentScreen from './PaymentScreen';
 import OrderScreen from './OrderScreen'
+import CardDetailsScreen from './CardDetailsScreen'
 
 
 // Create Stack
@@ -60,6 +61,7 @@ const MainTabScreen = () => (
         tabBarIcon: ({color}) => (
           <Icon name="decagram-outline" color={color} size={26} />
         ),
+      
       }}
     />
     <Tab.Screen
@@ -129,6 +131,14 @@ const HomeStackScreen = ({navigation}) => (
             onPress={() => navigation.openDrawer()}
           />
         ),
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
+          />
+        ),
       }}
     />
     <HomeStack.Screen
@@ -142,6 +152,14 @@ const HomeStackScreen = ({navigation}) => (
             size={25}
             backgroundColor="#7e102c"
             onPress={() => navigation.openDrawer()}
+          />
+        ),
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
           />
         ),
       }}
@@ -160,6 +178,14 @@ const HomeStackScreen = ({navigation}) => (
             onPress={() => navigation.openDrawer()}
           />
         ),
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
+          />
+        ),
       }}
     />
 
@@ -174,6 +200,14 @@ const HomeStackScreen = ({navigation}) => (
             size={25}
             backgroundColor="#7e102c"
             onPress={() => navigation.openDrawer()}
+          />
+        ),
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
           />
         ),
       }}
@@ -194,6 +228,14 @@ const HomeStackScreen = ({navigation}) => (
             onPress={() => navigation.openDrawer()}
           />
         ),
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
+          />
+        ),
       }}
     />
     <HomeStack.Screen
@@ -207,6 +249,14 @@ const HomeStackScreen = ({navigation}) => (
             size={25}
             backgroundColor="#7e102c"
             onPress={() => navigation.openDrawer()}
+          />
+        ),
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
           />
         ),
       }}
@@ -224,6 +274,14 @@ const HomeStackScreen = ({navigation}) => (
             onPress={() => navigation.openDrawer()}
           />
         ),
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
+          />
+        ),
       }}
     />
     <HomeStack.Screen
@@ -237,6 +295,14 @@ const HomeStackScreen = ({navigation}) => (
             size={25}
             backgroundColor="#7e102c"
             onPress={() => navigation.openDrawer()}
+          />
+        ),
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
           />
         ),
       }}
@@ -255,6 +321,14 @@ const HomeStackScreen = ({navigation}) => (
             onPress={() => navigation.openDrawer()}
           />
         ),
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
+          />
+        ),
       }}
     />
 
@@ -269,6 +343,14 @@ const HomeStackScreen = ({navigation}) => (
             size={25}
             backgroundColor="#7e102c"
             onPress={() => navigation.openDrawer()}
+          />
+        ),
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
           />
         ),
       }}
@@ -298,6 +380,32 @@ const HomeStackScreen = ({navigation}) => (
       }}
     />
 
+<HomeStack.Screen
+      name="CardDetails"
+      component={CardDetailsScreen}
+      options={{
+        title: 'Card Details',
+        headerLeft: () => (
+          <Icon.Button
+            name="menu"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
+          />
+        ),
+      }}
+    />
+
+
 
   </HomeStack.Navigator>
 );
@@ -322,6 +430,14 @@ const SettingsStackScreen = ({navigation}) => (
             size={25}
             backgroundColor="#7e102c"
             onPress={() => navigation.openDrawer()}
+          />
+        ),
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
           />
         ),
       }}
@@ -351,6 +467,14 @@ const OfferStackScreen = ({navigation}) => (
             size={25}
             backgroundColor="#7e102c"
             onPress={() => navigation.openDrawer()}
+          />
+        ),
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
           />
         ),
       }}
@@ -408,6 +532,14 @@ const RechargeStackScreen = ({navigation}) => (
             size={25}
             backgroundColor="#7e102c"
             onPress={() => navigation.openDrawer()}
+          />
+        ),
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
           />
         ),
       }}

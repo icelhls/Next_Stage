@@ -1,15 +1,23 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import MainSubCard  from '../card/MainSubCard'
+import Title from '../card/Title'
 
-const CardDetailsScreen = () => {
+const CardDetailsScreen = ({route}) => {
+  const id = route.params;
+
     return (
+      <>
       <View style={styles.container}>
-        <Text>Card Details </Text>
-        <Button
-          title="Click Here"
-          onPress={() => alert('Button Clicked!')}
-        />
+     
+     <MainSubCard>
+       <Title>{}</Title>
+
+     </MainSubCard>
+
+
       </View>
+      </>
     );
 };
 

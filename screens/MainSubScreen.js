@@ -9,13 +9,13 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import MainSubCard from '../card/MainSubCard';
 import Title from '../card/Title';
 
-const MainSubScreen = ({route, navigation}) => {
+const MainSubScreen = ({route}) => {
   const [mainsubs, setMainsubs] = useState();
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const id = route.params;
 
   const fetchMainSub = async () => {
@@ -56,7 +56,7 @@ const MainSubScreen = ({route, navigation}) => {
             keyExtractor={item => item.id}
             renderItem={({item}) => (
               <TouchableOpacity
-                onPress={() => console.log('you clicked mainsub')}>
+                onPress={() => navigation.navigate('CardDetails', item.id)}>
                 <MainSubCard>
                   <View style={{margin: 18, marginTop: 40, alignSelf: 'center', justifyContent: 'center',  }}>
                     <Title>{item.name_ar}</Title>
