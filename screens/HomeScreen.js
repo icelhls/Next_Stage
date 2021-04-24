@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StatusBar, ScrollView, SafeAreaView} from 'react-native';
+import {View, StatusBar, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import VerticalList from '../components/VerticalList';
 // import CartItem from '../screens/CartItem';
@@ -17,8 +17,10 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { useNavigation } from '@react-navigation/native';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = () => {
+    const navigation = useNavigation();
   const {colors} = useTheme();
 
   const theme = useTheme();
@@ -33,7 +35,7 @@ const HomeScreen = ({navigation}) => {
             />
             <View
               style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-              <Image
+              {/* <Image
                 source={require('../assets/images/profile.jpg')}
                 style={{
                   width: wp('50%'),
@@ -42,8 +44,28 @@ const HomeScreen = ({navigation}) => {
                   marginBottom: 30,
                   flex: 1,
                 }}
-              />
+              /> */}
+               <View
+                style={{
+                  justifyContent: 'center',
+                  backgroundColor: '#7e102c',
+                  margin: 10,
+                  width: 180,
+                  marginBottom: 30,
+                }}>
+                  {/* ORDERS*/}
+                {/* <Caption style={{fontSize: 15, color: '#fff', marginLeft: 10}}>
+                  Current Balance
+                </Caption> */}
+                <TouchableOpacity onPress={()=> navigation.navigate('Order')}>
+                <Title style={{fontSize: 25, color: '#fff', marginLeft: 10, alignSelf: 'center'}}>
+                  Orders
+                </Title>
 
+                </TouchableOpacity>
+              
+              </View>
+            {/* price*/}
               <View
                 style={{
                   justifyContent: 'center',
@@ -55,7 +77,7 @@ const HomeScreen = ({navigation}) => {
                 <Caption style={{fontSize: 15, color: '#fff', marginLeft: 10}}>
                   Current Balance
                 </Caption>
-                <Title style={{fontSize: 30, color: '#fff', marginLeft: 10}}>
+                <Title style={{fontSize: 18, color: '#fff', marginLeft: 10}}>
                   50.0 JD
                 </Title>
               </View>

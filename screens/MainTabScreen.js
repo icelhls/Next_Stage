@@ -25,7 +25,8 @@ import OfferScreen from './OfferScreen';
 import SupportScreen from './SupportScreen';
 import MainSubScreen from './MainSubScreen';
 import SubCategoriesScreen from './SubCategoriesScreen';
-import PaymentScreen from './PaymentScreen'
+import PaymentScreen from './PaymentScreen';
+import OrderScreen from './OrderScreen'
 
 
 // Create Stack
@@ -262,6 +263,30 @@ const HomeStackScreen = ({navigation}) => (
       component={SubCategoriesScreen}
       options={{
         title: 'Sub Categories',
+        headerLeft: () => (
+          <Icon.Button
+            name="menu"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+      }}
+    />
+
+<HomeStack.Screen
+      name="Order"
+      component={OrderScreen}
+      options={{
+        title: 'Oders',
+        headerLeft: () => (
+          <Icon.Button
+            name="menu"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
         headerLeft: () => (
           <Icon.Button
             name="menu"
