@@ -139,6 +139,17 @@ const HomeStackScreen = ({navigation}) => (
             onPress={() => navigation.goBack()}
           />
         ),
+        headerRight: () => (
+          <View style={{marginRight: 10}}>
+            <MaterialCommunityIcons.Button
+              name="account-edit"
+              size={25}
+              backgroundColor="#7e102c"
+              // color={colors.text}
+              onPress={() => navigation.navigate('EditProfile')}
+            />
+          </View>
+        ),
       }}
     />
     <HomeStack.Screen
@@ -385,6 +396,31 @@ const HomeStackScreen = ({navigation}) => (
       component={CardDetailsScreen}
       options={{
         title: 'Card Details',
+        headerLeft: () => (
+          <Icon.Button
+            name="menu"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
+          />
+        ),
+      }}
+    />
+
+<HomeStack.Screen
+      name="EditProfile"
+      component={EditProfileScreen}
+      options={{
+        title: 'Edit Profile',
         headerLeft: () => (
           <Icon.Button
             name="menu"

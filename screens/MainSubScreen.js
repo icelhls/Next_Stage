@@ -14,13 +14,16 @@ import MainSubCard from '../card/MainSubCard';
 import Title from '../card/Title';
 
 const MainSubScreen = ({route}) => {
-  const [mainsubs, setMainsubs] = useState();
+  const [data, setData] = useState({
+    mainsubs: '',
+  })
+  // const [mainsubs, setMainsubs] = useState();
   const navigation = useNavigation();
   const id = route.params;
 
   const fetchMainSub = async () => {
     try {
-      let data = {
+      let data1 = {
         category_id: id,
       };
       let response = await fetch(
@@ -30,19 +33,22 @@ const MainSubScreen = ({route}) => {
           headers: {
             'Content-Type': 'application/json;charset=utf-8',
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(data1),
         },
       );
 
-      let responseJson = await response.json();
-      console.log('ResponseMainSub', responseJson);
-      let mainsubs = responseJson.mainsubs;
-      console.log('ResponseJsonMainSub', mainsubs);
-      setMainsubs(mainsubs);
+      let mainsubs = await response.json();
+      console.log('ResponseMainSub', mainsubs);
+      let data = mainsubs.mainsubs;
+      console.log('ResponseJsonMainSub setData', data);
+      // setMainsubs(mainsubs);
+      setData(data)
     } catch (error) {
       console.log('  Wrong response', error);
     }
   };
+
+
   useEffect(() => {
     fetchMainSub();
   }, []);
@@ -52,7 +58,7 @@ const MainSubScreen = ({route}) => {
       <View>
         <SafeAreaView>
           <FlatList
-            data={mainsubs}
+            data={data}
             keyExtractor={item => item.id}
             renderItem={({item}) => (
               <TouchableOpacity
