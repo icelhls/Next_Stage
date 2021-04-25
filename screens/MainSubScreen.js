@@ -7,7 +7,8 @@ import {
   FlatList,
   SafeAreaView,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Image
 } from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
@@ -89,11 +90,20 @@ const MainSubScreen = ({route}) => {
                   <View
                     style={{
                       margin: 18,
-                      marginTop: 40,
+                      marginTop: 1,
                       alignSelf: 'center',
                       justifyContent: 'center',
                     }}>
-                    <Title>{item.name_ar }</Title>
+                          <Image
+                        style={styles.image}
+                        resizeMode="cover"
+                        source={{
+                          uri: `https://nextstageksa.com/cards/storage/uploades/${
+                            item.image
+                          }`,
+                        }}
+                      />
+                    {/* <Title>{item.name_ar }</Title> */}
                     <Title>{item.name_en}</Title>
                   </View>
                 </MainSubCard>
@@ -112,7 +122,7 @@ const MainSubScreen = ({route}) => {
                   <View
                     style={{
                       margin: 18,
-                      marginTop: 40,
+                      // marginTop: 40,
                       alignSelf: 'center',
                       justifyContent: 'center',
                     }}>
@@ -141,5 +151,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  image: {
+    width: 100,
+    height: 145,
+    margin: 10,
+    borderBottomWidth: 1,
+  
+
   },
 });
