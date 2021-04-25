@@ -323,7 +323,7 @@ const HomeStackScreen = ({navigation}) => (
       name="MainSub"
       component={MainSubScreen}
       options={{
-        title: 'Main SubCategories',
+        title: 'Cards',
         headerLeft: () => (
           <Icon.Button
             name="menu"
