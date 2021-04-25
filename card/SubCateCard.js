@@ -30,11 +30,14 @@ const styles = StyleSheet.create({
     width: width / 2.5,
     // marginRight: 5,
     height: height/4.,
-    marginLeft: 22
+    marginLeft: 22,
+    // marginTop: 1
+    
 
   },
   cardContent: {
     marginHorizontal: 18,
     marginVertical: 20,
+    marginTop: 5
   }
 });

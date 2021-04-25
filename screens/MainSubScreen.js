@@ -117,17 +117,26 @@ const MainSubScreen = ({route}) => {
             keyExtractor={item => item.id}
             renderItem={({item}) => (
               <TouchableOpacity
-                onPress={() => navigation.navigate('CardDetails', item.image)}>
+                onPress={()=> console.log('you clicked submain cards')}>
                 <SubCateCard>
                   <View
                     style={{
-                      margin: 18,
+                      margin: 10,
                       // marginTop: 40,
                       alignSelf: 'center',
                       justifyContent: 'center',
                     }}>
+                          <Image
+                        style={styles.image}
+                        resizeMode="cover"
+                        source={{
+                          uri: `https://nextstageksa.com/cards/storage/uploades/${
+                            item.image
+                          }`,
+                        }}
+                      />
                     <Title>{item.name_ar}</Title>
-                    <Title>{item.name_en}</Title>
+                    {/* <Title>{item.name_en}</Title> */}
                   </View>
                 </SubCateCard>
               </TouchableOpacity>
