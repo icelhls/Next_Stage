@@ -28,6 +28,7 @@ import SubCategoriesScreen from './SubCategoriesScreen';
 import PaymentScreen from './PaymentScreen';
 import OrderScreen from './OrderScreen'
 import CardDetailsScreen from './CardDetailsScreen'
+import SubMainScreen from './SubMainScreen'
 
 
 // Create Stack
@@ -324,6 +325,30 @@ const HomeStackScreen = ({navigation}) => (
       component={MainSubScreen}
       options={{
         title: 'Cards',
+        headerLeft: () => (
+          <Icon.Button
+            name="menu"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
+          />
+        ),
+      }}
+    />
+
+<HomeStack.Screen
+      name="SubMain"
+      component={SubMainScreen}
+      options={{
+        title: 'SubMain',
         headerLeft: () => (
           <Icon.Button
             name="menu"

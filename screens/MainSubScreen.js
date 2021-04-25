@@ -16,14 +16,9 @@ import SubCateCard from '../card/SubCateCard'
 import Title from '../card/Title';
 
 const MainSubScreen = ({route}) => {
-  // const [data, setData] = useState({
-  //   mainsubs: '',
-  //   subCategories: '',
-  // });
-
   const [mainsubs, setMainsubs] = useState([])
   const [subCategories, setCategories] = useState([])
-  // const [mainsubs, setMainsubs] = useState();
+
   const navigation = useNavigation();
   const id = route.params;
 
@@ -66,87 +61,17 @@ const MainSubScreen = ({route}) => {
       
  
 
-      }
-      // if(mainsubs){
-      //   console.log('hhh mustaf mainsubsRESPONSE', mainsubs)
-
-      // }else if(subCategories){
-      //   console.log('subCategories', subCategories)
-
-      // }
-
-
-      
-
-        // if(!empty(mainsubs.mainsubs)){
-        //   console.log('ResponseJsonMainSub setData', data);
-        // }else{
-        //   console.log('ResponseJsonSub setData', data);
-        // }
-
-      // let mainsubs = await response.json();
-      // // console.log('ResponseMainSub', mainsubs);
-      // if(mainsubs){
-      //   console.log('ResponseMainSub______', mainsubs);
-      //   let data = mainsubs.mainsubs;
-      //   setData(data);
-      // }
-
-      // let subCategories = await response.json()
-      // if(subCategories){
-      //   console.log('ResponseSubCategories______', subCategories);
-
-
-      // }
-      
-     
-     
-      
-      // setMainsubs(mainsubs);
-    
+      } 
     } catch (error) {
       console.log('  Wrong response', error);
     }
   };
-  // const fetchSubCategories= async () => {
-  //   try {
-  //     let data1 = {
-  //       category_id: id,
-  //     };
-  //     let response = await fetch(
-  //       `https://nextstageksa.com/cards/api/mainsub/index`,
-  //       {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json;charset=utf-8',
-  //         },
-  //         body: JSON.stringify(data1),
-  //       },
-  //     );
-  //       // if(!empty(mainsubs.mainsubs)){
-  //       //   console.log('ResponseJsonMainSub setData', data);
-  //       // }else{
-  //       //   console.log('ResponseJsonSub setData', data);
-  //       // }
-  //     let subCategories = await response.json();
-  //     console.log('ResponseSubCategories', subCategories);
-      
-  //     let data = subCategories.subCategories;
-     
-      
-  //     // setMainsubs(mainsubs);
-  //     setData(data);
-  //   } catch (error) {
-  //     console.log('  Wrong response', error);
-  //   }
-  // };
-
+ 
   
 
   useEffect(() => {
     fetchMainSub();
-    // fetchSubMain();
-    // fetchSubCategories();
+
   }, []);
 
   return (
@@ -159,7 +84,7 @@ const MainSubScreen = ({route}) => {
             keyExtractor={item => item.id}
             renderItem={({item}) => (
               <TouchableOpacity
-                onPress={() => navigation.navigate('CardDetails', item.id)}>
+                onPress={() => navigation.navigate('SubMain', item.id )}>
                 <MainSubCard>
                   <View
                     style={{
@@ -168,7 +93,7 @@ const MainSubScreen = ({route}) => {
                       alignSelf: 'center',
                       justifyContent: 'center',
                     }}>
-                    <Title>{item.name_ar}</Title>
+                    <Title>{item.name_ar }</Title>
                     <Title>{item.name_en}</Title>
                   </View>
                 </MainSubCard>
@@ -182,7 +107,7 @@ const MainSubScreen = ({route}) => {
             keyExtractor={item => item.id}
             renderItem={({item}) => (
               <TouchableOpacity
-                onPress={() => navigation.navigate('CardDetails', item.id)}>
+                onPress={() => navigation.navigate('CardDetails', item.image)}>
                 <SubCateCard>
                   <View
                     style={{

@@ -10,6 +10,7 @@ import {
 // import {createStackNavigator} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 const url = 'https://nextstageksa.com/cards/api/category/index';
+// const url = 'https://nextstageksa.com/cards/api/orders/myOrders' //orders empty
 import SubCateCard from '../card/SubCateCard';
 import Title from '../card/Title';
 

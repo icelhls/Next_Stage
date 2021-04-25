@@ -53,8 +53,8 @@ const HomeScreen = () => {
                   width: 180,
                   marginBottom: 30,
                   elevation: 1,
-                  borderTopLeftRadius: 50,
-                  borderBottomRightRadius: 50,
+                  // borderTopLeftRadius: 50,
+                  // borderBottomRightRadius: 50,
                   elevation: 2,
                    shadowOffset: {width: 1, height: 1},
                 }}>
@@ -78,8 +78,8 @@ const HomeScreen = () => {
                   margin: 10,
                   width: 180,
                   marginBottom: 30,
-                  borderTopLeftRadius: 50,
-                  borderBottomRightRadius: 50,
+                  // borderTopLeftRadius: 50,
+                  // borderBottomRightRadius: 50,
                   elevation: 2,
                    shadowOffset: {width: 1, height: 1},
                 }}>
