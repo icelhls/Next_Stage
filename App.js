@@ -41,14 +41,14 @@ const Drawer = createDrawerNavigator();
 
 const App = () => {
   // const [isLoading, setIsLoading] = React.useState(true);
-  // const [api_tocken, setapi_tocken] = React.useState(null);
+  // const [api_token, setapi_token] = React.useState(null);
 
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
 
   const initialLoginState = {
     isLoading: true,
     email: null,
-    api_tocken: null,
+    api_token: null,
   };
 
   const CustomDefaultTheme = {
@@ -81,14 +81,14 @@ const App = () => {
       case 'RETRIEVE_TOKEN':
         return {
           ...prevState,
-          api_tocken: action.token,
+          api_token: action.token,
           isLoading: false,
         };
       case 'LOGIN':
         return {
           ...prevState,
           email: action.email,
-          api_tocken: action.token,
+          api_token: action.token,
           isLoading: false,
           password: action.password,
         };
@@ -96,7 +96,7 @@ const App = () => {
         return {
           ...prevState,
           email: null,
-          api_tocken: null,
+          api_token: null,
           isLoading: false,
         };
       case 'REGISTER':
@@ -107,7 +107,7 @@ const App = () => {
           trade_name: action.trade_name,
           phone: action.phone,
           email: action.id,
-          api_tocken: action.token,
+          api_token: action.token,
           password: action.password,
           config_pass: action.config_pass,
           isLoading: false,
@@ -144,13 +144,11 @@ const App = () => {
           // alert(responseJson.data.email);
           console.log('mustafa responseJson', responseJson.data);
           await AsyncStorage.setItem(
-            'api_tocken',
-            responseJson.data.api_tocken,
+            'api_token',
+            responseJson.data.api_token,
           );
-          //           console.log(responseJson.data.email);
-          //           console.log('api_tocken', responseJson.data.api_tocken);
-          //           console.log('mustafaaajson', responseJson.data.email );
-          dispatch({type: 'LOGIN', api_token: responseJson.data.api_tocken});
+                    console.log('api_token', responseJson.data.api_token); 
+          dispatch({type: 'LOGIN', api_token: responseJson.data.api_token});
         } catch (error) {
           // alert('Please check your number or password')
           alert('Please check Phone or Password');
@@ -177,7 +175,7 @@ const App = () => {
         password,
         config_pass,
       ) => {
-        // setapi_tocken('fgkj');
+        // setapi_token('fgkj');
         // setIsLoading(false);
 
         try {
@@ -205,10 +203,10 @@ const App = () => {
           // alert(responseJson.data.email);
           console.log('mustafa responseJson', responseJson);
           await AsyncStorage.setItem(
-            'api_tocken',
-            responseJson.data.api_tocken,
+            'api_token',
+            responseJson.data.api_token,
           );
-          dispatch({type: 'REGISTER', api_token: responseJson.data.api_tocken});
+          dispatch({type: 'REGISTER', api_token: responseJson.data.api_token});
         } catch (error) {
           console.log('not registered');
         }
@@ -220,33 +218,33 @@ const App = () => {
     [],
   );
 
-  const storeStoken = async()=>{
-    let api_tocken;
-    api_tocken = null;
-    try {
-      api_tocken = await AsyncStorage.getItem('api_tocken');
-    } catch(e) {
-      console.log(e);
-    }
-    console.log('user token: ', api_tocken);
-    dispatch({type: 'RETRIEVE_TOKEN', token: api_tocken});
+  // const storeStoken = async()=>{
+  //   let api_token;
+  //   api_token = null;
+  //   try {
+  //     api_token = await AsyncStorage.getItem('api_token');
+  //   } catch(e) {
+  //     console.log(e);
+  //   }
+  //   console.log('user token: ', api_token);
+  //   dispatch({type: 'RETRIEVE_TOKEN', token: api_token});
 
-  }
+  // }
 
   useEffect(() => {
-    // setTimeout(async () => {
-    //   // setIsLoading(false);
-    //   let api_tocken;
-    //   api_tocken = null;
-    //   try {
-    //     api_tocken = await AsyncStorage.getItem('api_tocken');
-    //   } catch(e) {
-    //     console.log(e);
-    //   }
-    //   console.log('user token: ', api_tocken);
-    //   dispatch({type: 'RETRIEVE_TOKEN', token: api_tocken});
-    // }, 1000);
-    storeStoken()
+    setTimeout(async () => {
+      // setIsLoading(false);
+      let api_token;
+      api_token = null;
+      try {
+        api_token = await AsyncStorage.getItem('api_token');
+      } catch(e) {
+        console.log(e);
+      }
+      console.log('user token: ', api_token);
+      dispatch({type: 'RETRIEVE_TOKEN', token: api_token});
+    }, 1000);
+    // storeStoken()
   }, []);
 
   if (loginState.isLoading) {
@@ -260,7 +258,7 @@ const App = () => {
     <PaperProvider theme={theme}>
       <AuthContext.Provider value={authContext}>
         <NavigationContainer theme={theme}>
-          {loginState.api_tocken !== null ? (
+          {loginState.api_token !== null ? (
             <Drawer.Navigator
               drawerContent={props => <DrawerContent {...props} />}>
               <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />

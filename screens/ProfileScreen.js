@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, SafeAreaView, StyleSheet, ScrollView} from 'react-native';
 import {
   Title,
@@ -7,14 +7,62 @@ import {
   TouchableRipple,
 } from 'react-native-paper';
 import { Avatar } from 'react-native-elements';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+const url = 'https://nextstageksa.com/cards/api/user/profile'
+
+
 const ProfileScreen = ({navigation}) => {
+  const [data, setData] = React.useState({
+    name_en: '',
+    name_ar: '',
+    trade_name: '',
+    phone: '',
+    email: '',
+  });
+
+  const fetchUser = async () => {
+    try {
+      api_token = await AsyncStorage.getItem('api_token')
+      let response = await fetch(
+       url,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+      let responseJson = await response.json();
+      console.log('responseUserProfile--', responseJson.user);
+      let data = responseJson.user
+      console.log('Profile', {name_en: data.name_en, phone: data.phone})
+      setData({
+        name_en: data.name_en,
+        name_ar: data.name_ar,
+        trade_name: data.trade_name,
+        phone: data.phone,
+        email: data.email
+      })
+      // setData(data)
+      console.log('data', data)
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchUser();
+  }, []);
   return (
     <>
      <SafeAreaView  style={styles.container}>
        <ScrollView> 
+         
        <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
           <Avatar
@@ -30,9 +78,9 @@ const ProfileScreen = ({navigation}) => {
                   marginBottom: 5,
                 },
               ]}>
-              UserName
+              {data.name_en}
             </Title>
-            <Caption style={styles.caption}>@username</Caption>
+            <Caption style={styles.caption}>{data.trade_name}</Caption>
           </View>
         </View>
       </View>
@@ -43,12 +91,12 @@ const ProfileScreen = ({navigation}) => {
         </View>
         <View style={styles.row}>
           <Icon name="phone" color="#777777" size={20} />
-          <Text style={{color: '#777777', marginLeft: 20}}>+962788888</Text>
+          <Text style={{color: '#777777', marginLeft: 20}}>+962{data.phone}</Text>
         </View>
         <View style={styles.row}>
           <Icon name="email" color="#777777" size={20} />
           <Text style={{color: '#777777', marginLeft: 20}}>
-            user_name@email.com
+             {data.email}
           </Text>
         </View>
       </View>
