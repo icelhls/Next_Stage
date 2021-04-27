@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, SafeAreaView, StyleSheet} from 'react-native';
 import {
   Title,
@@ -15,12 +15,53 @@ import {
 } from '@react-navigation/drawer';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AsyncStorage from '@react-native-community/async-storage';
+const url = 'https://nextstageksa.com/cards/api/user/profile'
 
 
 import{ AuthContext } from '../components/context';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const SettingsScreen = ({navigation}) => {
+  const [data, setData] = React.useState({
+    name_en: '',
+    trade_name: '',
+    name_ar: ''
+ 
+  });
+
+  const fetchSettings = async () => {
+    try {
+      api_token = await AsyncStorage.getItem('api_token')
+      let response = await fetch(
+       url,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+      let responseJson = await response.json();
+      console.log('responseSettings--', responseJson.user);
+      let data = responseJson.user
+      console.log('data', data)
+      console.log('Profile', {name_en: data.name_en, phone: data.phone})
+      setData({
+        name_en: data.name_en,
+        trade_name: data.trade_name,
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+
 
   const { signOut } = React.useContext(AuthContext);
   return (
@@ -43,9 +84,9 @@ const SettingsScreen = ({navigation}) => {
                   marginBottom: 5,
                 },
               ]}>
-              UserName
+               {data.name_en}
             </Title>
-            <Caption style={styles.caption}>@username</Caption>
+            <Caption style={styles.caption}>@Trade: {data.trade_name}</Caption>
           </View>
         </View>
       </View>
