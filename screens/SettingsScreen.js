@@ -86,7 +86,7 @@ const SettingsScreen = ({navigation}) => {
               ]}>
                {data.name_en}
             </Title>
-            <Caption style={styles.caption}>@Trade: {data.trade_name}</Caption>
+            <Caption style={styles.caption}>{data.trade_name}</Caption>
           </View>
         </View>
       </View>
