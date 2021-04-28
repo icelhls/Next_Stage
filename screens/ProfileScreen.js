@@ -49,8 +49,6 @@ const ProfileScreen = ({navigation}) => {
         email: data.email
       })
       // setData(data)
-      console.log('data', data)
-
     } catch (error) {
       console.log(error);
     }

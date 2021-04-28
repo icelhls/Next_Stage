@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -16,10 +16,95 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import ImagePicker from 'react-native-image-crop-picker';
+const url = 'http://nextstageksa.com/cards/api/user/update';
+
+
 
 const EditProfileScreen = () => {
+  const [data, setData] = React.useState({
+    name_en: '',
+    // name_ar: '',
+    // trade_name: '',
+    // phone: '',
+    // email: '',
+  });
+
+  const fetchEditProfile = async( newdata )=>{
+    
+    try {
+      api_token = await AsyncStorage.getItem('api_token')
+      let response = await fetch(
+        url,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newdata),
+
+        }
+      );
+
+      let responseJson = await response.json();
+      // console.log('responseJsonUpdateProfile---', responseJson.data);
+      let data = responseJson.data
+      console.log('Data', data)
+      console.log('MustafProfile', {name_en: data.name_en})
+      setData({
+        name_en: data.name_en
+      })
+
+      
+      
+    } catch (error) {
+      console.log('errors profile', error );
+    }
+
+  }
+
+  const textInputChange = val => {
+    setData({
+      ...data,
+      name_en: val,
+    });
+  };
+
+
+    const handleSubmit =()=>{
+    // fetchEditProfile(data)
+    // textInputEnglishChange()
+    const newData = {
+      name_en: data.name_en
+    }
+    console.log('newdata', newData)
+    fetchEditProfile(newData)
+
+
+  }
+
+
+
+
+
+  useEffect(() => {
+    fetchEditProfile();
+  }, []);
+
+  // const textInputEnglishChange =(val)=>{
+  //   setData({
+  //     name_en: 
+  //   })
+
+  // }
+
+
+
+
 
   const [image, setImage] = useState('https://api.adorable.io/avatars/80/abott@adorable.png');
   const {colors} = useTheme();
@@ -138,6 +223,9 @@ const EditProfileScreen = () => {
             John Doe
           </Text>
         </View>
+        <View>
+          <Text>{data.name_en}</Text>
+        </View>
 
         <View style={styles.action}>
           <FontAwesome name="user-o" color={colors.text} size={20} />
@@ -145,6 +233,8 @@ const EditProfileScreen = () => {
             placeholder="First Name"
             placeholderTextColor="#666666"
             autoCorrect={false}
+            // value ={data.name_en}
+            onChangeText={val => textInputChange(val)}
             style={[
               styles.textInput,
               {
@@ -152,8 +242,9 @@ const EditProfileScreen = () => {
               },
             ]}
           />
+        
         </View>
-        <View style={styles.action}>
+        {/* <View style={styles.action}>
           <FontAwesome name="user-o" color={colors.text} size={20} />
           <TextInput
             placeholder="Last Name"
@@ -196,8 +287,8 @@ const EditProfileScreen = () => {
               },
             ]}
           />
-        </View>
-        <View style={styles.action}>
+        </View> */}
+        {/* <View style={styles.action}>
           <FontAwesome name="globe" color={colors.text} size={20} />
           <TextInput
             placeholder="Country"
@@ -210,8 +301,8 @@ const EditProfileScreen = () => {
               },
             ]}
           />
-        </View>
-        <View style={styles.action}>
+        </View> */}
+        {/* <View style={styles.action}>
           <Icon name="map-marker-outline" color={colors.text} size={20} />
           <TextInput
             placeholder="City"
@@ -224,8 +315,8 @@ const EditProfileScreen = () => {
               },
             ]}
           />
-        </View>
-        <TouchableOpacity style={styles.commandButton} onPress={() => {}}>
+        </View> */}
+        <TouchableOpacity style={styles.commandButton} onPress={() => handleSubmit(data.name_en)}>
           <Text style={styles.panelButtonTitle}>Submit</Text>
         </TouchableOpacity>
       </Animated.View>

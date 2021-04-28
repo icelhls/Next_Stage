@@ -348,7 +348,7 @@ const HomeStackScreen = ({navigation}) => (
       name="SubMain"
       component={SubMainScreen}
       options={{
-        title: 'SubMain',
+        title: 'Card Details',
         headerLeft: () => (
           <Icon.Button
             name="menu"
