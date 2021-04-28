@@ -20,52 +20,47 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import ImagePicker from 'react-native-image-crop-picker';
 const url = 'http://nextstageksa.com/cards/api/user/update';
-
-
+import {useNavigation} from '@react-navigation/native';
 
 const EditProfileScreen = () => {
   const [data, setData] = React.useState({
     name_en: '',
     // name_ar: '',
-    // trade_name: '',
-    // phone: '',
-    // email: '',
+    trade_name: '',
+    phone: '',
+    email: '',
   });
+ 
+  const navigation = useNavigation();
 
-  const fetchEditProfile = async( newdata )=>{
-    
+  const fetchEditProfile = async newdata => {
     try {
-      api_token = await AsyncStorage.getItem('api_token')
-      let response = await fetch(
-        url,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: 'Bearer ' + api_token,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newdata),
-
-        }
-      );
+      api_token = await AsyncStorage.getItem('api_token');
+      let response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + api_token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newdata),
+      });
 
       let responseJson = await response.json();
       // console.log('responseJsonUpdateProfile---', responseJson.data);
-      let data = responseJson.data
-      console.log('Data', data)
-      console.log('MustafProfile', {name_en: data.name_en})
+      let data = responseJson.data;
+      console.log('Data', data);
+      console.log('MustafProfile', {name_en: data.name_en});
       setData({
-        name_en: data.name_en
-      })
-
-      
-      
+        name_en: data.name_en,
+        trade_name: data.trade_name,
+        phone: data.phone,
+        email: data.email,
+      });
     } catch (error) {
-      console.log('errors profile', error );
+      console.log('errors profile', error);
     }
-
-  }
+  };
 
   const textInputChange = val => {
     setData({
@@ -74,39 +69,48 @@ const EditProfileScreen = () => {
     });
   };
 
+  const changeTradeInput = val => {
+    setData({
+      ...data,
+      trade_name: val,
+    });
+  };
+  const changePhoneInput = val => {
+    setData({
+      ...data,
+      phone: val,
+    });
+  };
 
-    const handleSubmit =()=>{
-    // fetchEditProfile(data)
-    // textInputEnglishChange()
+  const changeEmailInput = val => {
+    setData({
+      ...data,
+      email: val,
+    });
+  };
+
+  const handleSubmit = () => {
     const newData = {
-      name_en: data.name_en
-    }
-    console.log('newdata', newData)
-    fetchEditProfile(newData)
-
-
-  }
-
-
-
-
+      name_en: data.name_en,
+      trade_name: data.trade_name,
+      phone: data.phone,
+      email: data.email,
+    };
+    console.log('newdata', newData);
+    fetchEditProfile(newData);
+    navigation.navigate('Profile')
+    alert('profile updated successfully')
+  };
 
   useEffect(() => {
     fetchEditProfile();
   }, []);
 
-  // const textInputEnglishChange =(val)=>{
-  //   setData({
-  //     name_en: 
-  //   })
+ 
 
-  // }
-
-
-
-
-
-  const [image, setImage] = useState('https://api.adorable.io/avatars/80/abott@adorable.png');
+  const [image, setImage] = useState(
+    'https://api.adorable.io/avatars/80/abott@adorable.png',
+  );
   const {colors} = useTheme();
 
   const takePhotoFromCamera = () => {
@@ -114,26 +118,26 @@ const EditProfileScreen = () => {
       compressImageMaxWidth: 300,
       compressImageMaxHeight: 300,
       cropping: true,
-      compressImageQuality: 0.7
+      compressImageQuality: 0.7,
     }).then(image => {
       console.log(image);
       setImage(image.path);
       this.bs.current.snapTo(1);
     });
-  }
+  };
 
   const choosePhotoFromLibrary = () => {
     ImagePicker.openPicker({
       width: 300,
       height: 300,
       cropping: true,
-      compressImageQuality: 0.7
+      compressImageQuality: 0.7,
     }).then(image => {
       console.log(image);
       setImage(image.path);
       this.bs.current.snapTo(1);
     });
-  }
+  };
 
   renderInner = () => (
     <View style={styles.panel}>
@@ -141,10 +145,14 @@ const EditProfileScreen = () => {
         <Text style={styles.panelTitle}>Upload Photo</Text>
         <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
       </View>
-      <TouchableOpacity style={styles.panelButton} onPress={takePhotoFromCamera}>
+      <TouchableOpacity
+        style={styles.panelButton}
+        onPress={takePhotoFromCamera}>
         <Text style={styles.panelButtonTitle}>Take Photo</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.panelButton} onPress={choosePhotoFromLibrary}>
+      <TouchableOpacity
+        style={styles.panelButton}
+        onPress={choosePhotoFromLibrary}>
         <Text style={styles.panelButtonTitle}>Choose From Library</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -177,9 +185,11 @@ const EditProfileScreen = () => {
         callbackNode={this.fall}
         enabledGestureInteraction={true}
       />
-      <Animated.View style={{margin: 20,
-        opacity: Animated.add(0.1, Animated.multiply(this.fall, 1.0)),
-    }}>
+      <Animated.View
+        style={{
+          margin: 20,
+          opacity: Animated.add(0.1, Animated.multiply(this.fall, 1.0)),
+        }}>
         <View style={{alignItems: 'center'}}>
           <TouchableOpacity onPress={() => this.bs.current.snapTo(0)}>
             <View
@@ -220,20 +230,17 @@ const EditProfileScreen = () => {
             </View>
           </TouchableOpacity>
           <Text style={{marginTop: 10, fontSize: 18, fontWeight: 'bold'}}>
-            John Doe
+            {data.name_en}
           </Text>
-        </View>
-        <View>
-          <Text>{data.name_en}</Text>
         </View>
 
         <View style={styles.action}>
           <FontAwesome name="user-o" color={colors.text} size={20} />
           <TextInput
-            placeholder="First Name"
+            placeholder="Name English"
             placeholderTextColor="#666666"
             autoCorrect={false}
-            // value ={data.name_en}
+            value={data.name_en}
             onChangeText={val => textInputChange(val)}
             style={[
               styles.textInput,
@@ -242,14 +249,15 @@ const EditProfileScreen = () => {
               },
             ]}
           />
-        
         </View>
-        {/* <View style={styles.action}>
+        <View style={styles.action}>
           <FontAwesome name="user-o" color={colors.text} size={20} />
           <TextInput
-            placeholder="Last Name"
+            placeholder="Trade Name"
             placeholderTextColor="#666666"
             autoCorrect={false}
+            value={data.trade_name}
+            onChangeText={val => changeTradeInput(val)}
             style={[
               styles.textInput,
               {
@@ -264,6 +272,8 @@ const EditProfileScreen = () => {
             placeholder="Phone"
             placeholderTextColor="#666666"
             keyboardType="number-pad"
+            value={data.phone}
+            onChangeText={val => changePhoneInput(val)}
             autoCorrect={false}
             style={[
               styles.textInput,
@@ -280,6 +290,8 @@ const EditProfileScreen = () => {
             placeholderTextColor="#666666"
             keyboardType="email-address"
             autoCorrect={false}
+            value={data.email}
+            onChangeText={val => changeEmailInput(val)}
             style={[
               styles.textInput,
               {
@@ -287,7 +299,7 @@ const EditProfileScreen = () => {
               },
             ]}
           />
-        </View> */}
+        </View>
         {/* <View style={styles.action}>
           <FontAwesome name="globe" color={colors.text} size={20} />
           <TextInput
@@ -316,7 +328,11 @@ const EditProfileScreen = () => {
             ]}
           />
         </View> */}
-        <TouchableOpacity style={styles.commandButton} onPress={() => handleSubmit(data.name_en)}>
+        <TouchableOpacity
+          style={styles.commandButton}
+          onPress={() =>
+            handleSubmit(data.name_en, data.trade_name, data.phone, data.email)
+          }>
           <Text style={styles.panelButtonTitle}>Submit</Text>
         </TouchableOpacity>
       </Animated.View>
