@@ -108,7 +108,7 @@ const HomeStackScreen = ({navigation}) => (
       name="Home"
       component={HomeScreen}
       options={{
-        title: 'Overview',
+        title: 'Home',
         headerLeft: () => (
           <Icon.Button
             name="menu"

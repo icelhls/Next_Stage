@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, StyleSheet } from 'react-native';
 import {
     useTheme,
@@ -17,10 +17,49 @@ import {
 } from '@react-navigation/drawer';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 import{ AuthContext } from '../components/context';
 
 export function DrawerContent(props) {
+    const [data, setData] = React.useState({
+        name_en: '',
+        trade_name: '',
+        name_ar: ''
+     
+      });
+    
+      const fetchSettings1 = async () => {
+        try {
+          api_token = await AsyncStorage.getItem('api_token')
+          let response = await fetch(
+           'https://nextstageksa.com/cards/api/user/profile',
+            {
+              method: 'GET',
+              headers: {
+                Authorization: 'Bearer ' + api_token,
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              }
+            }
+          );
+          let responseJson = await response.json();
+          console.log('responseDrawer--', responseJson.user);
+          let data = responseJson.user
+          console.log('data', data)
+          console.log('Profile', {name_en: data.name_en, phone: data.phone})
+          setData({
+            name_en: data.name_en,
+            trade_name: data.trade_name,
+          })
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      useEffect(() => {
+        fetchSettings1();
+      }, []);
 
     const paperTheme = useTheme();
 
@@ -32,15 +71,15 @@ export function DrawerContent(props) {
                 <View style={styles.drawerContent}>
                     <View style={styles.userInfoSection}>
                         <View style={{flexDirection:'row',marginTop: 15}}>
-                            <Avatar.Image 
+                            {/* <Avatar.Image 
                                 source={{
                                     uri: 'https://api.adorable.io/avatars/50/abott@adorable.png'
                                 }}
                                 size={50}
-                            />
+                            /> */}
                             <View style={{marginLeft:15, flexDirection:'column'}}>
-                                <Title style={styles.title}>Next Stage</Title>
-                                <Caption style={styles.caption}>@next stage</Caption>
+                                <Title style={styles.title}>{data.name_en}</Title>
+                                <Caption style={styles.caption}>{data.trade_name}</Caption>
                             </View>
                         </View>
 

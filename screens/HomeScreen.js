@@ -29,7 +29,7 @@ const HomeScreen = () => {
     try {
       api_token = await AsyncStorage.getItem('api_token')
       let response = await fetch(
-       'http://nextstageksa.com/cards/api/wallet/index',
+       'https://nextstageksa.com/cards/api/wallet/index',
         {
           method: 'GET',
           headers: {

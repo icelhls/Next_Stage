@@ -26,11 +26,15 @@ const PurchaseScreen = () => {
     recent: '',
   });
 
+  const [data3, setData3] = useState({
+    my_orders: '',
+  });
+
   const fetchWallet = async () => {
     try {
       api_token = await AsyncStorage.getItem('api_token');
       let response = await fetch(
-        'http://nextstageksa.com/cards/api/wallet/index',
+        'https://nextstageksa.com/cards/api/wallet/index',
         {
           method: 'GET',
           headers: {
@@ -52,42 +56,101 @@ const PurchaseScreen = () => {
       console.log(error);
     }
   };
+
+  const fetchComplete = async () => {
+    try {
+      api_token = await AsyncStorage.getItem('api_token');
+      let response = await fetch(
+        'https://nextstageksa.com/cards/api/orders/completed',
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      let responseJson = await response.json();
+      console.log('responseComplete--', responseJson);
+      // let data2 = responseJson.wallet;
+      // console.log('Wallet---', {current: data.current, recent: data.recent});
+      // setData({
+      //   current: data.current,
+      //   recent: data.recent,
+      // });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchPending = async () => {
+    try {
+      api_token = await AsyncStorage.getItem('api_token');
+      let response = await fetch(
+        'https://nextstageksa.com/cards/api/orders/pending',
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      let responseJson = await response.json();
+      console.log('responsePending--', responseJson);
+      let data3 = responseJson.my_orders;
+      console.log('pending', data3);
+      setData3(data3);
+      // console.log('Wallet---', {current: data.current, recent: data.recent});
+      // setData({
+      //   current: data.current,
+      //   recent: data.recent,
+      // });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchWallet();
+    fetchComplete();
+    fetchPending();
   }, []);
 
-  const list = [
-    {
-      title: 'Orders Name',
-      subTitle: 'Description.....',
-      price: 50,
-    },
-    {
-      title: 'Orders Name',
-      subTitle: 'Description.....',
-      price: 25,
-    },
-    {
-      title: 'Orders Name',
-      subTitle: 'description.....',
-      price: 30,
-    },
-    {
-      title: 'Orders Name',
-      subTitle: 'Description.....',
-      price: 15,
-    },
-    {
-      title: 'Orders Name',
-      subTitle: 'Description.....',
-      price: 50,
-    },
-    {
-      title: 'Orders Name',
-      subTitle: 'description.....',
-      price: 50,
-    },
-  ];
+  // const list = [
+  //   {
+  //     title: 'Orders Name',
+  //     subTitle: 'Description.....',
+  //     price: 50,
+  //   },
+  //   {
+  //     title: 'Orders Name',
+  //     subTitle: 'Description.....',
+  //     price: 25,
+  //   },
+  //   {
+  //     title: 'Orders Name',
+  //     subTitle: 'description.....',
+  //     price: 30,
+  //   },
+  //   {
+  //     title: 'Orders Name',
+  //     subTitle: 'Description.....',
+  //     price: 15,
+  //   },
+  //   {
+  //     title: 'Orders Name',
+  //     subTitle: 'Description.....',
+  //     price: 50,
+  //   },
+  //   {
+  //     title: 'Orders Name',
+  //     subTitle: 'description.....',
+  //     price: 50,
+  //   },
+  // ];
   return (
     <>
       <View style={styles.container}>
@@ -102,11 +165,11 @@ const PurchaseScreen = () => {
                   borderRightWidth: 1,
                 },
               ]}>
-              <Title>{data.current} JD </Title>
+              <Title>{data.recent} JD </Title>
               <Caption>Recent Balance</Caption>
             </View>
             <View style={styles.infoBox}>
-              <Title>{data.recent} JD </Title>
+              <Title>{data.current} JD </Title>
               <Caption>Current Balance</Caption>
             </View>
           </View>
@@ -126,7 +189,7 @@ const PurchaseScreen = () => {
               </TouchableOpacity>
             </View>
             <View style={styles.infoBox}>
-              <TouchableOpacity onPress={()=>alert('you completed')}>
+              <TouchableOpacity onPress={() => alert('you completed')}>
                 <Title>Completed</Title>
               </TouchableOpacity>
             </View>
@@ -134,23 +197,23 @@ const PurchaseScreen = () => {
 
           <Headline style={{fontSize: 25}}>Orders History</Headline>
           {/* <Subheading style={{alignSelf: 'flex-end'}}>price</Subheading> */}
-          <FlatList
-            data={list}
-            keyExtractor={item => item.title}
+          {/* <FlatList
+            data={data3}
+            keyExtractor={item => item.id}
             renderItem={({item}) => (
               <>
                 <List.Section>
                   <View style={{flexDirection: 'row'}}>
                     <Title>{item.title}</Title>
                     {/* <Title style={{marginLeft: 210}}>{item.price}</Title> */}
-                    <Text style={{marginLeft: 210}}>{item.price} JD</Text>
-                  </View>
+                    {/* <Text style={{marginLeft: 210}}>{item.user_id} JD</Text> */}
+                  {/* </View> */}
 
-                  <Subheading>{item.subTitle}</Subheading>
-                </List.Section>
-              </>
-            )}
-          />
+                  {/* <Subheading>{item.subTitle}</Subheading> */}
+                {/* </List.Section> */}
+              {/* </>
+            )} */}
+          {/* /> */} 
         </ScrollView>
       </View>
     </>

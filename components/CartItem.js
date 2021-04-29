@@ -1,28 +1,65 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import Title from '../card/Title';
-// import Subtitle from '../card/Subtitle'
-import data from '../assets/data';
-import SmallCard from '../card/SmallCard';
-import { ScrollView } from 'react-native-gesture-handler';
-export default function CartItem({title}) {
-  const [items, setItems] = useState(data);
-  console.log('mustafa dataaa', items);
+import Card from '../card/Card'
 
+import AsyncStorage from '@react-native-community/async-storage';
+export default function CartItem() {
+  const [data, setData] = useState({
+    current: '',
+    recent: '',
+  });
+
+  const fetchOffer = async () => {
+    try {
+      api_token = await AsyncStorage.getItem('api_token');
+      let response = await fetch(
+        'https://nextstageksa.com/cards/api/offer/today',
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      let responseJson = await response.json();
+      console.log('responseOfferToday--', responseJson);
+      let data = responseJson.offers;
+      console.log('offerss', data)
+      setData(data)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOffer()
+
+  }, []);
+  
   return (
     <>
-    <ScrollView>
-    <Title>{title}</Title>
-      <FlatList
+    <View>
+      
+    <FlatList
         data={data}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => <SmallCard item={item} />}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-      />
+      //    keyExtractor={item => item.id}
+      //   renderItem={({item}) =>(
+      //     <Card>
+      //       {/* <Title>{item}</Title> */}
+      //     </Card>
 
-    </ScrollView>
-    
+      //   )
+      //    }
+      //  horizontal
+      //   showsHorizontalScrollIndicator={false}
+       /> 
+      
+    </View>
+
+     
     </>
   );
 }

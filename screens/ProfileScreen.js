@@ -21,6 +21,11 @@ const ProfileScreen = ({navigation}) => {
     trade_name: '',
     phone: '',
     email: '',
+    current: ''
+  });
+
+  const [data2, setData2] = React.useState({
+    current: ''
   });
 
   const fetchUser = async () => {
@@ -53,8 +58,39 @@ const ProfileScreen = ({navigation}) => {
       console.log(error);
     }
   };
+
+ // wallet 
+ const fetchWallet = async () => {
+  try {
+    api_token = await AsyncStorage.getItem('api_token');
+    let response = await fetch(
+      'http://nextstageksa.com/cards/api/wallet/index',
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + api_token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    let responseJson = await response.json();
+    console.log('responseWallet--', responseJson);
+    let data2 = responseJson.wallet;
+    console.log('Wallet---', {current: data2.current, recent: data2.recent});
+    setData2({
+      current: data2.current,
+   
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
   useEffect(() => {
     fetchUser();
+    fetchWallet()
   }, []);
   return (
     <>
@@ -108,7 +144,7 @@ const ProfileScreen = ({navigation}) => {
               borderRightWidth: 1,
             },
           ]}>
-          <Title>Jod 140.50</Title>
+          <Title>{data2.current} JD</Title>
           <Caption>Wallet</Caption>
         </View>
         <View style={styles.infoBox}>
@@ -130,12 +166,12 @@ const ProfileScreen = ({navigation}) => {
             <Text style={styles.menuItemText}>Purchase</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={()=>{}}>
+        {/* <TouchableRipple onPress={()=>{}}>
           <View style={styles.menuItem}>
             <Icon name="printer-settings" color="#FF6347" size={25}/>
             <Text style={styles.menuItemText}>print</Text>
           </View>
-        </TouchableRipple>
+        </TouchableRipple> */}
         {/* <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
             <Icon name="account-check-outline" color="#FF6347" size={25}/>
