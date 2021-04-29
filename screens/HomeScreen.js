@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, StatusBar, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import VerticalList from '../components/VerticalList';
@@ -18,8 +18,46 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const HomeScreen = () => {
+  const [data, setData] = useState({
+    current: '',
+  })
+
+  const fetchWallet = async () => {
+    try {
+      api_token = await AsyncStorage.getItem('api_token')
+      let response = await fetch(
+       'http://nextstageksa.com/cards/api/wallet/index',
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+      let responseJson = await response.json();
+      console.log('responseWallet--', responseJson);
+      let data = responseJson.wallet
+      console.log('Wallet---', {current: data.current, recent: data.recent})
+      setData({
+        current: data.current,
+     
+        
+      })
+  
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchWallet();
+  }, []);
+
+
     const navigation = useNavigation();
   const {colors} = useTheme();
 
@@ -62,7 +100,7 @@ const HomeScreen = () => {
                 {/* <Caption style={{fontSize: 15, color: '#fff', marginLeft: 10}}>
                   Current Balance
                 </Caption> */}
-                <TouchableOpacity onPress={()=> navigation.navigate('Order')}>
+                <TouchableOpacity onPress={()=> navigation.navigate('Purchase')}>
                 <Title style={{fontSize: 25, color: '#fff', marginLeft: 10, alignSelf: 'center'}}>
                   Orders
                 </Title>
@@ -71,7 +109,8 @@ const HomeScreen = () => {
               
               </View>
             {/* price*/}
-              <View
+            <TouchableOpacity  onPress={()=> navigation.navigate('Purchase')}>
+            <View
                 style={{
                   justifyContent: 'center',
                   backgroundColor: '#7e102c',
@@ -83,13 +122,17 @@ const HomeScreen = () => {
                   elevation: 2,
                    shadowOffset: {width: 1, height: 1},
                 }}>
+                
                 <Caption style={{fontSize: 15, color: '#fff', marginLeft: 10, alignSelf: 'center'}}>
                   Current Balance
                 </Caption>
                 <Title style={{fontSize: 16, color: '#fff', marginLeft: 10,  alignSelf: 'center'}}>
-                  50.0 JD
+                  {data.current} JD 
                 </Title>
               </View>
+              
+            </TouchableOpacity>
+
             </View>
               <Headline
               style={{textAlign: 'center', fontSize: 30, marginTop: 30}}>

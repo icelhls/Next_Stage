@@ -1,10 +1,40 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { View, Text, Button, StyleSheet, SafeAreaView, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import { globalStyles } from '../styles/global';
 import { ListItem, Avatar } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import SmallCard from '../card/SmallCard'
+import SubCateCard from '../card/SubCateCard'
 
 const OfferScreen = () => {
+  const [data, setData] = useState({
+    offers: ''
+  })
+
+  const fetchOffers = async () => {
+    try {
+      let response = await fetch('http://nextstageksa.com/cards/api/offer/today');
+      let offers = await response.json();
+      console.log('responseOffers--', offers)
+      let data = await offers.offers
+      console.log('DataOffers--', data);
+      setData(data)
+     
+
+     
+      // setData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchOffers();
+  }, []);
+
+
+
+
+
     const list = [
         {
           name: 'Title',
@@ -50,13 +80,13 @@ const OfferScreen = () => {
             <ScrollView>
             <View>
             {/* <Text>Details Screen</Text> */}
-            {
-        list.map((l, i) => (
+            {/* {
+        data.map((l, i) => (
           <ListItem key={i} bottomDivider>
             <Avatar source={{uri: l.avatar_url}} />
             <ListItem.Content>
               <View style={{flexDirection: 'row', alignItems: 'space-around' }}>
-              <ListItem.Title>{l.name}</ListItem.Title>
+              <ListItem.Title>{l.new_price}</ListItem.Title>
               <ListItem.Subtitle style={{alignSelf: 'flex-end', fontSize: 16, marginLeft: 200}}>   $50.0</ListItem.Subtitle>
               </View>
               
@@ -64,7 +94,7 @@ const OfferScreen = () => {
             </ListItem.Content>
           </ListItem>
         ))
-      }
+      } */}
     
     
     
@@ -80,6 +110,24 @@ const OfferScreen = () => {
                 title="Go back"
                 onPress={() => navigation.goBack()}
             /> */}
+                 <FlatList
+        data={data}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => (
+          <TouchableOpacity onPress={() => navigation.navigate('MainSub', item.id)}>
+            <SubCateCard>
+              <Text>
+              {item.new_price}
+
+              </Text>
+             
+            </SubCateCard>
+          </TouchableOpacity>
+        )}
+        numColumns={2}
+      />
+
+
      
           </View>
             </ScrollView>

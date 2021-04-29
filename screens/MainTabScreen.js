@@ -181,7 +181,7 @@ const HomeStackScreen = ({navigation}) => (
       name="Purchase"
       component={PurchaseScreen}
       options={{
-        title: 'Purchases',
+        title: 'My Orders',
         headerLeft: () => (
           <Icon.Button
             name="menu"
@@ -396,7 +396,7 @@ const HomeStackScreen = ({navigation}) => (
       name="Order"
       component={OrderScreen}
       options={{
-        title: 'Oders',
+        title: 'Orders',
         headerLeft: () => (
           <Icon.Button
             name="menu"
