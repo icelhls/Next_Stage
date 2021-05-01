@@ -6,8 +6,7 @@ import Card from '../card/Card'
 import AsyncStorage from '@react-native-community/async-storage';
 export default function CartItem() {
   const [data, setData] = useState({
-    current: '',
-    recent: '',
+    sub_category: '',
   });
 
   const fetchOffer = async () => {
@@ -42,6 +41,7 @@ export default function CartItem() {
   return (
     <>
     <View>
+    
       
     <FlatList
         data={data}
@@ -55,6 +55,12 @@ export default function CartItem() {
       //    }
       //  horizontal
       //   showsHorizontalScrollIndicator={false}
+      keyExtractor ={item => item.id}
+      renderItem={({item})=> (
+        <Card>
+          <Title>{item.new_price} JD</Title>
+        </Card>
+      )}
        /> 
       
     </View>
