@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, FlatList, TouchableOpacity, Image} from 'react-native';
 import Title from '../card/Title';
 import Card from '../card/Card'
 
@@ -33,6 +33,27 @@ export default function CartItem() {
     }
   };
 
+  const renderItem =({item})=>{
+    let new_price = item.new_price
+    let image = item.sub_category.image
+    let name_en = item.sub_category.name_en
+    return ( <Card>
+      <Title>{new_price} JD</Title>
+      <Image
+                        style={styles.image}
+                        resizeMode="cover"
+                        source={{
+                          uri: `http://nextstageksa.com/cards/storage/uploades/${
+                           image
+                          }`,
+                        }}
+                      />
+
+    <Title>{name_en}</Title>
+    </Card>)
+
+  }
+
   useEffect(() => {
     fetchOffer()
 
@@ -45,22 +66,10 @@ export default function CartItem() {
       
     <FlatList
         data={data}
-      //    keyExtractor={item => item.id}
-      //   renderItem={({item}) =>(
-      //     <Card>
-      //       {/* <Title>{item}</Title> */}
-      //     </Card>
-
-      //   )
-      //    }
-      //  horizontal
-      //   showsHorizontalScrollIndicator={false}
+       horizontal
+        showsHorizontalScrollIndicator={false}
       keyExtractor ={item => item.id}
-      renderItem={({item})=> (
-        <Card>
-          <Title>{item.new_price} JD</Title>
-        </Card>
-      )}
+      renderItem={renderItem}
        /> 
       
     </View>
@@ -69,4 +78,13 @@ export default function CartItem() {
     </>
   );
 }
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  image: {
+    width: 50,
+    height: 60,
+    margin: 10,
+    borderBottomWidth: 1,
+  
+
+  },
+});

@@ -46,6 +46,7 @@ export default function VerticalList({title}) {
       <FlatList
         data={data}
         keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
           <TouchableOpacity onPress={() => navigation.navigate('MainSub', item.id)}>    
            <Card>

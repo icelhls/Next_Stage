@@ -66,7 +66,7 @@ export default function Pendings() {
 
     return (
         <View>
-             <Headline style={{fontSize: 20 }}>Pendings</Headline>
+             <Headline style={{fontSize: 20, color: 'red' }}>Pendings</Headline>
            
            <FlatList
             data ={data}

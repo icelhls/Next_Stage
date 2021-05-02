@@ -66,7 +66,7 @@ export default function Completed() {
     
     return (
         <View>
-         <Headline style={{fontSize: 20 }}>Completed</Headline>
+         <Headline style={{fontSize: 20, color: 'blue' }}>Completed</Headline>
        
        <FlatList
         data ={data}
