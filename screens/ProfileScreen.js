@@ -192,12 +192,12 @@ const fetchOrders = async () => {
       </View>
 
       <View style={styles.menuWrapper}>
-        <TouchableRipple onPress={() => {}}>
+        {/* <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
             <Icon name="podium" color="#FF6347" size={25}/>
             <Text style={styles.menuItemText}>Rank</Text>
           </View>
-        </TouchableRipple>
+        </TouchableRipple> */}
         <TouchableRipple onPress={() => navigation.navigate('Purchase')}>
           <View style={styles.menuItem}>
             <Icon name="credit-card" color="#FF6347" size={25}/>

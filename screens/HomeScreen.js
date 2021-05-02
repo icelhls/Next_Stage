@@ -144,6 +144,7 @@ const HomeScreen = () => {
               -عروض اليوم-
             </Headline>
             <CartItem />
+            
           </ScrollView>
         </SafeAreaView>
       </View>

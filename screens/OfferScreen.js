@@ -13,7 +13,7 @@ const OfferScreen = () => {
 
   const fetchOffers = async () => {
     try {
-      let response = await fetch('http://nextstageksa.com/cards/api/offer/today');
+      let response = await fetch('https://nextstageksa.com/cards/api/offer/all');
       let offers = await response.json();
       console.log('responseOffers--', offers)
       let data = await offers.offers

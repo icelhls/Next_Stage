@@ -71,7 +71,7 @@ export default function VerticalList({title}) {
                   }}
                 />
                 {/* <Title>{item.name_ar }</Title> */}
-                <Title>{item.name_ar}</Title>
+                {/* <Title>{item.name_ar}</Title> */}
                 <Title>{item.name_en}</Title>
               </View>
             </Card>
