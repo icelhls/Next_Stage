@@ -22,6 +22,7 @@ import {ListItem} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import Pendings from '../components/Pendings';
 import Completed from '../components/Completed';
+import { Button } from 'react-native';
 
 const PurchaseScreen = () => {
   const [data, setData] = useState({
@@ -36,6 +37,24 @@ const PurchaseScreen = () => {
   const [data4, setData4] = useState({
     index: true,
   });
+
+
+  const [isPendings, setPendings] = useState(false)
+  const [isCompleted, setCompleted] = useState(false)
+
+  const toggleCompleted =()=>{
+    setCompleted(!isCompleted)
+}
+
+const togglePendings = ()=>{
+  setPendings(!isPendings)
+}
+
+
+
+  const toggleItem =()=>{
+      setOn(!on)
+  }
   // const [toggePage, setTogglePage] = useState(false)
 
   const fetchWallet = async () => {
@@ -224,13 +243,13 @@ const PurchaseScreen = () => {
                   borderRightWidth: 1,
                 },
               ]}>
-              <TouchableOpacity onPress={() => displayPage(data4.index)}>
+              <TouchableOpacity onPress={() => togglePendings()}>
                 <Title>Pending </Title>
                 <Caption>Pending Orders</Caption>
               </TouchableOpacity>
             </View>
             <View style={styles.infoBox}>
-              <TouchableOpacity onPress={() => displayPage(data4.index)}>
+              <TouchableOpacity onPress={() => toggleCompleted()}>
                 <Title>Completed</Title>
               </TouchableOpacity>
             </View>
@@ -255,10 +274,10 @@ const PurchaseScreen = () => {
           {/* </>
             )} */}
           {/* /> */}
-          {/* <Pendings />
-          <Completed /> */}
-          <Pendings />
-          {displayPage(data4.index)}
+           {isCompleted && (<Completed />)}
+           {isPendings && (<Pendings />)}
+       
+  
         </ScrollView>
       </View>
     </>

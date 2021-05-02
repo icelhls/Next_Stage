@@ -4,7 +4,7 @@ import {useTheme} from '@react-navigation/native';
 import VerticalList from '../components/VerticalList';
 // import CartItem from '../screens/CartItem';
 import CartItem from '../components/CartItem'
-import Pendings from '../components/Pendings'
+import Toggle from '../components/Toggle'
 import {
   Title,
   Caption,
