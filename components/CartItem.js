@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     height: 93,
     margin: 10,
     borderBottomWidth: 1,
+    marginTop: 1
   
 
   },
