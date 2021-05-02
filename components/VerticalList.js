@@ -1,5 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, FlatList, TouchableOpacity, Image} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  Dimensions
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Title from '../card/Title';
 import Subtitle from '../card/Subtitle';
@@ -8,12 +16,9 @@ import data from '../assets/data';
 import SmallCard from '../card/SmallCard';
 import Blockcard from '../card/Blockcard';
 const url = 'https://nextstageksa.com/cards/api/category/index';
-import Card from '../card/Card'
-
-
+import Card from '../card/Card';
 
 export default function VerticalList({title}) {
-
   const [data, setData] = useState({
     categories: '',
   });
@@ -37,8 +42,6 @@ export default function VerticalList({title}) {
     fetchCategories();
   }, []);
 
-
-
   return (
     <>
       <Title>{title}</Title>
@@ -48,31 +51,30 @@ export default function VerticalList({title}) {
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
-          <TouchableOpacity onPress={() => navigation.navigate('MainSub', item.id)}>    
-           <Card>
-           <View
-                    style={{
-                      margin: 18,
-                      marginTop: 1,
-                      alignSelf: 'center',
-                      justifyContent: 'center',
-                    }}>
-                          <Image
-                        style={styles.image}
-                        resizeMode="cover"
-                        source={{
-                          uri: `http://nextstageksa.com/cards/storage/uploades/${
-                            item.image
-                          }`,
-                        }}
-                      />
-                    {/* <Title>{item.name_ar }</Title> */}
-                    <Title>{item.name_ar}</Title>
-                    <Title>{item.name_en}</Title>
-                  </View>
-             
-
-           </Card>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('MainSub', item.id)}>
+            <Card>
+              <View
+                style={{
+                  margin: 18,
+                  marginTop: 1,
+                  alignSelf: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Image
+                  style={styles.image}
+                  resizeMode="cover"
+                  source={{
+                    uri: `http://nextstageksa.com/cards/storage/uploades/${
+                      item.image
+                    }`,
+                  }}
+                />
+                {/* <Title>{item.name_ar }</Title> */}
+                <Title>{item.name_ar}</Title>
+                <Title>{item.name_en}</Title>
+              </View>
+            </Card>
           </TouchableOpacity>
         )}
         numColumns={2}
@@ -80,13 +82,13 @@ export default function VerticalList({title}) {
     </>
   );
 }
+const {height} = Dimensions.get("screen");
+
 const styles = StyleSheet.create({
   image: {
-    width: 50,
-    height: 60,
+    width: 40,
+    height: 40,
     margin: 10,
     borderBottomWidth: 1,
-  
-
   },
 });

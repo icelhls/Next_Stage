@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, StatusBar, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
+import {View, StatusBar, ScrollView, SafeAreaView, TouchableOpacity, } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import VerticalList from '../components/VerticalList';
 // import CartItem from '../screens/CartItem';

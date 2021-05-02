@@ -80,8 +80,8 @@ export default function CartItem() {
 }
 const styles = StyleSheet.create({
   image: {
-    width: 50,
-    height: 60,
+    width: 100,
+    height: 93,
     margin: 10,
     borderBottomWidth: 1,
   

@@ -28,6 +28,10 @@ const ProfileScreen = ({navigation}) => {
     current: ''
   });
 
+  const [data3, setData3] = useState({
+    count: ''
+  })
+
   const fetchUser = async () => {
     try {
       api_token = await AsyncStorage.getItem('api_token')
@@ -87,10 +91,44 @@ const ProfileScreen = ({navigation}) => {
   }
 };
 
+// Orders.
+const fetchOrders = async () => {
+  try {
+    api_token = await AsyncStorage.getItem('api_token');
+    let response = await fetch(
+      'http://nextstageksa.com/cards/api/orders/count',
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + api_token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    let responseJson = await response.json();
+    console.log('responseOrdersCount--', responseJson);
+    let data3 = responseJson
+    setData3({
+      count: data3.count
+    })
+    // let data2 = responseJson.wallet;
+    // console.log('Wallet---', {current: data2.current, recent: data2.recent});
+    // setData2({
+    //   current: data2.current,
+   
+    // });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 
   useEffect(() => {
     fetchUser();
     fetchWallet()
+    fetchOrders()
   }, []);
   return (
     <>
@@ -148,7 +186,7 @@ const ProfileScreen = ({navigation}) => {
           <Caption>Wallet</Caption>
         </View>
         <View style={styles.infoBox}>
-          <Title>16</Title>
+          <Title>{data3.count}</Title>
           <Caption>Orders</Caption>
         </View>
       </View>
