@@ -50,13 +50,6 @@ const togglePendings = ()=>{
   setPendings(!isPendings)
 }
 
-
-
-  const toggleItem =()=>{
-      setOn(!on)
-  }
-  // const [toggePage, setTogglePage] = useState(false)
-
   const fetchWallet = async () => {
     try {
       api_token = await AsyncStorage.getItem('api_token');
@@ -84,98 +77,10 @@ const togglePendings = ()=>{
     }
   };
 
-  const fetchComplete = async () => {
-    try {
-      api_token = await AsyncStorage.getItem('api_token');
-      let response = await fetch(
-        'https://nextstageksa.com/cards/api/orders/completed',
-        {
-          method: 'GET',
-          headers: {
-            Authorization: 'Bearer ' + api_token,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      let responseJson = await response.json();
-      console.log('responseComplete--', responseJson);
-      // let data2 = responseJson.wallet;
-      // console.log('Wallet---', {current: data.current, recent: data.recent});
-      // setData({
-      //   current: data.current,
-      //   recent: data.recent,
-      // });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchPending = async () => {
-    try {
-      api_token = await AsyncStorage.getItem('api_token');
-      let response = await fetch(
-        'https://nextstageksa.com/cards/api/orders/pending',
-        {
-          method: 'GET',
-          headers: {
-            Authorization: 'Bearer ' + api_token,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      let responseJson = await response.json();
-      console.log('responsePending--', responseJson);
-      let data3 = responseJson.my_orders;
-      console.log('pending', data3);
-      setData3(data3);
-      // console.log('Wallet---', {current: data.current, recent: data.recent});
-      // setData({
-      //   current: data.current,
-      //   recent: data.recent,
-      // });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const displayPage = index => {
-    switch (index) {
-      default:
-      case true:
-        //   return(<Completed setData4= {{  index: data4.index}
-        // } />)
-        return (
-          <Completed
-            setData4={(index) => {
-              return {index: data4.index};
-            }}
-          />
-        );
-      case false:
-        return (
-          <Pendings
-            setData4={(index) => {
-              return {index: data4.index};
-            }}
-          />
-        );
-      // return(<Pendings
-      //   setData4= {{  index: data4.index}
-      // }
-      //    />)
-    }
-  };
-
-  const toggle = () => {
-    setTogglePage(!toggePage);
-  };
 
   useEffect(() => {
     fetchWallet();
-    fetchComplete();
-    fetchPending();
+
   }, []);
 
   // const list = [
