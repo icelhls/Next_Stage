@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, Button, StyleSheet, SafeAreaView, ScrollView, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, Button, StyleSheet, SafeAreaView, ScrollView, FlatList, TouchableOpacity, Image } from 'react-native';
 import { globalStyles } from '../styles/global';
 import { ListItem, Avatar } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -7,22 +7,20 @@ import SmallCard from '../card/SmallCard'
 import SubCateCard from '../card/SubCateCard'
 
 const OfferScreen = () => {
-  const [data, setData] = useState({
-    offers: ''
-  })
+  // const [data, setData] = useState({
+  //   offers: ''
+  // })
+  const [data, setData] = useState([])
 
   const fetchOffers = async () => {
     try {
       let response = await fetch('https://nextstageksa.com/cards/api/offer/all');
-      let offers = await response.json();
-      console.log('responseOffers--', offers)
-      let data = await offers.offers
-      console.log('DataOffers--', data);
+      // let offers = await response.json();
+      let responseJson = await response.json()
+      console.log('responseOffers--', responseJson)
+      let data = await responseJson.offers
+      console.log('Offers All--', data);
       setData(data)
-     
-
-     
-      // setData(data);
     } catch (error) {
       console.log(error);
     }
@@ -74,6 +72,34 @@ const OfferScreen = () => {
         },
     
       ]
+
+      const renderItem = ({item})=>{
+        return <ListItem >
+          <Image
+                        style={styles.image}
+                        resizeMode="cover"
+                        source={{
+                          uri: `http://nextstageksa.com/cards/storage/uploades/${
+                           item.sub_category.image
+                          }`,
+                        }}
+                      />
+        <ListItem.Content>
+          <View style={{flexDirection: 'row', alignItems: 'space-around' }}>
+          <ListItem.Title>{item.sub_category.name_en}</ListItem.Title>
+          <ListItem.Subtitle style={{alignSelf: 'flex-end', fontSize: 16, marginLeft: 25}}> {item.sub_category.price}JD</ListItem.Subtitle>
+          <View>
+          <ListItem.Subtitle style={{marginEnd: 5, color: 'green', fontSize: 26}}>{item.new_price} JD</ListItem.Subtitle>
+          <ListItem.Subtitle>Available Now</ListItem.Subtitle>
+
+          </View>
+          <ListItem.Subtitle>{item.new_price}</ListItem.Subtitle>
+          </View>
+          
+          <ListItem.Subtitle>{item.new_price}</ListItem.Subtitle>
+        </ListItem.Content>
+      </ListItem>
+      }
         return (
           <>
           <SafeAreaView>
@@ -113,18 +139,8 @@ const OfferScreen = () => {
                  <FlatList
         data={data}
         keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <TouchableOpacity onPress={() => navigation.navigate('MainSub', item.id)}>
-            <SubCateCard>
-              <Text>
-              {item.new_price}
-
-              </Text>
-             
-            </SubCateCard>
-          </TouchableOpacity>
-        )}
-        numColumns={2}
+        renderItem={renderItem}
+     
       />
 
 
@@ -146,5 +162,14 @@ const styles = StyleSheet.create({
     flex: 1, 
     alignItems: 'center', 
     justifyContent: 'center'
+  },
+  image: {
+    width: 100,
+    height: 93,
+    margin: 10,
+    borderBottomWidth: 1,
+    marginTop: 1
+  
+
   },
 });
