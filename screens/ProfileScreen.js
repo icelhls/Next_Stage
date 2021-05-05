@@ -24,6 +24,12 @@ const ProfileScreen = ({navigation}) => {
     current: ''
   });
 
+  const [image, setImage] = useState('');
+  const [updateImage, setUpdateImage]= useState({
+    image: '',
+    ext: '',
+  })
+
   const [data2, setData2] = React.useState({
     current: ''
   });
@@ -62,6 +68,41 @@ const ProfileScreen = ({navigation}) => {
       console.log(error);
     }
   };
+
+
+  const fetchImage = async () => {
+    try {
+      api_token = await AsyncStorage.getItem('api_token')
+      let response = await fetch(
+       url,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+      let responseJson = await response.json();
+      console.log('responseUserProfile--', responseJson.user);
+      let image = responseJson.user.image
+      console.log('image profiel', image)
+      // let updateImage = responseJson.user
+      // console.log('image profile%%%%%%%', {image: updateImage.image})
+      // setUpdateImage({
+      //   image: updateImage.image,
+      //   ext: 'image/jpg'
+      // })
+
+      setImage(image)
+      // setData(data)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
 
  // wallet 
  const fetchWallet = async () => {
@@ -129,6 +170,7 @@ const fetchOrders = async () => {
     fetchUser();
     fetchWallet()
     fetchOrders()
+    fetchImage()
   }, []);
   return (
     <>
@@ -138,7 +180,10 @@ const fetchOrders = async () => {
        <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
           <Avatar
-            source={require('../assets/images/profile.jpg')}
+            // source={require('../assets/images/profile.jpg')}
+            source={{
+              uri: image
+            }}
             size={80}
           />
           <View style={{marginLeft: 20}}>

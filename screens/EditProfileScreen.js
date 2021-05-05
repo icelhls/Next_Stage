@@ -17,7 +17,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import RNFetchBlob from 'rn-fetch-blob';
 import ImagePicker from 'react-native-image-crop-picker';
 const url = 'http://nextstageksa.com/cards/api/user/update';
 import {useNavigation} from '@react-navigation/native';
@@ -31,6 +31,7 @@ const EditProfileScreen = () => {
     email: '',
   });
  
+  const [imagebase, setImagebase] = useState('')
   const navigation = useNavigation();
 
   const fetchEditProfile = async newdata => {
@@ -61,6 +62,111 @@ const EditProfileScreen = () => {
       console.log('errors profile', error);
     }
   };
+
+  const [updateImage, setUpdateImage]= useState({
+    image: '',
+    ext: '',
+  })
+
+
+  const updatePicture = async data => {
+    console.log('datadata', data)
+    let image = data.image
+    let ext = data.ext
+    console.log('image', image, 'ext', ext)
+  
+    
+    try {
+      api_token = await AsyncStorage.getItem('api_token');
+      let response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + api_token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          image: image,
+          ext: ext
+
+        }),
+      });
+
+      let responseJson = await response.json();
+      console.log('responseImage@@@@@@', responseJson)
+      // let updateImage = responseJson.data
+      // console.log('wow image@@@', {image: updateImage.image})
+      // setUpdateImage({
+      //   image: updateImage.image,
+      //   ext: 'image/jpg'
+      // })
+
+      // let image = responseJson.data.image
+      // setImage(image)
+
+      // console.log('imge444', image, 'ext', ext)
+      
+      // setImage({
+      //   image: image
+      // })
+      
+      // setImage({
+      //   image: image.path
+      // })
+      // // console.log('responseJsonUpdateProfile---', responseJson.data);
+      // let image = responseJson.data.image;
+
+      // console.log('Image-----//', {image: image});
+
+    } catch (error) {
+      console.log('errors Image', error);
+    }
+  };
+
+// const  sendImages = ()=> {
+//   // const image= "data:image/jpeg;base64,"
+//     const url = "https://nextstageksa.com/cards/api/user/update";
+//   return fetch(url, {
+//       method: "POST",
+//       headers: {
+//         Accept: "application/json",
+//         "Content-Type": "application/json"
+//       },
+//       body: JSON.stringify({
+//         // image: image
+//       })
+    
+
+      
+//     }).catch(error => {
+//       console.warn(error);
+//     });
+//   }
+
+// const  updatePicture = async data => {
+//   // const image= "data:image/jpeg;base64,"
+//   console.log('DataData', data)
+//     const url = "https://nextstageksa.com/cards/api/user/update";
+//   return fetch(url, {
+//       method: "POST",
+//       headers: {
+//         Accept: "application/json",
+//         "Content-Type": "application/json"
+//       },
+//       body: JSON.stringify(data)
+  
+    
+
+      
+//     }).catch(error => {
+//       console.warn(error);
+//     });
+//   }
+
+
+
+
+
 
   const textInputChange = val => {
     setData({
@@ -104,13 +210,14 @@ const EditProfileScreen = () => {
 
   useEffect(() => {
     fetchEditProfile();
+    updatePicture()
+    // sendImages()
+   
   }, []);
 
  
 
-  const [image, setImage] = useState(
-    'https://api.adorable.io/avatars/80/abott@adorable.png',
-  );
+  const [image, setImage] = useState('');
   const {colors} = useTheme();
 
   const takePhotoFromCamera = () => {
@@ -126,17 +233,90 @@ const EditProfileScreen = () => {
     });
   };
 
-  const choosePhotoFromLibrary = () => {
+  const choosePhotoFromLibrary = async () => {
     ImagePicker.openPicker({
       width: 300,
       height: 300,
       cropping: true,
       compressImageQuality: 0.7,
     }).then(image => {
-      console.log(image);
-      setImage(image.path);
+    
+
+        
+      console.log('image ******', image.path)
+    
+      // setImagebase(image.path);
+   
+      // console.log('ImageBASE', imagebase)
+    //  setImage({
+    //    image : image.path
+    //  })
+    setImage(image.path)
+    // setUpdateImage(image.path)
+      
       this.bs.current.snapTo(1);
-    });
+    
+ 
+
+    })
+    // .then(async()=>{
+    //     await console.log('imageBase64', image )
+    //         const result = await RNFetchBlob.fs.readFile( image, 'base64');
+    //   console.log('MustafBase64', result)
+
+
+    // })
+    // .then(async()=>{
+    //   console.log('imageBase64', image )
+
+    //   const result = await RNFetchBlob.fs.readFile( image, 'base64');
+    //   console.log('MustafBase64', result)
+
+    // })
+    
+ 
+    // console.log('base64', result)
+    // await  setImage(result)
+    
+       console.log('imageBase64', image )
+    const result = await RNFetchBlob.fs.readFile( image, 'base64');
+    await setImage(result)
+    // await  setImage({
+    //   image: result,
+    //   exit: 'image/jpg'
+      
+    // })
+    // await setImage(result)
+    // await setUpdateImage({
+    //   image: result,
+    //   ext: 'image/jpg'
+    // })
+
+       console.log('MustafBase64', result)
+
+      //  await setUpdateImage({
+      //    image: result,
+      //    ext: 'image/jpg'
+      //  })
+
+       console.log('updateImage', result)
+
+    const data = {
+      image : result,
+      ext: 'jpg'
+    }
+
+    // await setUpdateImage({
+    //   image: data.image,
+    //   ext: data.ext
+    // })
+    // console.log('updateImage', updateImage)
+
+
+
+    console.log('Data Image', data.image)
+    await updatePicture(data)
+ 
   };
 
   renderInner = () => (
@@ -145,11 +325,11 @@ const EditProfileScreen = () => {
         <Text style={styles.panelTitle}>Upload Photo</Text>
         <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
       </View>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.panelButton}
         onPress={takePhotoFromCamera}>
         <Text style={styles.panelButtonTitle}>Take Photo</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity
         style={styles.panelButton}
         onPress={choosePhotoFromLibrary}>

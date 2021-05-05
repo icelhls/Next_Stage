@@ -30,6 +30,9 @@ const SettingsScreen = ({navigation}) => {
  
   });
 
+  const [image, setImage] = useState('');
+
+
   const fetchSettings = async () => {
     try {
       api_token = await AsyncStorage.getItem('api_token')
@@ -59,7 +62,32 @@ const SettingsScreen = ({navigation}) => {
   };
   useEffect(() => {
     fetchSettings();
+    fetchImage()
   }, []);
+
+  const fetchImage = async () => {
+    try {
+      api_token = await AsyncStorage.getItem('api_token')
+      let response = await fetch(
+       url,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+      let responseJson = await response.json();
+      console.log('responseUserSettings--', responseJson.user);
+      let image = responseJson.user.image
+      console.log('image Settings', image)
+      setImage(image)
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 
 
@@ -72,7 +100,8 @@ const SettingsScreen = ({navigation}) => {
       <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
           <Avatar
-            source={require('../assets/images/profile.jpg')}
+            // source={require('../assets/images/profile.jpg')}
+            source ={{uri: image}}
             size={80}
           />
           <View style={{marginLeft: 20}}>
@@ -101,12 +130,12 @@ const SettingsScreen = ({navigation}) => {
             <Text style={styles.menuItemText}>Profile</Text>
           </View>
         </TouchableRipple>
-      <TouchableRipple onPress={() => navigation.navigate('Change')}>
+      {/* <TouchableRipple onPress={() => navigation.navigate('Change')}>
           <View style={styles.menuItem}>
             <Icon name="lock-outline" color="#7e102c" size={30}/>
             <Text style={styles.menuItemText}>Change Password</Text>
           </View>
-        </TouchableRipple>
+        </TouchableRipple> */}
       <TouchableRipple onPress={() => navigation.navigate('Purchase')}>
           <View style={styles.menuItem}>
             <Icon name="cart-outline" color="#7e102c" size={30}/>
@@ -125,12 +154,12 @@ const SettingsScreen = ({navigation}) => {
             <Text style={styles.menuItemText}>Privacy and Policy</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={()=>navigation.navigate('Contact')}>
+        {/* <TouchableRipple onPress={()=>navigation.navigate('Contact')}>
           <View style={styles.menuItem}>
             <Icon name="email-outline" color="#7e102c" size={30}/>
             <Text style={styles.menuItemText}>Contact Us</Text>
           </View>
-        </TouchableRipple>
+        </TouchableRipple> */}
         {/* <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
             <Icon name="account-check-outline" color="#FF6347" size={25}/>
