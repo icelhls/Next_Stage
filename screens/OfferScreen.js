@@ -15,6 +15,7 @@ import {ListItem, Avatar} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SmallCard from '../card/SmallCard';
 import SubCateCard from '../card/SubCateCard';
+import DiscountCard from '../card/DiscountCard'
 
 const OfferScreen = () => {
   // const [data, setData] = useState({

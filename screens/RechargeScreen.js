@@ -8,8 +8,8 @@ import {
   StyleSheet,
 } from 'react-native';
 
+import RNFetchBlob from 'rn-fetch-blob';
 import {useTheme, Headline} from 'react-native-paper';
-
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
@@ -22,16 +22,19 @@ import ImagePicker from 'react-native-image-crop-picker';
 const url = 'http://nextstageksa.com/cards/api/user/update';
 import {useNavigation} from '@react-navigation/native';
 const RechargeScreen = () => {
+  const navigation = useNavigation();
   const [data, setData] = React.useState({
-    image: '',
+    // image: '',
     // name_en: '',
     // phone: '',
     amount: '',
   });
- 
-  const navigation = useNavigation();
 
-  const fetchEditProfile = async newdata => {
+  const [image, setImage] = useState('');
+
+  const handleRecharge = async newdata => {
+    let amount = newdata.amount
+    console.log('amount', amount)
     try {
       api_token = await AsyncStorage.getItem('api_token');
       let response = await fetch(url, {
@@ -41,31 +44,26 @@ const RechargeScreen = () => {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newdata),
+        body: JSON.stringify({
+          amount: amount
+        }),
       });
 
       let responseJson = await response.json();
-      // console.log('responseJsonUpdateProfile---', responseJson.data);
-      let data = responseJson.data;
-      console.log('Data', data);
-      console.log('MustafProfile', {name_en: data.name_en});
-      setData({
-        image: data.image,
-        // name_en: data.name_en,
-        // phone: data.phone,
-        amount: data.amount,
-      });
+      console.log('responseJsonHandleResponse---', responseJson);
+      
+      // let data = responseJson.data;
+      // console.log('Data', data);
+      // console.log('Handle ReCharge', {name_en: data.name_en});
+      // setData({
+      //   // name_en: data.name_en,
+      //   // phone: data.phone,
+      //   amount: data.amount,
+      // });
     } catch (error) {
       console.log('errors profile', error);
     }
   };
-
-  // const imageChange = val => {
-  //   setData({
-  //     ...data,
-  //     image: val,
-  //   });
-  // };
 
   // const textInputChange = val => {
   //   setData({
@@ -94,8 +92,6 @@ const RechargeScreen = () => {
     });
   };
 
-  
-
   // const changeEmailInput = val => {
   //   setData({
   //     ...data,
@@ -105,54 +101,86 @@ const RechargeScreen = () => {
 
   const handleSubmit = () => {
     const newData = {
-      image: data.image,
+      // image: data.image,
       // name_en: data.name_en,
       // trade_name: data.trade_name,
       // phone: data.phone,
       // email: data.email,
-      amount: data.amount
+      amount: data.amount,
     };
     console.log('newdata', newData);
-    fetchEditProfile(newData);
-    navigation.navigate('Home')
-   
+    handleRecharge(newData);
+    navigation.navigate('Home');
   };
+
+  
+  const updatePicture = async data => {
+    console.log('datadata', data)
+    let image = data.image
+    let ext = data.ext
+    console.log('image', image, 'ext', ext)
+    console.log(image, ext)
+  
+    
+    try {
+      api_token = await AsyncStorage.getItem('api_token');
+      let response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + api_token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          image: image,
+          ext: ext
+
+        }),
+      });
+
+      let responseJson = await response.json();
+      console.log('responseReCHARGE@@@@@@', responseJson)
+     
+    } catch (error) {
+      console.log('errors Image', error);
+    }
+  };
+
 
   useEffect(() => {
-    fetchEditProfile();
+    handleRecharge();
+    updatePicture();
   }, []);
 
- 
-
-  const [image, setImage] = useState(
-    'https://api.adorable.io/avatars/80/abott@adorable.png',
-  );
   const {colors} = useTheme();
 
-  const takePhotoFromCamera = () => {
-    ImagePicker.openCamera({
-      compressImageMaxWidth: 300,
-      compressImageMaxHeight: 300,
-      cropping: true,
-      compressImageQuality: 0.7,
-    }).then(image => {
-      console.log(image);
-      setImage(image.path);
-      this.bs.current.snapTo(1);
-    });
-  };
-
-  const choosePhotoFromLibrary = () => {
+  const choosePhotoFromLibrary = async () => {
     ImagePicker.openPicker({
       width: 300,
       height: 300,
       cropping: true,
       compressImageQuality: 0.7,
     }).then(image => {
-      console.log(image);
+      console.log('image ******', image.path);
+
       setImage(image.path);
+     
+
       this.bs.current.snapTo(1);
     });
+
+    console.log('imageBase64', image);
+    const result = await RNFetchBlob.fs.readFile(image, 'base64');
+    await setImage(result);
+
+    console.log('ImageBase64', result);
+    const data = {
+      image: result,
+      ext: 'jpg',
+    };
+
+    console.log('Data Image', data.image);
+    await updatePicture(data);
   };
 
   renderInner = () => (
@@ -161,11 +189,6 @@ const RechargeScreen = () => {
         <Text style={styles.panelTitle}>Upload Photo</Text>
         <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
       </View>
-      <TouchableOpacity
-        style={styles.panelButton}
-        onPress={takePhotoFromCamera}>
-        <Text style={styles.panelButtonTitle}>Take Photo</Text>
-      </TouchableOpacity>
       <TouchableOpacity
         style={styles.panelButton}
         onPress={choosePhotoFromLibrary}>
@@ -207,7 +230,7 @@ const RechargeScreen = () => {
           opacity: Animated.add(0.1, Animated.multiply(this.fall, 1.0)),
         }}>
         <View style={{alignItems: 'center'}}>
-        <TouchableOpacity onPress={() => this.bs.current.snapTo(0)}>
+          <TouchableOpacity onPress={() => this.bs.current.snapTo(0)}>
             <View
               style={{
                 height: 100,
@@ -305,6 +328,7 @@ const RechargeScreen = () => {
             placeholder="Amount"
             placeholderTextColor="#666666"
             // keyboardType="email-address"
+            value ={data.amount}
             autoCorrect={false}
             // value={data.email}
             onChangeText={val => changeAmountInput(val)}
