@@ -11,11 +11,14 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Card, ListItem, Icon} from 'react-native-elements';
+import {useNavigation} from '@react-navigation/native';
 
 // const url = 'http://nextstageksa.com/cards/api/sub/byMainId'
 const SubMainScreen = ({route}) => {
   const [subcategories, setCategories] = useState([]);
   const id = route.params;
+  const navigation = useNavigation();
+  const [on, setOn] = useState(true)
 
   const fetchCategories = async () => {
     try {
@@ -33,6 +36,7 @@ const SubMainScreen = ({route}) => {
         },
       );
       let responseJson = await response.json();
+
       console.log('responseSubCategories--', responseJson);
       let subcategories = responseJson.subcategories;
       setCategories(subcategories);
@@ -40,8 +44,46 @@ const SubMainScreen = ({route}) => {
       console.log(error);
     }
   };
+  
+ 
+  const renderItem = ({item})=>{
+    const type = item.category.type === 1
+    console.log('Type', type)
+ 
+
+    return(
+   
+      
+      <TouchableOpacity
+      onPress={ type ? () => navigation.navigate('Order', {id: item.id}): null}>
+      <Card>
+        {/* <Card.Divider/> */}
+
+        <View style={styles.user}>
+          <Image
+
+            style={styles.image}
+            resizeMode="cover"
+            source={{
+              uri: `https://nextstageksa.com/cards/storage/uploades/${
+                item.image
+              }`,
+            }}
+          />
+        </View>
+
+        <Card.Title>Order Now</Card.Title>
+      </Card>
+    </TouchableOpacity>
+
+    )
+
+  }
+
+
   useEffect(() => {
     fetchCategories();
+
   }, []);
 
   return (
@@ -52,28 +94,7 @@ const SubMainScreen = ({route}) => {
             <FlatList
               data={subcategories}
               keyExtractor={item => item.id}
-              renderItem={({item}) => (
-                <TouchableOpacity
-                  onPress={() => console.log('you clicked subcategories')}>
-                  <Card>
-                    {/* <Card.Divider/> */}
-
-                    <View style={styles.user}>
-                      <Image
-                        style={styles.image}
-                        resizeMode="cover"
-                        source={{
-                          uri: `https://nextstageksa.com/cards/storage/uploades/${
-                            item.image
-                          }`,
-                        }}
-                      />
-                    </View>
-
-                    <Card.Title>Order Now</Card.Title>
-                  </Card>
-                </TouchableOpacity>
-              )}
+              renderItem={renderItem}
               numColumns={2}
             />
           </View>
