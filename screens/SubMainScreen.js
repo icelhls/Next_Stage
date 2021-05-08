@@ -18,13 +18,14 @@ const SubMainScreen = ({route}) => {
   const [subcategories, setCategories] = useState([]);
   const id = route.params;
   const navigation = useNavigation();
-  const [on, setOn] = useState(true)
+
 
   const fetchCategories = async () => {
     try {
       let data = {
         id: id,
       };
+      console.log('data submanin', data)
       let response = await fetch(
         `http://nextstageksa.com/cards/api/sub/byMainId`,
         {

@@ -7,38 +7,131 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-// import {createStackNavigator} from '@react-navigation/stack';
+
 import {useNavigation} from '@react-navigation/native';
-const url = 'https://nextstageksa.com/cards/api/category/index';
+// const url = 'https://nextstageksa.com/cards/api/category/index';
 // const url = 'https://nextstageksa.com/cards/api/orders/myOrders' //orders empty
+// const url = 'http://192.168.1.46:8000/api/orders/type'
 import SubCateCard from '../card/SubCateCard';
 import Title from '../card/Title';
+import AsyncStorage from '@react-native-community/async-storage';
 
-const OrderScreen = () => {
-  const navigation = useNavigation();
+const OrderScreen = ({route}) => {
+
   const [orders, setOrders] = useState([]);
+  const [screens, setScreens] = useState ({
+    screen1: '',
+    screen2: '',
+    screen3: ''
 
-  const fetchOrders = async () => {
+  })
+  const id = route.params;
+  const navigation = useNavigation();
+  // console.log('ID**** orderNow', id)
+ 
+
+  // const fetchOrderNow = async () => {
+  //   try {
+  //     // let data = {
+  //     //   id: id,
+  //     // };
+  //      console.log('ID**** orderNow', id)
+  //       let data = {
+  //         id: id
+  //      }
+  //      console.log('data id2', data.id)
+
+   
+  //     api_token = await AsyncStorage.getItem('api_token');
+  //     let response = await fetch(
+  //       `http://nextstageksa.com/cards/api/orders/type`,
+  //       {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json;charset=utf-8',
+  //         },
+  //         body: JSON.stringify(data),
+  //       },
+  //     );
+
+  //     let responseJson = await response.json();
+  //     // let subCategories = await response.json()
+
+  //     console.log('responseJsonOrderNow', responseJson)
+  //     // if(mainsubs || subCategories){
+
+  //     //   let mainsubs = responseJson.mainsubs
+  //     //   let subCategories =  responseJson.subCategories;
+  //     //   console.log('mainsubs', mainsubs)
+  //     //   console.log('subCategories', subCategories)
+  //     //   setCategories(subCategories)
+  //     //   setMainsubs(mainsubs)
+      
+  //     //   // setMainsubs(mainsubs)
+  //     //   // return navigation.navigate('Profile')
+
+  //     // }else {
+  //     //   let subCategories =  responseJson.subCategories;
+  //     //   console.log('subCategories', subCategories)
+  //     //   setCategories(subCategories)
+      
+ 
+
+  //     // } 
+  //   } catch (error) {
+  //     console.log('  Wrong response OrderNow', error);
+  //   }
+  // };
+
+
+  const fetchCategories10 = async () => {
     try {
-      let response = await fetch(url);
+      let data = {
+        id: id,
+      };
+      console.log('data submanin', data)
+      api_token = await AsyncStorage.getItem('api_token');
+      let response = await fetch(
+        `http://nextstageksa.com/cards/api/orders/type`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+          },
+          body: JSON.stringify(data),
+        },
+      );
       let responseJson = await response.json();
-      // console.log('responseCategpries--', responseJson)
-      let orders = responseJson.categories;
-      console.log('ResponseJsonOrders', orders);
-      // setCategories(categories)
-      setOrders(orders);
+
+      console.log('responseOrderNowwww--', responseJson);
+      // let subcategories = responseJson.subcategories;
+      // setCategories(subcategories);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    fetchOrders();
+    fetchCategories10();
   }, []);
 
   return (
     <>
       <View style={styles.container}>
-        <FlatList
+        <TouchableOpacity onPress={()=>navigation.navigate('Pubg', {id: id})}>
+          <Text>Pubg</Text>
+
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('PubgInt', {id: id})}>
+          <Text>Pubg International</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={()=>navigation.navigate('FreeFire', {id: id})}>
+          <Text>Free Fire</Text>
+        </TouchableOpacity>
+
+
+
+        {/* <FlatList
           data={orders}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
@@ -50,7 +143,7 @@ const OrderScreen = () => {
             </TouchableOpacity>
           )}
           numColumns={2}
-        />
+        /> */}
       </View>
     </>
   );

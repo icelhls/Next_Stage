@@ -29,6 +29,9 @@ import PaymentScreen from './PaymentScreen';
 import OrderScreen from './OrderScreen'
 import CardDetailsScreen from './CardDetailsScreen'
 import SubMainScreen from './SubMainScreen'
+import PubgKoreaScreen from './PubgKoreaScreen'
+import PubgInternatiolScreen from './PubgInternatiolScreen'
+import FreeFireScreen from './FreeFireScreen'
 
 
 // Create Stack
@@ -446,6 +449,81 @@ const HomeStackScreen = ({navigation}) => (
       component={EditProfileScreen}
       options={{
         title: 'Edit Profile',
+        headerLeft: () => (
+          <Icon.Button
+            name="menu"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
+          />
+        ),
+      }}
+    />
+
+<HomeStack.Screen
+      name="Pubg"
+      component={PubgKoreaScreen}
+      options={{
+        title: 'PUBG',
+        headerLeft: () => (
+          <Icon.Button
+            name="menu"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
+          />
+        ),
+      }}
+    />
+
+<HomeStack.Screen
+      name="PubgInt"
+      component={PubgInternatiolScreen}
+      options={{
+        title: 'PUBG',
+        headerLeft: () => (
+          <Icon.Button
+            name="menu"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
+          />
+        ),
+      }}
+    />
+
+<HomeStack.Screen
+      name="FreeFire"
+      component={FreeFireScreen}
+      options={{
+        title: 'Free Fire',
         headerLeft: () => (
           <Icon.Button
             name="menu"
