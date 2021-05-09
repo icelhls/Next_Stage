@@ -29,7 +29,7 @@ const RechargeScreen = () => {
     // phone: '',
     amount: '',
   });
-
+const [imageUrl,setImageUrl]= useState('')
   const [image, setImage] = useState('');
 
   const handleRecharge = async newdata => {
@@ -115,25 +115,24 @@ const RechargeScreen = () => {
 
   
   const updatePicture = async data => {
-    console.log('datadata', data)
-    let image = data.image
-    let ext = data.ext
-    console.log('image', image, 'ext', ext)
-    console.log(image, ext)
+  console.log('check base 64',data)
+   
   
     
     try {
-      api_token = await AsyncStorage.getItem('api_token');
-      let response = await fetch(url, {
+  
+     const  api_token = await AsyncStorage.getItem('api_token');
+      let response = await fetch('http://192.168.1.46:8000/api/charge/recharge', {
         method: 'POST',
+        mode:'no-cors',
         headers: {
           Authorization: 'Bearer ' + api_token,
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          image: image,
-          ext: ext
+          image:data.image,
+          ext: data.ext
 
         }),
       });
@@ -155,31 +154,28 @@ const RechargeScreen = () => {
   const {colors} = useTheme();
 
   const choosePhotoFromLibrary = async () => {
-    ImagePicker.openPicker({
+   const file= await ImagePicker.openPicker({
       width: 300,
       height: 300,
       cropping: true,
       compressImageQuality: 0.7,
-    }).then(image => {
-      console.log('image ******', image.path);
+    })
 
-      setImage(image.path);
-     
 
-      this.bs.current.snapTo(1);
-    });
+      console.log('imageBase', file);
+      const result = await RNFetchBlob.fs.readFile(file.path, 'base64');
+ 
+  console.log('result',result)
 
-    console.log('imageBase64', image);
-    const result = await RNFetchBlob.fs.readFile(image, 'base64');
-    await setImage(result);
+   const data = {
+image:result ,
+ext:'jpj'
 
-    console.log('ImageBase64', result);
-    const data = {
-      image: result,
-      ext: 'jpg',
-    };
+   }
+   
+    
 
-    console.log('Data Image', data.image);
+   
     await updatePicture(data);
   };
 
