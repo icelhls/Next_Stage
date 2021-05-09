@@ -32,6 +32,8 @@ import SubMainScreen from './SubMainScreen'
 import PubgKoreaScreen from './PubgKoreaScreen'
 import PubgInternatiolScreen from './PubgInternatiolScreen'
 import FreeFireScreen from './FreeFireScreen'
+import OrderScreen4 from './OrderScreen4'
+import OrderScreen5 from './OrderScreen5'
 
 
 // Create Stack
@@ -498,7 +500,7 @@ const HomeStackScreen = ({navigation}) => (
       name="PubgInt"
       component={PubgInternatiolScreen}
       options={{
-        title: 'PUBG',
+        title: 'Order Details',
         headerLeft: () => (
           <Icon.Button
             name="menu"
@@ -523,7 +525,57 @@ const HomeStackScreen = ({navigation}) => (
       name="FreeFire"
       component={FreeFireScreen}
       options={{
-        title: 'Free Fire',
+        title: 'Order Details',
+        headerLeft: () => (
+          <Icon.Button
+            name="menu"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
+          />
+        ),
+      }}
+    />
+
+<HomeStack.Screen
+      name="Screen4"
+      component={FreeFireScreen}
+      options={{
+        title: 'Order Details',
+        headerLeft: () => (
+          <Icon.Button
+            name="menu"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
+          />
+        ),
+      }}
+    />
+
+<HomeStack.Screen
+      name="Screen5"
+      component={FreeFireScreen}
+      options={{
+        title: 'Order Details',
         headerLeft: () => (
           <Icon.Button
             name="menu"

@@ -54,7 +54,7 @@ export default function PubgKoreaScreen() {
   return (
     <View>
       <Headline style={{textAlign: 'center', fontSize: 30, marginTop: 30}}>
-        - Order details-
+        - Order details 2-
       </Headline>
       <Headline style={{textAlign: 'center', fontSize: 20, marginTop: 30}}>
         - Facebook account or player Email (required) -

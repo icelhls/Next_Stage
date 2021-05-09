@@ -21,68 +21,39 @@ import AsyncStorage from '@react-native-community/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
 const url = 'http://nextstageksa.com/cards/api/user/update';
 import {useNavigation} from '@react-navigation/native';
+import { Button } from 'react-native';
 const RechargeScreen = () => {
   const navigation = useNavigation();
   const [data, setData] = React.useState({
-    // image: '',
-    // name_en: '',
-    // phone: '',
     amount: '',
   });
-const [imageUrl,setImageUrl]= useState('')
+
+  const [amount, setAmount] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
   const [image, setImage] = useState('');
 
-  const handleRecharge = async newdata => {
-    let amount = newdata.amount
-    console.log('amount', amount)
-    try {
-      api_token = await AsyncStorage.getItem('api_token');
-      let response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          Authorization: 'Bearer ' + api_token,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount: amount
-        }),
-      });
+  // const handleRecharge = async newdata => {
+  //   let amount = newdata.amount;
+  //   console.log('amount', amount);
+  //   try {
+  //     api_token = await AsyncStorage.getItem('api_token');
+  //     let response = await fetch('http://192.168.1.46:8000/api/charge/recharge', {
+  //       method: 'POST',
+  //       headers: {
+  //         Authorization: 'Bearer ' + api_token,
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         amount: amount,
+  //       }),
+  //     });
 
-      let responseJson = await response.json();
-      console.log('responseJsonHandleResponse---', responseJson);
-      
-      // let data = responseJson.data;
-      // console.log('Data', data);
-      // console.log('Handle ReCharge', {name_en: data.name_en});
-      // setData({
-      //   // name_en: data.name_en,
-      //   // phone: data.phone,
-      //   amount: data.amount,
-      // });
-    } catch (error) {
-      console.log('errors profile', error);
-    }
-  };
-
-  // const textInputChange = val => {
-  //   setData({
-  //     ...data,
-  //     name_en: val,
-  //   });
-  // };
-
-  // const changeTradeInput = val => {
-  //   setData({
-  //     ...data,
-  //     trade_name: val,
-  //   });
-  // };
-  // const changePhoneInput = val => {
-  //   setData({
-  //     ...data,
-  //     phone: val,
-  //   });
+  //     let responseJson = await response.json();
+  //     console.log('responseJsonHandleResponse---', responseJson);
+  //   } catch (error) {
+  //     console.log('errors profile', error);
+  //   }
   // };
 
   const changeAmountInput = val => {
@@ -92,90 +63,76 @@ const [imageUrl,setImageUrl]= useState('')
     });
   };
 
-  // const changeEmailInput = val => {
-  //   setData({
-  //     ...data,
-  //     email: val,
-  //   });
+  // const handleSubmit = () => {
+  //   const newData = {
+  //     amount: data.amount,
+  //   };
+  //   console.log('newdata', newData);
+  //   handleRecharge(newData);
+  //   navigation.navigate('Home');
   // };
 
-  const handleSubmit = () => {
-    const newData = {
-      // image: data.image,
-      // name_en: data.name_en,
-      // trade_name: data.trade_name,
-      // phone: data.phone,
-      // email: data.email,
-      amount: data.amount,
-    };
-    console.log('newdata', newData);
-    handleRecharge(newData);
-    navigation.navigate('Home');
-  };
-
-  
   const updatePicture = async data => {
-  console.log('check base 64',data)
-   
-  
-    
-    try {
-  
-     const  api_token = await AsyncStorage.getItem('api_token');
-      let response = await fetch('http://192.168.1.46:8000/api/charge/recharge', {
-        method: 'POST',
-        mode:'no-cors',
-        headers: {
-          Authorization: 'Bearer ' + api_token,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          image:data.image,
-          ext: data.ext
+    console.log('check base 64', data);
 
-        }),
-      });
+    try {
+      const api_token = await AsyncStorage.getItem('api_token');
+      let response = await fetch(
+        'http://192.168.1.46:8000/api/charge/recharge',
+        {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            image: data.image,
+            ext: data.ext,
+            amount: data.amount
+          
+          }),
+        },
+      );
 
       let responseJson = await response.json();
-      console.log('responseReCHARGE@@@@@@', responseJson)
-     
+      setAmount('')
+      console.log('responseReCHARGE@@@@@@', responseJson);
+      let image = responseJson.chargeData.image
+      setImage(image)
+      navigation.navigate('Home')
     } catch (error) {
       console.log('errors Image', error);
     }
   };
 
-
   useEffect(() => {
-    handleRecharge();
+    // handleRecharge();
     updatePicture();
   }, []);
 
   const {colors} = useTheme();
 
   const choosePhotoFromLibrary = async () => {
-   const file= await ImagePicker.openPicker({
+    const file = await ImagePicker.openPicker({
       width: 300,
       height: 300,
       cropping: true,
       compressImageQuality: 0.7,
-    })
+    });
 
+    console.log('imageBase', file);
+    const result = await RNFetchBlob.fs.readFile(file.path, 'base64');
 
-      console.log('imageBase', file);
-      const result = await RNFetchBlob.fs.readFile(file.path, 'base64');
- 
-  console.log('result',result)
+    console.log('result', result);
 
-   const data = {
-image:result ,
-ext:'jpj'
+    const data = {
+      image: result,
+      ext: 'jpj',
+      amount: amount
+    };
 
-   }
-   
-    
-
-   
     await updatePicture(data);
   };
 
@@ -185,11 +142,11 @@ ext:'jpj'
         <Text style={styles.panelTitle}>Upload Photo</Text>
         <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
       </View>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.panelButton}
         onPress={choosePhotoFromLibrary}>
         <Text style={styles.panelButtonTitle}>Choose From Library</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity
         style={styles.panelButton}
         onPress={() => this.bs.current.snapTo(1)}>
@@ -235,7 +192,7 @@ ext:'jpj'
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <ImageBackground
+              {/* <ImageBackground
                 source={{
                   uri: image,
                 }}
@@ -261,11 +218,11 @@ ext:'jpj'
                     }}
                   />
                 </View>
-              </ImageBackground>
+              </ImageBackground> */}
             </View>
           </TouchableOpacity>
           <Text style={{marginTop: 10, fontSize: 18, fontWeight: 'bold'}}>
-            {/* {data.name_en} */} Attachment
+            {/* {data.name_en} */} Recharge Account
           </Text>
         </View>
 
@@ -318,16 +275,22 @@ ext:'jpj'
             ]}
           />
         </View> */}
+        {/* <Button
+        title="Choose photo"
+        onPress={choosePhotoFromLibrary}
+        style={{width: 5, height: 50}}
+
+         /> */}
         <View style={styles.action}>
           <FontAwesome name="money" color={colors.text} size={20} />
           <TextInput
             placeholder="Amount"
             placeholderTextColor="#666666"
             // keyboardType="email-address"
-            value ={data.amount}
+            value={amount}
             autoCorrect={false}
-            // value={data.email}
-            onChangeText={val => changeAmountInput(val)}
+            onChangeText={setAmount}
+            keyboardType="numeric"
             style={[
               styles.textInput,
               {
@@ -366,10 +329,8 @@ ext:'jpj'
         </View> */}
         <TouchableOpacity
           style={styles.commandButton}
-          onPress={() =>
-            handleSubmit(data.image, data.name_en, data.phone, data.amount)
-          }>
-          <Text style={styles.panelButtonTitle}>PROCEED</Text>
+          onPress={ choosePhotoFromLibrary}>
+          <Text style={styles.panelButtonTitle}>Choose Photo</Text>
         </TouchableOpacity>
       </Animated.View>
     </View>

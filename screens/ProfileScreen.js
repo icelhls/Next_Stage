@@ -93,9 +93,9 @@ const ProfileScreen = ({navigation}) => {
       // setUpdateImage({
       //   image: updateImage.image,
       //   ext: 'image/jpg'
-      // })
+      // })j
 
-      setImage(image)
+      // setImage(image)
       // setData(data)
     } catch (error) {
       console.log(error);
@@ -180,10 +180,10 @@ const fetchOrders = async () => {
        <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
           <Avatar
-            // source={require('../assets/images/profile.jpg')}
-            source={{
-              uri: image
-            }}
+            source={require('../assets/images/profile.jpg')}
+            // source={{
+            //   uri: image
+            // }}
             size={80}
           />
           <View style={{marginLeft: 20}}>

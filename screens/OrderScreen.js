@@ -90,13 +90,15 @@ const OrderScreen = ({route}) => {
         id: id,
       };
       console.log('data submanin', data)
-      api_token = await AsyncStorage.getItem('api_token');
+      const api_token = await AsyncStorage.getItem('api_token');
       let response = await fetch(
-        `http://nextstageksa.com/cards/api/orders/type`,
+        `http://192.168.1.46:8000/api/orders/type`,
         {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json;charset=utf-8',
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
         },
@@ -104,6 +106,31 @@ const OrderScreen = ({route}) => {
       let responseJson = await response.json();
 
       console.log('responseOrderNowwww--', responseJson);
+       let screen = responseJson.screen
+       console.log('screen1', screen)
+       if(screen === 1){
+         return navigation.navigate('Pubg', {id: id})
+
+       }else if(screen === 2){
+         return navigation.navigate('PubgInt', {id: id})
+
+       }else if(screen === 3){
+         return navigation.navigate('FreeFire', {id: id})
+       }else if(screen === 4){
+         return navigation.navigate('Screen4',{id: id} )
+
+       }else if(screen === 5){
+         return navigation.navigate('Screen5', {id: id})
+
+       }else{
+         return navigation.navigate('Order', {id: id})
+       }
+
+      //  }else if(screen === 4){
+      //    return navigation.navigate('')
+
+      //  }
+     
       // let subcategories = responseJson.subcategories;
       // setCategories(subcategories);
     } catch (error) {
@@ -117,17 +144,17 @@ const OrderScreen = ({route}) => {
   return (
     <>
       <View style={styles.container}>
-        <TouchableOpacity onPress={()=>navigation.navigate('Pubg', {id: id})}>
+        {/* <TouchableOpacity onPress={  ()=>navigation.navigate('Pubg', {id: id})}>
           <Text>Pubg</Text>
 
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('PubgInt', {id: id})}>
+        </TouchableOpacity> */}
+        {/* <TouchableOpacity onPress={()=>navigation.navigate('PubgInt', {id: id})}>
           <Text>Pubg International</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={()=>navigation.navigate('FreeFire', {id: id})}>
           <Text>Free Fire</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
 
 
