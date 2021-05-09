@@ -78,7 +78,7 @@ const RechargeScreen = () => {
     try {
       const api_token = await AsyncStorage.getItem('api_token');
       let response = await fetch(
-        'http://192.168.1.46:8000/api/charge/recharge',
+        'http://nextstageksa.com/cards/api/charge/recharge',
         {
           method: 'POST',
           mode: 'no-cors',

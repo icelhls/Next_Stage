@@ -92,7 +92,7 @@ const OrderScreen = ({route}) => {
       console.log('data submanin', data)
       const api_token = await AsyncStorage.getItem('api_token');
       let response = await fetch(
-        `http://192.168.1.46:8000/api/orders/type`,
+        `http://nextstageksa.com/cards/api/orders/chick`,
         {
           method: 'POST',
           headers: {

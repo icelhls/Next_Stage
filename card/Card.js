@@ -27,10 +27,10 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     borderTopLeftRadius: 45,
     borderBottomRightRadius: 30,
-    width: width / 2.5,
+    width: width / 2.2,
     // marginRight: 5,
     height: height/4.,
-    marginLeft: 25
+    marginLeft: 10
 
   },
   cardContent: {
