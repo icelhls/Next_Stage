@@ -82,12 +82,12 @@ export default function PubgKoreaScreen() {
         autoCapitalize="none"
         onChangeText={val => textChange(val)}
       />
-      <Headline style={{textAlign: 'center', fontSize: 20, marginTop: 30}}>
+      {/* <Headline style={{textAlign: 'center', fontSize: 20, marginTop: 30}}>
         - Password (required) -
-      </Headline>
+      </Headline> */}
 
       <TextInput
-        placeholder="Your Password"
+        placeholder=" Password (required)"
         secureTextEntry={data.secureTextEntry ? true : false}
         style={styles.input}
         autoCapitalize="none"
@@ -119,6 +119,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#7e102c',
     alignItems: 'center',
     marginTop: 10,
+    width: 150,
+    alignSelf: 'center'
   },
   panelButtonTitle: {
     fontSize: 17,

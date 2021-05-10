@@ -11,6 +11,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 // const url = 'https://nextstageksa.com/cards/api/category/index';
 // const url = 'http://192.168.1.46:8000/api/orders/type'
+// const url = `http://nextstageksa.com/cards/api/orders/chick` // order api server
 import SubCateCard from '../card/SubCateCard';
 import Title from '../card/Title';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -35,7 +36,7 @@ const OrderScreen = ({route}) => {
       console.log('data submanin', data)
       const api_token = await AsyncStorage.getItem('api_token');
       let response = await fetch(
-        `http://nextstageksa.com/cards/api/orders/chick`,
+        `http://192.168.1.46:8000/api/orders/type`,
         {
           method: 'POST',
           headers: {
@@ -49,30 +50,27 @@ const OrderScreen = ({route}) => {
       let responseJson = await response.json();
 
       console.log('responseOrderNowwww--', responseJson);
-      //  let screen = responseJson.screen
-      //  console.log('screen1', screen)
-      //  if(screen === 1){
-      //    return navigation.navigate('Pubg', {id: id})
+       let screen = responseJson.screen
+       console.log('screen1', screen)
+       if(screen === 1){
+         return navigation.navigate('Pubg', {id: id})
 
-      //  }else if(screen === 2){
-      //    return navigation.navigate('PubgInt', {id: id})
+       }else if(screen === 2){
+         return navigation.navigate('PubgInt', {id: id})
 
-      //  }else if(screen === 3){
-      //    return navigation.navigate('FreeFire', {id: id})
-      //  }else if(screen === 4){
-      //    return navigation.navigate('Screen4',{id: id} )
+       }else if(screen === 3){
+         return navigation.navigate('FreeFire', {id: id})
+       }else if(screen === 4){
+         return navigation.navigate('Screen4',{id: id} )
 
-      //  }else if(screen === 5){
-      //    return navigation.navigate('Screen5', {id: id})
+       }else if(screen === 5){
+         return navigation.navigate('Screen5', {id: id})
 
-      //  }else{
-      //    return navigation.navigate('Order', {id: id})
-      //  }
+       }else{
+         return navigation.navigate('Order', {id: id})
+       }
 
-      //  }else if(screen === 4){
-      //    return navigation.navigate('')
-
-      //  }
+       
      
       // let subcategories = responseJson.subcategories;
       // setCategories(subcategories);
@@ -87,7 +85,7 @@ const OrderScreen = ({route}) => {
   return (
     <>
       <View style={styles.container}>
-        <TouchableOpacity onPress={  ()=>navigation.navigate('Pubg', {id: id})}>
+        {/* <TouchableOpacity onPress={  ()=>navigation.navigate('Pubg', {id: id})}>
           <Text>Pubg</Text>
 
         </TouchableOpacity>
@@ -103,7 +101,7 @@ const OrderScreen = ({route}) => {
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>navigation.navigate('Screen5', {id: id})}>
           <Text>Screen 5</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
 
 

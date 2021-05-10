@@ -475,7 +475,7 @@ const HomeStackScreen = ({navigation}) => (
       name="Pubg"
       component={PubgKoreaScreen}
       options={{
-        title: 'PUBG',
+        title: 'Order Details',
         headerLeft: () => (
           <Icon.Button
             name="menu"
