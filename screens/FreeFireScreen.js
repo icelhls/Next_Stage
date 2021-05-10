@@ -53,7 +53,7 @@ export default function FreeFire() {
     return (
         <View>
           <Headline style={{textAlign: 'center', fontSize: 30, marginTop: 30}}>
-            - Order details 3-
+            - Order Details -
           </Headline>
           <Headline style={{textAlign: 'center', fontSize: 20, marginTop: 30}}>
             - Facebook account or player Email (required) -
@@ -66,16 +66,17 @@ export default function FreeFire() {
             <Picker.Item label="Player Email" value="email" />
           </Picker>
           <TextInput
+            placeholder="Facebook Or Player Email"
             style={styles.input}
             autoCapitalize="none"
             onChangeText={val => textChange(val)}
           />
-          <Headline style={{textAlign: 'center', fontSize: 20, marginTop: 30}}>
-            - Password (required) -
-          </Headline>
+          {/* <Headline style={{textAlign: 'center', fontSize: 20, marginTop: 30}}>
+            - Password (Required) -
+          </Headline> */}
     
           <TextInput
-            placeholder="Your Password"
+            placeholder="Password Required!!!!"
             secureTextEntry={data.secureTextEntry ? true : false}
             style={styles.input}
             autoCapitalize="none"
@@ -108,6 +109,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#7e102c',
     alignItems: 'center',
     marginTop: 10,
+    width: 150,
+    alignSelf: 'center'
   },
   panelButtonTitle: {
     fontSize: 17,

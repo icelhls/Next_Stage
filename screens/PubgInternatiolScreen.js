@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, TextInput, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import {
   Title,
@@ -9,11 +15,15 @@ import {
   Text,
 } from 'react-native-paper';
 import {Button} from 'react-native';
+import {SafeAreaView} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
 
 export default function PubgInternatiolScreen() {
-    const [selectedValue, setSelectedValue] = useState('java');
+  const [selectedValue, setSelectedValue] = useState('java');
   const [text, onChangeText] = React.useState('');
   const [Password, setPassword] = React.useState('');
+  const navigation = useNavigation();
 
   const [data, setData] = React.useState({
     name: '',
@@ -47,13 +57,25 @@ export default function PubgInternatiolScreen() {
     });
   };
 
-  const handleSubmit =()=>{
-      console.log('you submit pubg')
-  }
-    return (
+  const handleSubmit = () => {
+    if (data.name.length == 0 || data.password.length == 0) {
+      Alert.alert(
+        'Wrong Input!',
+        'Facebook or Password fields cannot be empty.',
+        [{text: 'Okay'}],
+      );
+      return;
+    }
+    navigation.navigate('Purchase');
+
+    console.log('you submit  Pubg screen1');
+  };
+  return (
+    <SafeAreaView>
+      <ScrollView>
         <View>
           <Headline style={{textAlign: 'center', fontSize: 30, marginTop: 30}}>
-            - Order details 1-
+            - Order Details -
           </Headline>
           <Headline style={{textAlign: 'center', fontSize: 20, marginTop: 30}}>
             - Facebook account or player Email (required) -
@@ -61,7 +83,9 @@ export default function PubgInternatiolScreen() {
           <Picker
             selectedValue={selectedValue}
             style={{height: 50, width: 150}}
-            onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}>
+            onValueChange={(itemValue, itemIndex) =>
+              setSelectedValue(itemValue)
+            }>
             <Picker.Item label="Facebook" value="facebook" />
             <Picker.Item label="Player Email" value="email" />
           </Picker>
@@ -73,7 +97,7 @@ export default function PubgInternatiolScreen() {
           <Headline style={{textAlign: 'center', fontSize: 20, marginTop: 30}}>
             - Password (required) -
           </Headline>
-    
+
           <TextInput
             placeholder="Your Password"
             secureTextEntry={data.secureTextEntry ? true : false}
@@ -81,19 +105,16 @@ export default function PubgInternatiolScreen() {
             autoCapitalize="none"
             onChangeText={val => handlePasswordChange(val)}
           />
-    
-          
-    
+
           <TouchableOpacity
             style={styles.commandButton}
-            onPress={() =>
-              handleSubmit(data.name,   data.password)
-            }>
+            onPress={() => handleSubmit(data.name, data.password)}>
             <Text style={styles.panelButtonTitle}>Submit</Text>
           </TouchableOpacity>
         </View>
-      );
-   
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -115,4 +136,3 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
-

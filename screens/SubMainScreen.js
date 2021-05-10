@@ -46,6 +46,8 @@ const SubMainScreen = ({route}) => {
     }
   };
   
+
+
  
   const renderItem = ({item})=>{
     const type = item.category.type === 1
@@ -56,7 +58,7 @@ const SubMainScreen = ({route}) => {
    
       
       <TouchableOpacity
-      onPress={ type ? () => navigation.navigate('Order', {id: item.id}): null}>
+      onPress={ type ? () => navigation.navigate('Order', {id: item.id}): ()=> alert('Thanks, You Ordered')}>
       <Card>
         {/* <Card.Divider/> */}
 

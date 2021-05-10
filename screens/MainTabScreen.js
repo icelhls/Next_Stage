@@ -548,7 +548,7 @@ const HomeStackScreen = ({navigation}) => (
 
 <HomeStack.Screen
       name="Screen4"
-      component={FreeFireScreen}
+      component={OrderScreen4}
       options={{
         title: 'Order Details',
         headerLeft: () => (
@@ -573,7 +573,7 @@ const HomeStackScreen = ({navigation}) => (
 
 <HomeStack.Screen
       name="Screen5"
-      component={FreeFireScreen}
+      component={OrderScreen5}
       options={{
         title: 'Order Details',
         headerLeft: () => (

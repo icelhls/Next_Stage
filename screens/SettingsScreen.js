@@ -100,8 +100,8 @@ const SettingsScreen = ({navigation}) => {
       <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
           <Avatar
-            // source={require('../assets/images/profile.jpg')}
-            source ={{uri: image}}
+            source={require('../assets/images/profile.jpg')}
+            // source ={{uri: image}}
             size={80}
           />
           <View style={{marginLeft: 20}}>

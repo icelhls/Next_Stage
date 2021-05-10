@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, TextInput, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, TextInput, TouchableOpacity, Alert} from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import {
   Title,
@@ -47,14 +47,24 @@ export default function PubgKoreaScreen() {
     });
   };
 
-  const handleSubmit =()=>{
-      console.log('you submit pubg')
-  }
+  const handleSubmit = () => {
+    if (data.name.length == 0 || data.password.length == 0) {
+      Alert.alert(
+        'Wrong Input!',
+        'Facebook or Password fields cannot be empty.',
+        [{text: 'Okay'}],
+      );
+      return;
+    }
+    navigation.navigate('Purchase');
+
+    console.log('you submit  Pubg screen1');
+  };
 
   return (
     <View>
       <Headline style={{textAlign: 'center', fontSize: 30, marginTop: 30}}>
-        - Order details 2-
+        -Order Details-
       </Headline>
       <Headline style={{textAlign: 'center', fontSize: 20, marginTop: 30}}>
         - Facebook account or player Email (required) -
@@ -67,6 +77,7 @@ export default function PubgKoreaScreen() {
         <Picker.Item label="Player Email" value="email" />
       </Picker>
       <TextInput
+         placeholder="Facebook Or Player Email"
         style={styles.input}
         autoCapitalize="none"
         onChangeText={val => textChange(val)}

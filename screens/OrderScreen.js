@@ -10,7 +10,6 @@ import {
 
 import {useNavigation} from '@react-navigation/native';
 // const url = 'https://nextstageksa.com/cards/api/category/index';
-// const url = 'https://nextstageksa.com/cards/api/orders/myOrders' //orders empty
 // const url = 'http://192.168.1.46:8000/api/orders/type'
 import SubCateCard from '../card/SubCateCard';
 import Title from '../card/Title';
@@ -27,62 +26,6 @@ const OrderScreen = ({route}) => {
   })
   const id = route.params;
   const navigation = useNavigation();
-  // console.log('ID**** orderNow', id)
- 
-
-  // const fetchOrderNow = async () => {
-  //   try {
-  //     // let data = {
-  //     //   id: id,
-  //     // };
-  //      console.log('ID**** orderNow', id)
-  //       let data = {
-  //         id: id
-  //      }
-  //      console.log('data id2', data.id)
-
-   
-  //     api_token = await AsyncStorage.getItem('api_token');
-  //     let response = await fetch(
-  //       `http://nextstageksa.com/cards/api/orders/type`,
-  //       {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json;charset=utf-8',
-  //         },
-  //         body: JSON.stringify(data),
-  //       },
-  //     );
-
-  //     let responseJson = await response.json();
-  //     // let subCategories = await response.json()
-
-  //     console.log('responseJsonOrderNow', responseJson)
-  //     // if(mainsubs || subCategories){
-
-  //     //   let mainsubs = responseJson.mainsubs
-  //     //   let subCategories =  responseJson.subCategories;
-  //     //   console.log('mainsubs', mainsubs)
-  //     //   console.log('subCategories', subCategories)
-  //     //   setCategories(subCategories)
-  //     //   setMainsubs(mainsubs)
-      
-  //     //   // setMainsubs(mainsubs)
-  //     //   // return navigation.navigate('Profile')
-
-  //     // }else {
-  //     //   let subCategories =  responseJson.subCategories;
-  //     //   console.log('subCategories', subCategories)
-  //     //   setCategories(subCategories)
-      
- 
-
-  //     // } 
-  //   } catch (error) {
-  //     console.log('  Wrong response OrderNow', error);
-  //   }
-  // };
-
 
   const fetchCategories10 = async () => {
     try {
@@ -106,25 +49,25 @@ const OrderScreen = ({route}) => {
       let responseJson = await response.json();
 
       console.log('responseOrderNowwww--', responseJson);
-       let screen = responseJson.screen
-       console.log('screen1', screen)
-       if(screen === 1){
-         return navigation.navigate('Pubg', {id: id})
+      //  let screen = responseJson.screen
+      //  console.log('screen1', screen)
+      //  if(screen === 1){
+      //    return navigation.navigate('Pubg', {id: id})
 
-       }else if(screen === 2){
-         return navigation.navigate('PubgInt', {id: id})
+      //  }else if(screen === 2){
+      //    return navigation.navigate('PubgInt', {id: id})
 
-       }else if(screen === 3){
-         return navigation.navigate('FreeFire', {id: id})
-       }else if(screen === 4){
-         return navigation.navigate('Screen4',{id: id} )
+      //  }else if(screen === 3){
+      //    return navigation.navigate('FreeFire', {id: id})
+      //  }else if(screen === 4){
+      //    return navigation.navigate('Screen4',{id: id} )
 
-       }else if(screen === 5){
-         return navigation.navigate('Screen5', {id: id})
+      //  }else if(screen === 5){
+      //    return navigation.navigate('Screen5', {id: id})
 
-       }else{
-         return navigation.navigate('Order', {id: id})
-       }
+      //  }else{
+      //    return navigation.navigate('Order', {id: id})
+      //  }
 
       //  }else if(screen === 4){
       //    return navigation.navigate('')
@@ -144,17 +87,23 @@ const OrderScreen = ({route}) => {
   return (
     <>
       <View style={styles.container}>
-        {/* <TouchableOpacity onPress={  ()=>navigation.navigate('Pubg', {id: id})}>
+        <TouchableOpacity onPress={  ()=>navigation.navigate('Pubg', {id: id})}>
           <Text>Pubg</Text>
 
-        </TouchableOpacity> */}
-        {/* <TouchableOpacity onPress={()=>navigation.navigate('PubgInt', {id: id})}>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('PubgInt', {id: id})}>
           <Text>Pubg International</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={()=>navigation.navigate('FreeFire', {id: id})}>
           <Text>Free Fire</Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('Screen4', {id: id})}>
+          <Text>Screen 4</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('Screen5', {id: id})}>
+          <Text>Screen 5</Text>
+        </TouchableOpacity>
 
 
 
