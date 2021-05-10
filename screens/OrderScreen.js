@@ -19,21 +19,16 @@ import AsyncStorage from '@react-native-community/async-storage';
 const OrderScreen = ({route}) => {
 
   const [orders, setOrders] = useState([]);
-  const [screens, setScreens] = useState ({
-    screen1: '',
-    screen2: '',
-    screen3: ''
 
-  })
-  const id = route.params;
+  const id = route.params.id;
+  console.log('--------Id-----', id)
   const navigation = useNavigation();
 
   const fetchCategories10 = async () => {
     try {
-      let data = {
-        id: id,
-      };
-      console.log('data submanin', data)
+  
+      console.log('--orderId', id)
+      
       const api_token = await AsyncStorage.getItem('api_token');
       let response = await fetch(
         `http://192.168.1.46:8000/api/orders/type`,
@@ -44,12 +39,15 @@ const OrderScreen = ({route}) => {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify({
+            id: id
+          }),
         },
       );
       let responseJson = await response.json();
 
       console.log('responseOrderNowwww--', responseJson);
+      console.log('yey Id', id)
        let screen = responseJson.screen
        console.log('screen1', screen)
        if(screen === 1){

@@ -19,7 +19,7 @@ import {SafeAreaView} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 
-export default function PubgInternatiolScreen() {
+export default function PubgInternatiolScreen({route}) {
   const [selectedValue, setSelectedValue] = useState('java');
   const [text, onChangeText] = React.useState('');
   const [Password, setPassword] = React.useState('');
@@ -33,6 +33,38 @@ export default function PubgInternatiolScreen() {
     secureTextEntry: true,
     confirm_secureTextEntry: true,
   });
+
+  const [subOrder, setSubOrder] = useState([]);
+  const id = route.params.id;
+  console.log('id order@@@@@', id);
+  const fetchOrder = async () => {
+    try {
+      // console.log('Data@@ subOrder', data)
+      let response = await fetch(
+        `http://192.168.1.46:8000/api/info/add`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            order_id: id,
+          }),
+        },
+      );
+      let responseJson = await response.json();
+
+      console.log('responseSubOrder--', responseJson);
+      console.log('screen id', id);
+
+      // let subcategories = responseJson.subcategories;
+      // setCategories(subcategories);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const textChange = val => {
     if (val.length !== 0) {
@@ -57,6 +89,7 @@ export default function PubgInternatiolScreen() {
     });
   };
 
+
   const handleSubmit = () => {
     if (data.name.length == 0 || data.password.length == 0) {
       Alert.alert(
@@ -68,8 +101,16 @@ export default function PubgInternatiolScreen() {
     }
     navigation.navigate('Purchase');
 
+
+    fetchOrder();
     console.log('you submit  Pubg screen1');
   };
+
+  
+
+  useEffect(() => {
+    fetchOrder();
+  }, []);
   return (
     <SafeAreaView>
       <ScrollView>
@@ -90,7 +131,7 @@ export default function PubgInternatiolScreen() {
             <Picker.Item label="Player Email" value="email" />
           </Picker>
           <TextInput
-               placeholder="Facebook or Twitter"
+            placeholder="Facebook or Twitter"
             style={styles.input}
             autoCapitalize="none"
             onChangeText={val => textChange(val)}
@@ -131,7 +172,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
     width: 150,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   panelButtonTitle: {
     fontSize: 17,

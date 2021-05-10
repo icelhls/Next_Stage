@@ -18,7 +18,7 @@ import Title from '../card/Title';
 
 const MainSubScreen = ({route}) => {
   const [mainsubs, setMainsubs] = useState([])
-  const [subCategories, setCategories] = useState([])
+  const [subs, setSubs] = useState([])
 
   const navigation = useNavigation();
   const id = route.params;
@@ -43,22 +43,27 @@ const MainSubScreen = ({route}) => {
       // let subCategories = await response.json()
 
       console.log('responseJson', responseJson)
-      if(mainsubs || subCategories){
+
+
+      if(mainsubs || subs){
 
         let mainsubs = responseJson.mainsubs
-        let subCategories =  responseJson.subCategories;
+        let subs =  responseJson.subs;
         console.log('mainsubs', mainsubs)
-        console.log('subCategories', subCategories)
-        setCategories(subCategories)
+        console.log('subCategories', subs)
+        // setCategories(subCategories)
+        setSubs(subs)
         setMainsubs(mainsubs)
       
         // setMainsubs(mainsubs)
         // return navigation.navigate('Profile')
 
       }else {
-        let subCategories =  responseJson.subCategories;
-        console.log('subCategories', subCategories)
-        setCategories(subCategories)
+        // let subCategories =  responseJson.subCategories;
+        // console.log('subCategories', subCategories)
+        // setCategories(subCategories)
+        let subs = responseJson.subs
+        setSubs(subs)
       
  
 
@@ -73,7 +78,7 @@ const MainSubScreen = ({route}) => {
   useEffect(() => {
     fetchMainSub();
 
-  }, []);
+  }, [mainsubs, subs ]);
 
   return (
     <>
@@ -113,11 +118,11 @@ const MainSubScreen = ({route}) => {
           />
 
           <FlatList
-            data={subCategories}
+            data={subs}
             keyExtractor={item => item.id}
             renderItem={({item}) => (
               <TouchableOpacity
-                onPress={()=> console.log('you clicked submain cards')}>
+                onPress={()=> alert('clicked subCategory')}>
                 <SubCateCard>
                   <View
                     style={{

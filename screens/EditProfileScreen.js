@@ -30,8 +30,7 @@ const EditProfileScreen = () => {
     phone: '',
     email: '',
   });
- 
-  const [imagebase, setImagebase] = useState('')
+
   const navigation = useNavigation();
 
   const fetchEditProfile = async newdata => {
@@ -63,105 +62,70 @@ const EditProfileScreen = () => {
     }
   };
 
-  const [updateImage, setUpdateImage]= useState({
-    image: '',
-    ext: '',
-  })
+
+  // const [updateImage, setUpdateImage]= useState({
+  //   image: '',
+  //   ext: '',
+  // })
 
 
-  const updatePicture = async data => {
-    console.log('datadata', data)
-    let image = data.image
-    let ext = data.ext
-    console.log('image', image, 'ext', ext)
+  // const updatePicture = async data => {
+  //   console.log('datadata', data)
+  //   let image = data.image
+  //   let ext = data.ext
+  //   console.log('image', image, 'ext', ext)
   
     
-    try {
-      api_token = await AsyncStorage.getItem('api_token');
-      let response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          Authorization: 'Bearer ' + api_token,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          image: image,
-          ext: ext
+  //   try {
+  //     api_token = await AsyncStorage.getItem('api_token');
+  //     let response = await fetch(url, {
+  //       method: 'POST',
+  //       headers: {
+  //         Authorization: 'Bearer ' + api_token,
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         image: image,
+  //         ext: ext
 
-        }),
-      });
+  //       }),
+  //     });
 
-      let responseJson = await response.json();
-      console.log('responseImage@@@@@@', responseJson)
-      // let updateImage = responseJson.data
-      // console.log('wow image@@@', {image: updateImage.image})
-      // setUpdateImage({
-      //   image: updateImage.image,
-      //   ext: 'image/jpg'
-      // })
+  //     let responseJson = await response.json();
+  //     console.log('responseImage@@@@@@', responseJson)
+  //     // let updateImage = responseJson.data
+  //     // console.log('wow image@@@', {image: updateImage.image})
+  //     // setUpdateImage({
+  //     //   image: updateImage.image,
+  //     //   ext: 'image/jpg'
+  //     // })
 
-      // let image = responseJson.data.image
-      // setImage(image)
+  //     // let image = responseJson.data.image
+  //     // setImage(image)
 
-      // console.log('imge444', image, 'ext', ext)
+  //     // console.log('imge444', image, 'ext', ext)
       
-      // setImage({
-      //   image: image
-      // })
+  //     // setImage({
+  //     //   image: image
+  //     // })
       
-      // setImage({
-      //   image: image.path
-      // })
-      // // console.log('responseJsonUpdateProfile---', responseJson.data);
-      // let image = responseJson.data.image;
+  //     // setImage({
+  //     //   image: image.path
+  //     // })
+  //     // // console.log('responseJsonUpdateProfile---', responseJson.data);
+  //     // let image = responseJson.data.image;
 
-      // console.log('Image-----//', {image: image});
+  //     // console.log('Image-----//', {image: image});
 
-    } catch (error) {
-      console.log('errors Image', error);
-    }
-  };
+  //   } catch (error) {
+  //     console.log('errors Image', error);
+  //   }
+  // };
 
-// const  sendImages = ()=> {
-//   // const image= "data:image/jpeg;base64,"
-//     const url = "https://nextstageksa.com/cards/api/user/update";
-//   return fetch(url, {
-//       method: "POST",
-//       headers: {
-//         Accept: "application/json",
-//         "Content-Type": "application/json"
-//       },
-//       body: JSON.stringify({
-//         // image: image
-//       })
-    
 
-      
-//     }).catch(error => {
-//       console.warn(error);
-//     });
-//   }
 
-// const  updatePicture = async data => {
-//   // const image= "data:image/jpeg;base64,"
-//   console.log('DataData', data)
-//     const url = "https://nextstageksa.com/cards/api/user/update";
-//   return fetch(url, {
-//       method: "POST",
-//       headers: {
-//         Accept: "application/json",
-//         "Content-Type": "application/json"
-//       },
-//       body: JSON.stringify(data)
-  
-    
 
-      
-//     }).catch(error => {
-//       console.warn(error);
-//     });
-//   }
 
 
 
@@ -211,13 +175,11 @@ const EditProfileScreen = () => {
   useEffect(() => {
     fetchEditProfile();
     updatePicture()
-    // sendImages()
-   
   }, []);
 
  
 
-  const [image, setImage] = useState('');
+ 
   const {colors} = useTheme();
 
   const takePhotoFromCamera = () => {
@@ -233,91 +195,153 @@ const EditProfileScreen = () => {
     });
   };
 
+  // const choosePhotoFromLibrary = async () => {
+  //   ImagePicker.openPicker({
+  //     width: 300,
+  //     height: 300,
+  //     cropping: true,
+  //     compressImageQuality: 0.7,
+  //   }).then(image => {
+    
+
+        
+  //     console.log('image ******', image.path)
+    
+  //     // setImagebase(image.path);
+   
+  //     // console.log('ImageBASE', imagebase)
+  //   //  setImage({
+  //   //    image : image.path
+  //   //  })
+  //   setImage(image.path)
+  //   // setUpdateImage(image.path)
+      
+  //     this.bs.current.snapTo(1);
+    
+ 
+
+  //   })
+  //   // .then(async()=>{
+  //   //     await console.log('imageBase64', image )
+  //   //         const result = await RNFetchBlob.fs.readFile( image, 'base64');
+  //   //   console.log('MustafBase64', result)
+
+
+  //   // })
+  //   // .then(async()=>{
+  //   //   console.log('imageBase64', image )
+
+  //   //   const result = await RNFetchBlob.fs.readFile( image, 'base64');
+  //   //   console.log('MustafBase64', result)
+
+  //   // })
+    
+ 
+  //   // console.log('base64', result)
+  //   // await  setImage(result)
+    
+  //      console.log('imageBase64', image )
+  //   const result = await RNFetchBlob.fs.readFile( image, 'base64');
+  //   await setImage(result)
+  //   // await  setImage({
+  //   //   image: result,
+  //   //   exit: 'image/jpg'
+      
+  //   // })
+  //   // await setImage(result)
+  //   // await setUpdateImage({
+  //   //   image: result,
+  //   //   ext: 'image/jpg'
+  //   // })
+
+  //      console.log('MustafBase64', result)
+
+  //     //  await setUpdateImage({
+  //     //    image: result,
+  //     //    ext: 'image/jpg'
+  //     //  })
+
+  //      console.log('updateImage', result)
+
+  //   const data = {
+  //     image : result,
+  //     ext: 'jpg'
+  //   }
+
+  //   // await setUpdateImage({
+  //   //   image: data.image,
+  //   //   ext: data.ext
+  //   // })
+  //   // console.log('updateImage', updateImage)
+
+
+
+  //   console.log('Data Image', data.image)
+  //   await updatePicture(data)
+ 
+  // };
+  // const [image, setImage] = useState('')
+
+  const [image, setImage] = useState('');
   const choosePhotoFromLibrary = async () => {
-    ImagePicker.openPicker({
+    const file = await ImagePicker.openPicker({
       width: 300,
       height: 300,
       cropping: true,
       compressImageQuality: 0.7,
-    }).then(image => {
-    
+    });
 
-        
-      console.log('image ******', image.path)
-    
-      // setImagebase(image.path);
-   
-      // console.log('ImageBASE', imagebase)
-    //  setImage({
-    //    image : image.path
-    //  })
-    setImage(image.path)
-    // setUpdateImage(image.path)
-      
-      this.bs.current.snapTo(1);
-    
- 
+    console.log('imageBase', file);
+    const result = await RNFetchBlob.fs.readFile(file.path, 'base64');
 
-    })
-    // .then(async()=>{
-    //     await console.log('imageBase64', image )
-    //         const result = await RNFetchBlob.fs.readFile( image, 'base64');
-    //   console.log('MustafBase64', result)
-
-
-    // })
-    // .then(async()=>{
-    //   console.log('imageBase64', image )
-
-    //   const result = await RNFetchBlob.fs.readFile( image, 'base64');
-    //   console.log('MustafBase64', result)
-
-    // })
-    
- 
-    // console.log('base64', result)
-    // await  setImage(result)
-    
-       console.log('imageBase64', image )
-    const result = await RNFetchBlob.fs.readFile( image, 'base64');
-    await setImage(result)
-    // await  setImage({
-    //   image: result,
-    //   exit: 'image/jpg'
-      
-    // })
-    // await setImage(result)
-    // await setUpdateImage({
-    //   image: result,
-    //   ext: 'image/jpg'
-    // })
-
-       console.log('MustafBase64', result)
-
-      //  await setUpdateImage({
-      //    image: result,
-      //    ext: 'image/jpg'
-      //  })
-
-       console.log('updateImage', result)
+    console.log('result', result);
 
     const data = {
-      image : result,
-      ext: 'jpg'
-    }
+      image: result,
+      ext: 'jpj',
+    };
 
-    // await setUpdateImage({
-    //   image: data.image,
-    //   ext: data.ext
-    // })
-    // console.log('updateImage', updateImage)
-
-
-
-    console.log('Data Image', data.image)
-    await updatePicture(data)
- 
+    await updatePicture(data);
   };
+
+  const updatePicture = async data => {
+    console.log('check base 64', data);
+
+    try {
+      const api_token = await AsyncStorage.getItem('api_token');
+      let response = await fetch(
+        'http://nextstageksa.com/cards/api/user/update',
+        {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            image: data.image,
+            ext: data.ext,
+          }),
+        },
+      );
+
+      let responseJson = await response.json();
+ 
+      console.log('responseUpdatedProfile@@@@@@', responseJson);
+      // let image = responseJson.data.image
+      // console.log('ImageProfile', image)
+      // setImage(image)
+      // navigation.navigate('Home')
+    } catch (error) {
+      console.log('errors Image', error);
+    }
+  };
+
+
+
+
+
 
   renderInner = () => (
     <View style={styles.panel}>
