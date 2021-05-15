@@ -377,7 +377,7 @@ const HomeStackScreen = ({navigation}) => (
       name="SubCategories"
       component={SubCategoriesScreen}
       options={{
-        title: 'Sub Categories',
+        title: 'Card Details',
         headerLeft: () => (
           <Icon.Button
             name="menu"
