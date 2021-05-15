@@ -130,8 +130,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // image: {
+  //   width: 110,
+  //   height: 145,
+  // },
   image: {
-    width: 110,
-    height: 145,
+    width: 120,
+    height: 161,
+    margin: 10,
+    borderBottomWidth: 1,
   },
 });

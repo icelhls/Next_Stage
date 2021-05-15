@@ -61,36 +61,6 @@ const MainSubScreen = ({route}) => {
     }
   };
 
-// const renderItemSubs = ({item})=>{
-//   const type = item.type === 1
-//   console.log('RenderItemSubs', type)
-//   return (
-//     <TouchableOpacity onPress={ type ? () => navigation.navigate('Order', item.id): null}>
-//                   <SubCateCard>
-//                     <View
-//                       style={{
-//                         margin: 10,
-//                         // marginTop: 40,
-//                         alignSelf: 'center',
-//                         justifyContent: 'center',
-//                       }}>
-//                       <Image
-//                         style={styles.image}
-//                         resizeMode="cover"
-//                         source={{
-//                           uri: `https://nextstageksa.com/cards/storage/uploades/${
-//                             item.image
-//                           }`,
-//                         }}
-//                       />
-//                       <Title>{item.name_ar}</Title>
-                 
-//                     </View>
-//                   </SubCateCard>
-//                 </TouchableOpacity>
-
-//   )
-// }
 
 const renderItemSubs = ({item}) => {
   const type = item.type === 1;
@@ -211,9 +181,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: 100,
-    height: 145,
+    width: 120,
+    height: 161,
     margin: 10,
     borderBottomWidth: 1,
+
   },
+
 });
