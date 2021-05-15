@@ -10,6 +10,7 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
+import {Card, ListItem, Icon} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import MainSubCard from '../card/MainSubCard';
@@ -60,36 +61,89 @@ const MainSubScreen = ({route}) => {
     }
   };
 
-const renderItemSubs = ({item})=>{
-  const type = item.type === 1
-  console.log('RenderItemSubs', type)
-  return (
-    <TouchableOpacity onPress={ type ? () => navigation.navigate('Order', item.id): null}>
-                  <SubCateCard>
-                    <View
-                      style={{
-                        margin: 10,
-                        // marginTop: 40,
-                        alignSelf: 'center',
-                        justifyContent: 'center',
-                      }}>
-                      <Image
-                        style={styles.image}
-                        resizeMode="cover"
-                        source={{
-                          uri: `https://nextstageksa.com/cards/storage/uploades/${
-                            item.image
-                          }`,
-                        }}
-                      />
-                      <Title>{item.name_ar}</Title>
+// const renderItemSubs = ({item})=>{
+//   const type = item.type === 1
+//   console.log('RenderItemSubs', type)
+//   return (
+//     <TouchableOpacity onPress={ type ? () => navigation.navigate('Order', item.id): null}>
+//                   <SubCateCard>
+//                     <View
+//                       style={{
+//                         margin: 10,
+//                         // marginTop: 40,
+//                         alignSelf: 'center',
+//                         justifyContent: 'center',
+//                       }}>
+//                       <Image
+//                         style={styles.image}
+//                         resizeMode="cover"
+//                         source={{
+//                           uri: `https://nextstageksa.com/cards/storage/uploades/${
+//                             item.image
+//                           }`,
+//                         }}
+//                       />
+//                       <Title>{item.name_ar}</Title>
                  
-                    </View>
-                  </SubCateCard>
-                </TouchableOpacity>
+//                     </View>
+//                   </SubCateCard>
+//                 </TouchableOpacity>
 
-  )
-}
+//   )
+// }
+
+const renderItemSubs = ({item}) => {
+  const type = item.type === 1;
+  console.log('Type', type);
+  if (type === true) {
+    return (
+      <TouchableOpacity
+        onPress={
+          type ? () => navigation.navigate('Order', {id: item.id}) : null
+        }>
+        <Card>
+          {/* <Card.Divider/> */}
+
+          <View style={styles.user}>
+            <Image
+              style={styles.image}
+              resizeMode="cover"
+              source={{
+                uri: `https://nextstageksa.com/cards/storage/uploades/${
+                  item.image
+                }`,
+              }}
+            />
+          </View>
+
+          <Card.Title>Order Now</Card.Title>
+        </Card>
+      </TouchableOpacity>
+    );
+  } else if (type === false) {
+    return (
+      <TouchableOpacity onPress={() => alert('Buy Now')}>
+        <Card>
+          {/* <Card.Divider/> */}
+
+          <View style={styles.user}>
+            <Image
+              style={styles.image}
+              resizeMode="cover"
+              source={{
+                uri: `https://nextstageksa.com/cards/storage/uploades/${
+                  item.image
+                }`,
+              }}
+            />
+          </View>
+
+          <Card.Title>Buy Now</Card.Title>
+        </Card>
+      </TouchableOpacity>
+    );
+  }
+};
   
 
   useEffect(() => {
