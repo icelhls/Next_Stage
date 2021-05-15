@@ -4,26 +4,31 @@ import {
   Text,
   Button,
   StyleSheet,
-  FlatList,
+  Image,
   SafeAreaView,
+  ScrollView,
+  FlatList,
   TouchableOpacity,
 } from 'react-native';
+import {Card, ListItem, Icon} from 'react-native-elements';
 import MainSubCard from '../card/MainSubCard';
-import SubCateCard from '../card/SubCateCard'
+import SubCateCard from '../card/SubCateCard';
 import Title from '../card/Title';
 
+import {useNavigation} from '@react-navigation/native';
 const SubCategoriesScreen = ({route}) => {
-  const [subcategories, setSubcategories] = useState();
-  // const navigation = useNavigation();
+  const [subcategories, setCategories] = useState([]);
   const id = route.params;
+  const navigation = useNavigation();
 
-  const fetchSubCategories = async () => {
+  const fetchCategories = async () => {
     try {
       let data = {
-        category_id: id,
+        id: id,
       };
+      console.log('data subCategories', data);
       let response = await fetch(
-        `https://nextstageksa.com/cards/api/mainsub/index`,
+        `http://nextstageksa.com/cards/api/sub/byMainId`,
         {
           method: 'POST',
           headers: {
@@ -32,55 +37,146 @@ const SubCategoriesScreen = ({route}) => {
           body: JSON.stringify(data),
         },
       );
-
       let responseJson = await response.json();
-      console.log('ResponseSubCategories', responseJson);
-      let subcategories= responseJson.subcategories;
-      console.log('ResponseJsonSubCategories', subcategories);
-      // setMainsubs(mainsubs);
-      setSubcategories(subcategories)
 
+      console.log('responseSubCategories--', responseJson);
+      let subcategories = responseJson.subcategories;
+      setCategories(subcategories);
     } catch (error) {
-      console.log('  Wrong response', error);
+      console.log(error);
     }
   };
+
+  const renderItem1 = ({item}) => {
+    const type = item.category.type === 1;
+    console.log('Type', type);
+    if(type === true){
+      
+    return (
+      <TouchableOpacity
+        onPress={
+          type
+            ? () => navigation.navigate('Order', {id: item.id})
+            : null
+        }>
+        <Card>
+          {/* <Card.Divider/> */}
+
+          <View style={styles.user}>
+            <Image
+              style={styles.image}
+              resizeMode="cover"
+              source={{
+                uri: `https://nextstageksa.com/cards/storage/uploades/${
+                  item.image
+                }`,
+              }}
+            />
+          </View>
+
+          <Card.Title>Order Now</Card.Title>
+        </Card>
+      </TouchableOpacity>
+    );
+  
+
+    }else if( type === false ){
+      return (
+        <TouchableOpacity
+          onPress={ ()=> alert('Buy Now')
+          }>
+          <Card>
+            {/* <Card.Divider/> */}
+  
+            <View style={styles.user}>
+              <Image
+                style={styles.image}
+                resizeMode="cover"
+                source={{
+                  uri: `https://nextstageksa.com/cards/storage/uploades/${
+                    item.image
+                  }`,
+                }}
+              />
+            </View>
+  
+            <Card.Title>Buy Now</Card.Title>
+          </Card>
+        </TouchableOpacity>
+      );
+    
+    }
+
+  };
+
+
+  // const renderItem0 = ({item}) => {
+  //   const type = item.category.type === 0;
+  //   console.log('Type', type);
+
+  //   return (
+  //     <TouchableOpacity
+  //       onPress={ type ?  ()=> alert('buy now'): null}>
+  //       <Card>
+  //         {/* <Card.Divider/> */}
+
+  //         <View style={styles.user}>
+  //           <Image
+  //             style={styles.image}
+  //             resizeMode="cover"
+  //             source={{
+  //               uri: `https://nextstageksa.com/cards/storage/uploades/${
+  //                 item.image
+  //               }`,
+  //             }}
+  //           />
+  //         </View>
+
+  //         <Card.Title>Buy Now</Card.Title>
+  //       </Card>
+  //     </TouchableOpacity>
+  //   );
+  // };
+
   useEffect(() => {
-    fetchSubCategories ();
+    fetchCategories();
   }, []);
 
+  return (
+    <>
+      <SafeAreaView>
+        <ScrollView>
+          <View style={styles.container}>
+            <FlatList
+              data={subcategories}
+              keyExtractor={item => item.id}
+              renderItem={renderItem1}
+              numColumns={2}
+            />
+             {/* <FlatList
+              data={subcategories}
+              keyExtractor={item => item.id}
+              renderItem={renderItem0}
+              numColumns={2}
+            /> */}
 
-    return (
-      <>
-      <View>
-        <SafeAreaView>
-          <FlatList
-            data={subcategories}
-            keyExtractor={item => item.id}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                onPress={() => console.log('you clicked mainsub')}>
-                <SubCateCard>
-                  <View style={{margin: 18, marginTop: 40, alignSelf: 'center', justifyContent: 'center',  }}>
-                    <Title>{item.name_ar}</Title>
-                    <Title>{item.name_en}</Title>
-                  </View>
-                </SubCateCard>
-              </TouchableOpacity>
-            )}
-            numColumns={2}
-          />
-        </SafeAreaView>
-      </View>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </>
-    )
+  );
 };
 
 export default SubCategoriesScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, 
-    alignItems: 'center', 
-    justifyContent: 'center'
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  image: {
+    width: 110,
+    height: 145,
   },
 });

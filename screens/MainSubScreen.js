@@ -60,9 +60,43 @@ const MainSubScreen = ({route}) => {
     }
   };
 
+const renderItemSubs = ({item})=>{
+  const type = item.type === 1
+  console.log('RenderItemSubs', type)
+  return (
+    <TouchableOpacity onPress={ type ? () => navigation.navigate('Order', item.id): null}>
+                  <SubCateCard>
+                    <View
+                      style={{
+                        margin: 10,
+                        // marginTop: 40,
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
+                        style={styles.image}
+                        resizeMode="cover"
+                        source={{
+                          uri: `https://nextstageksa.com/cards/storage/uploades/${
+                            item.image
+                          }`,
+                        }}
+                      />
+                      <Title>{item.name_ar}</Title>
+                 
+                    </View>
+                  </SubCateCard>
+                </TouchableOpacity>
+
+  )
+}
+  
+
   useEffect(() => {
     fetchMainSub();
   }, []);
+
+  
 
   return (
     <>
@@ -74,7 +108,7 @@ const MainSubScreen = ({route}) => {
               keyExtractor={item => item.id}
               renderItem={({item}) => (
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('SubMain', item.id)}>
+                  onPress={() => navigation.navigate('SubCategories', item.id)}>
                   <MainSubCard>
                     <View
                       style={{
@@ -104,31 +138,7 @@ const MainSubScreen = ({route}) => {
             <FlatList
               data={subs}
               keyExtractor={item => item.id}
-              renderItem={({item}) => (
-                <TouchableOpacity onPress={() => alert('clicked subCategory')}>
-                  <SubCateCard>
-                    <View
-                      style={{
-                        margin: 10,
-                        // marginTop: 40,
-                        alignSelf: 'center',
-                        justifyContent: 'center',
-                      }}>
-                      <Image
-                        style={styles.image}
-                        resizeMode="cover"
-                        source={{
-                          uri: `https://nextstageksa.com/cards/storage/uploades/${
-                            item.image
-                          }`,
-                        }}
-                      />
-                      <Title>{item.name_ar}</Title>
-                 
-                    </View>
-                  </SubCateCard>
-                </TouchableOpacity>
-              )}
+              renderItem={renderItemSubs}
               numColumns={2}
             />
           </ScrollView>
