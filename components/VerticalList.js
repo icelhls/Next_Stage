@@ -44,7 +44,8 @@ export default function VerticalList({title}) {
 
   return (
     <>
-      <Title>{title}</Title>
+    <View style={styles.container}>
+    <Title>{title}</Title>
       {}
       <FlatList
         data={data}
@@ -79,12 +80,22 @@ export default function VerticalList({title}) {
         )}
         numColumns={2}
       />
+
+    </View>
+    
+
     </>
   );
 }
 const {height} = Dimensions.get("screen");
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   image: {
     width: 40,
     height: 40,

@@ -44,29 +44,29 @@ const OrderScreen = ({route}) => {
           }),
         },
       );
-      let responseJson = await response.json();
+      // let responseJson = await response.json();
 
-      console.log('responseOrderNowwww--', responseJson);
-      console.log('yey Id', id)
-       let screen = responseJson.screen
-       console.log('screen1', screen)
-       if(screen === 1){
-         return navigation.navigate('Pubg', {id: id})
+      // console.log('responseOrderNowwww--', responseJson);
+      // console.log('yey Id', id)
+      //  let screen = responseJson.screen
+      //  console.log('screen1', screen)
+      //  if(screen === 1){
+      //    return navigation.navigate('Pubg', {id: id})
 
-       }else if(screen === 2){
-         return navigation.navigate('PubgInt', {id: id})
+      //  }else if(screen === 2){
+      //    return navigation.navigate('PubgInt', {id: id})
 
-       }else if(screen === 3){
-         return navigation.navigate('FreeFire', {id: id})
-       }else if(screen === 4){
-         return navigation.navigate('Screen4',{id: id} )
+      //  }else if(screen === 3){
+      //    return navigation.navigate('FreeFire', {id: id})
+      //  }else if(screen === 4){
+      //    return navigation.navigate('Screen4',{id: id} )
 
-       }else if(screen === 5){
-         return navigation.navigate('Screen5', {id: id})
+      //  }else if(screen === 5){
+      //    return navigation.navigate('Screen5', {id: id})
 
-       }else{
-         return navigation.navigate('Order', {id: id})
-       }
+      //  }else{
+      //    return navigation.navigate('Order', {id: id})
+      //  }
 
        
      
@@ -83,7 +83,7 @@ const OrderScreen = ({route}) => {
   return (
     <>
       <View style={styles.container}>
-        {/* <TouchableOpacity onPress={  ()=>navigation.navigate('Pubg', {id: id})}>
+        <TouchableOpacity onPress={  ()=>navigation.navigate('Pubg', {id: id})}>
           <Text>Pubg</Text>
 
         </TouchableOpacity>
@@ -99,7 +99,7 @@ const OrderScreen = ({route}) => {
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>navigation.navigate('Screen5', {id: id})}>
           <Text>Screen 5</Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
 
 
 

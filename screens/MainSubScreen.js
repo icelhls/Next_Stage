@@ -107,7 +107,7 @@ const renderItemSubs = ({item}) => {
               }}
             />
           </View>
-
+          {/* <Card.Title style={{color: 'green'}}>{item.price} $</Card.Title> */}
           <Card.Title>Buy Now</Card.Title>
         </Card>
       </TouchableOpacity>
@@ -187,5 +187,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
 
   },
-
+  // image: {
+  //   width: 110,
+  //   height: 145,
+  // },
 });

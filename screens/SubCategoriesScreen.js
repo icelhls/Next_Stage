@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {
   View,
-  Text,
-  Button,
   StyleSheet,
   Image,
   SafeAreaView,
@@ -11,9 +9,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Card, ListItem, Icon} from 'react-native-elements';
-import MainSubCard from '../card/MainSubCard';
-import SubCateCard from '../card/SubCateCard';
-import Title from '../card/Title';
 
 import {useNavigation} from '@react-navigation/native';
 const SubCategoriesScreen = ({route}) => {
@@ -134,10 +129,11 @@ const styles = StyleSheet.create({
   //   width: 110,
   //   height: 145,
   // },
-  image: {
+   image: {
     width: 120,
     height: 161,
     margin: 10,
     borderBottomWidth: 1,
+
   },
 });
