@@ -142,7 +142,7 @@ const renderItemSubs = ({item}) => {
                         justifyContent: 'center',
                       }}>
                       <Image
-                        style={styles.image}
+                        style={styles.imageMainCard}
                         resizeMode="cover"
                         source={{
                           uri: `https://nextstageksa.com/cards/storage/uploades/${
@@ -187,8 +187,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
 
   },
-  // image: {
-  //   width: 110,
-  //   height: 145,
-  // },
+  imageMainCard: {
+    width: 110,
+    height: 145,
+    margin: 10,
+    borderBottomWidth: 1,
+  },
 });
