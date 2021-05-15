@@ -8,23 +8,24 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ScrollView,
-  Image
+  Image,
 } from 'react-native';
-
+import AsyncStorage from '@react-native-community/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import MainSubCard from '../card/MainSubCard';
-import SubCateCard from '../card/SubCateCard'
+import SubCateCard from '../card/SubCateCard';
 import Title from '../card/Title';
 
 const MainSubScreen = ({route}) => {
-  const [mainsubs, setMainsubs] = useState([])
-  const [subs, setSubs] = useState([])
+  const [mainsubs, setMainsubs] = useState([]);
+  const [subs, setSubs] = useState([]);
 
   const navigation = useNavigation();
   const id = route.params;
 
   const fetchMainSub = async () => {
     try {
+      const api_token = await AsyncStorage.getItem('api_token');
       let data = {
         category_id: id,
       };
@@ -33,73 +34,56 @@ const MainSubScreen = ({route}) => {
         {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json;charset=utf-8',
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
         },
       );
 
       let responseJson = await response.json();
-      // let subCategories = await response.json()
 
-      console.log('responseJson', responseJson)
+      console.log('responseJson', responseJson);
 
+      if (mainsubs || subs) {
+        let mainsubs = responseJson.mainsubs;
+        let subs = responseJson.subs;
+        console.log('mainsubs', mainsubs);
+        console.log('subs@@', subs);
 
-      if(mainsubs || subs){
-
-        let mainsubs = responseJson.mainsubs
-        let subs =  responseJson.subs;
-        console.log('mainsubs', mainsubs)
-        console.log('subCategories', subs)
-        // setCategories(subCategories)
-        setSubs(subs)
-        setMainsubs(mainsubs)
-      
-        // setMainsubs(mainsubs)
-        // return navigation.navigate('Profile')
-
-      }else {
-        // let subCategories =  responseJson.subCategories;
-        // console.log('subCategories', subCategories)
-        // setCategories(subCategories)
-        let subs = responseJson.subs
-        setSubs(subs)
-      
- 
-
-      } 
+        setSubs(subs);
+        setMainsubs(mainsubs);
+      }
     } catch (error) {
       console.log('  Wrong response', error);
     }
   };
- 
-  
 
   useEffect(() => {
     fetchMainSub();
-
-  }, [mainsubs, subs ]);
+  }, []);
 
   return (
     <>
       <View>
         <SafeAreaView>
           <ScrollView>
-          <FlatList
-            data={mainsubs}
-            keyExtractor={item => item.id}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                onPress={() => navigation.navigate('SubMain', item.id )}>
-                <MainSubCard>
-                  <View
-                    style={{
-                      margin: 18,
-                      marginTop: 1,
-                      alignSelf: 'center',
-                      justifyContent: 'center',
-                    }}>
-                          <Image
+            <FlatList
+              data={mainsubs}
+              keyExtractor={item => item.id}
+              renderItem={({item}) => (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('SubMain', item.id)}>
+                  <MainSubCard>
+                    <View
+                      style={{
+                        margin: 18,
+                        marginTop: 1,
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
                         style={styles.image}
                         resizeMode="cover"
                         source={{
@@ -108,30 +92,29 @@ const MainSubScreen = ({route}) => {
                           }`,
                         }}
                       />
-                    {/* <Title>{item.name_ar }</Title> */}
-                    <Title>{item.name_en}</Title>
-                  </View>
-                </MainSubCard>
-              </TouchableOpacity>
-            )}
-            numColumns={2}
-          />
+                      {/* <Title>{item.name_ar }</Title> */}
+                      <Title>{item.name_en}</Title>
+                    </View>
+                  </MainSubCard>
+                </TouchableOpacity>
+              )}
+              numColumns={2}
+            />
 
-          <FlatList
-            data={subs}
-            keyExtractor={item => item.id}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                onPress={()=> alert('clicked subCategory')}>
-                <SubCateCard>
-                  <View
-                    style={{
-                      margin: 10,
-                      // marginTop: 40,
-                      alignSelf: 'center',
-                      justifyContent: 'center',
-                    }}>
-                          <Image
+            <FlatList
+              data={subs}
+              keyExtractor={item => item.id}
+              renderItem={({item}) => (
+                <TouchableOpacity onPress={() => alert('clicked subCategory')}>
+                  <SubCateCard>
+                    <View
+                      style={{
+                        margin: 10,
+                        // marginTop: 40,
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
                         style={styles.image}
                         resizeMode="cover"
                         source={{
@@ -140,18 +123,15 @@ const MainSubScreen = ({route}) => {
                           }`,
                         }}
                       />
-                    <Title>{item.name_ar}</Title>
-                    {/* <Title>{item.name_en}</Title> */}
-                  </View>
-                </SubCateCard>
-              </TouchableOpacity>
-            )}
-            numColumns={2}
-          />
-
+                      <Title>{item.name_ar}</Title>
+                 
+                    </View>
+                  </SubCateCard>
+                </TouchableOpacity>
+              )}
+              numColumns={2}
+            />
           </ScrollView>
-
-
         </SafeAreaView>
       </View>
     </>
@@ -171,7 +151,5 @@ const styles = StyleSheet.create({
     height: 145,
     margin: 10,
     borderBottomWidth: 1,
-  
-
   },
 });

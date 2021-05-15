@@ -30,7 +30,7 @@ export default function VerticalList({title}) {
     try {
       let response = await fetch(url);
       let categories = await response.json();
-      // console.log('responseCategpries--', responseJson)
+      console.log('responseCategpries--', categories)
       let data = categories.categories;
       console.log('ResponseJsonCategories', categories);
       setData(data);
