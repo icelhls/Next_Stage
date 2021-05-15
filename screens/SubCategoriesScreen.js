@@ -47,47 +47,18 @@ const SubCategoriesScreen = ({route}) => {
     }
   };
 
-  const renderItem1 = ({item}) => {
+  const renderItem = ({item}) => {
     const type = item.category.type === 1;
     console.log('Type', type);
-    if(type === true){
-      
-    return (
-      <TouchableOpacity
-        onPress={
-          type
-            ? () => navigation.navigate('Order', {id: item.id})
-            : null
-        }>
-        <Card>
-          {/* <Card.Divider/> */}
-
-          <View style={styles.user}>
-            <Image
-              style={styles.image}
-              resizeMode="cover"
-              source={{
-                uri: `https://nextstageksa.com/cards/storage/uploades/${
-                  item.image
-                }`,
-              }}
-            />
-          </View>
-
-          <Card.Title>Order Now</Card.Title>
-        </Card>
-      </TouchableOpacity>
-    );
-  
-
-    }else if( type === false ){
+    if (type === true) {
       return (
         <TouchableOpacity
-          onPress={ ()=> alert('Buy Now')
+          onPress={
+            type ? () => navigation.navigate('Order', {id: item.id}) : null
           }>
           <Card>
             {/* <Card.Divider/> */}
-  
+
             <View style={styles.user}>
               <Image
                 style={styles.image}
@@ -99,44 +70,35 @@ const SubCategoriesScreen = ({route}) => {
                 }}
               />
             </View>
-  
+
+            <Card.Title>Order Now</Card.Title>
+          </Card>
+        </TouchableOpacity>
+      );
+    } else if (type === false) {
+      return (
+        <TouchableOpacity onPress={() => alert('Buy Now')}>
+          <Card>
+            {/* <Card.Divider/> */}
+
+            <View style={styles.user}>
+              <Image
+                style={styles.image}
+                resizeMode="cover"
+                source={{
+                  uri: `https://nextstageksa.com/cards/storage/uploades/${
+                    item.image
+                  }`,
+                }}
+              />
+            </View>
+
             <Card.Title>Buy Now</Card.Title>
           </Card>
         </TouchableOpacity>
       );
-    
     }
-
   };
-
-
-  // const renderItem0 = ({item}) => {
-  //   const type = item.category.type === 0;
-  //   console.log('Type', type);
-
-  //   return (
-  //     <TouchableOpacity
-  //       onPress={ type ?  ()=> alert('buy now'): null}>
-  //       <Card>
-  //         {/* <Card.Divider/> */}
-
-  //         <View style={styles.user}>
-  //           <Image
-  //             style={styles.image}
-  //             resizeMode="cover"
-  //             source={{
-  //               uri: `https://nextstageksa.com/cards/storage/uploades/${
-  //                 item.image
-  //               }`,
-  //             }}
-  //           />
-  //         </View>
-
-  //         <Card.Title>Buy Now</Card.Title>
-  //       </Card>
-  //     </TouchableOpacity>
-  //   );
-  // };
 
   useEffect(() => {
     fetchCategories();
@@ -150,16 +112,9 @@ const SubCategoriesScreen = ({route}) => {
             <FlatList
               data={subcategories}
               keyExtractor={item => item.id}
-              renderItem={renderItem1}
+              renderItem={renderItem}
               numColumns={2}
             />
-             {/* <FlatList
-              data={subcategories}
-              keyExtractor={item => item.id}
-              renderItem={renderItem0}
-              numColumns={2}
-            /> */}
-
           </View>
         </ScrollView>
       </SafeAreaView>
