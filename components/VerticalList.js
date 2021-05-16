@@ -64,7 +64,7 @@ export default function VerticalList({title}) {
                 }}>
                 <Image
                   style={styles.image}
-                  resizeMode="cover"
+                 
                   source={{
                     uri: `http://nextstageksa.com/cards/storage/uploades/${
                       item.image
@@ -97,9 +97,10 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    width: 40,
-    height: 40,
+    width: 100,
+    height: 60,
     margin: 10,
     borderBottomWidth: 1,
+    resizeMode: "center"
   },
 });
