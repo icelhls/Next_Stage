@@ -68,7 +68,7 @@ const OrderScreen = ({route}) => {
       } else if (screen === 2) {
         return navigation.navigate('PubgInt', {id2: id2});
       } else if (screen === 3) {
-        return navigation.navigate('FreeFire', {id: id});
+        return navigation.navigate('FreeFire', {id2: id2});
       } else if (screen === 4) {
         return navigation.navigate('Screen4', {id: id});
       } else if (screen === 5) {

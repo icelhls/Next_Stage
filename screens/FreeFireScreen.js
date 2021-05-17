@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, TextInput, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, TextInput, TouchableOpacity, Alert} from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import {
   Title,
@@ -9,14 +9,19 @@ import {
   Text,
 } from 'react-native-paper';
 import {Button} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import {useNavigation} from '@react-navigation/native';
 
-export default function FreeFire() {
+export default function FreeFire({route}) {
+
+  const order_id = route.params.id2;
+  console.log('order_id', order_id);
+  const navigation = useNavigation();
     const [selectedValue, setSelectedValue] = useState('java');
-  const [text, onChangeText] = React.useState('');
-  const [Password, setPassword] = React.useState('');
+ 
 
   const [data, setData] = React.useState({
-    name: '',
+    email: '',
     password: '',
 
     check_textInputChange: false,
@@ -28,13 +33,13 @@ export default function FreeFire() {
     if (val.length !== 0) {
       setData({
         ...data,
-        name: val,
+        email: val,
         check_textInputChange: true,
       });
     } else {
       setData({
         ...data,
-        name: val,
+        email: val,
         check_textInputChange: false,
       });
     }
@@ -47,9 +52,63 @@ export default function FreeFire() {
     });
   };
 
-  const handleSubmit =()=>{
-      console.log('you submit pubg')
-  }
+  const submitOrder = async newData => {
+    console.log('fetch order_id', order_id);
+    console.log('newdata fetch', newData);
+
+    try {
+      const api_token = await AsyncStorage.getItem('api_token');
+      let response = await fetch(`http://192.168.1.46:8000/api/info/add`, {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + api_token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          order_id: order_id,
+          email: newData.email,
+          password: newData.password,
+        }),
+      });
+      let responseJson = await response.json();
+      console.log('response', responseJson);
+       navigation.navigate('Purchase');
+    
+
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (data.email.length == 0 || data.password.length == 0) {
+      Alert.alert(
+        'Wrong Input!',
+        'Facebook or Password fields cannot be empty.',
+        [{text: 'Okay'}],
+      );
+      return;
+    }
+    // navigation.navigate('Purchase');
+    console.log('submit id@@@', order_id);
+
+    let newData = {
+      email: data.email,
+      password: data.password,
+    };
+    console.log('newData', newData);
+    submitOrder(newData);
+    navigation.navigate('Purchase');
+    console.log('you submit  Screen 3');
+  };
+
+  useEffect(() => {
+    submitOrder();
+  }, []);
+
+
     return (
         <View>
           <Headline style={{textAlign: 'center', fontSize: 30, marginTop: 30}}>
