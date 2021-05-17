@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-export default function Title({children, numberOfLine=2, size = 20}) {
+export default function Title({children, numberOfLine=1, size = 13}) {
     return (
         <View>
             <Text

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Title from '../card/Title';
+
 const url = 'https://nextstageksa.com/cards/api/category/index';
 import Card from '../card/Card';
 
@@ -68,8 +69,8 @@ export default function VerticalList({title}) {
                 />
                 {/* <Title>{item.name_ar }</Title> */}
                 {/* <Title>{item.name_ar}</Title> */}
-                <View style={{marginTop: 80}}>
-                <Title >{item.name_en}</Title>
+                <View style={{marginTop: 85,  }}>
+                <Title >{item.name_en.toUpperCase()}</Title>
 
                 </View>
                 
@@ -96,10 +97,11 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    width: 100,
-    height: 60,
+    width: 120,
+    height: 70,
     margin: 10,
     borderBottomWidth: 1,
-    resizeMode: "center"
+    resizeMode: "center",
+ 
   },
 });
