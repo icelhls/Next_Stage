@@ -10,11 +10,6 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Title from '../card/Title';
-import Subtitle from '../card/Subtitle';
-// import data from '../model/fakeData'
-import data from '../assets/data';
-import SmallCard from '../card/SmallCard';
-import Blockcard from '../card/Blockcard';
 const url = 'https://nextstageksa.com/cards/api/category/index';
 import Card from '../card/Card';
 
@@ -22,7 +17,7 @@ export default function VerticalList({title}) {
   const [data, setData] = useState({
     categories: '',
   });
-  // const [categories, setCategories] = useState([])
+
   const navigation = useNavigation();
   console.log(navigation);
 
