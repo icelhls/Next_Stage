@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, TextInput, TouchableOpacity, Alert} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import {
   Title,
@@ -10,11 +16,14 @@ import {
 } from 'react-native-paper';
 import {Button} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import {useNavigation} from '@react-navigation/native';
 
 export default function PubgKoreaScreen({route}) {
-
   const order_id = route.params.id2;
-  console.log('order_id', order_id)
+  console.log('order_id', order_id);
+  
+  const navigation = useNavigation();
+  
   const [selectedValue, setSelectedValue] = useState('java');
   const [text, onChangeText] = React.useState('');
   const [Password, setPassword] = React.useState('');
@@ -50,15 +59,12 @@ export default function PubgKoreaScreen({route}) {
       password: val,
     });
   };
-  
-  const submitOrder = async (newData) => {
 
-    console.log('fetch order_id', order_id)
-    console.log('newdata fetch', newData)
+  const submitOrder = async newData => {
+    console.log('fetch order_id', order_id);
+    console.log('newdata fetch', newData);
 
     try {
-    
-
       const api_token = await AsyncStorage.getItem('api_token');
       let response = await fetch(`http://192.168.1.46:8000/api/info/add`, {
         method: 'POST',
@@ -70,24 +76,19 @@ export default function PubgKoreaScreen({route}) {
         body: JSON.stringify({
           order_id: order_id,
           email: newData.email,
-          password: newData.password
-
+          password: newData.password,
         }),
       });
       let responseJson = await response.json();
-      console.log('response', responseJson)
+      console.log('response', responseJson);
+       navigation.navigate('Purchase');
+    
 
 
-
-      
     } catch (error) {
       console.log(error);
     }
-
   };
-
-
-
 
   const handleSubmit = () => {
     if (data.email.length == 0 || data.password.length == 0) {
@@ -99,26 +100,20 @@ export default function PubgKoreaScreen({route}) {
       return;
     }
     // navigation.navigate('Purchase');
-    console.log('submit id@@@', order_id)
+    console.log('submit id@@@', order_id);
 
     let newData = {
-    
       email: data.email,
-      password: data.password
-
-    }
-    console.log('newData', newData)
-    submitOrder(newData)
-  
-   
-
+      password: data.password,
+    };
+    console.log('newData', newData);
+    submitOrder(newData);
+    navigation.navigate('Purchase');
     console.log('you submit  Pubg screen1');
   };
 
   useEffect(() => {
     submitOrder();
-
- 
   }, []);
 
   return (
@@ -137,7 +132,7 @@ export default function PubgKoreaScreen({route}) {
         <Picker.Item label="Player Email" value="email" />
       </Picker>
       <TextInput
-         placeholder="Facebook Or Player Email"
+        placeholder="Facebook Or Player Email"
         style={styles.input}
         autoCapitalize="none"
         onChangeText={val => textChange(val)}
@@ -154,13 +149,9 @@ export default function PubgKoreaScreen({route}) {
         onChangeText={val => handlePasswordChange(val)}
       />
 
-      
-
       <TouchableOpacity
         style={styles.commandButton}
-        onPress={() =>
-          handleSubmit(data.email,   data.password)
-        }>
+        onPress={() => handleSubmit(data.email, data.password)}>
         <Text style={styles.panelButtonTitle}>Submit</Text>
       </TouchableOpacity>
     </View>
@@ -180,7 +171,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
     width: 150,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   panelButtonTitle: {
     fontSize: 17,
