@@ -17,73 +17,90 @@ import Title from '../card/Title';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const OrderScreen = ({route}) => {
-
   const [orders, setOrders] = useState([]);
 
   const id = route.params.id;
-  console.log('--------Id-----', id)
+
   const navigation = useNavigation();
 
   const fetchCategories10 = async () => {
     try {
-  
-      console.log('--orderId', id)
-      
+    
+
       const api_token = await AsyncStorage.getItem('api_token');
-      let response = await fetch(
-        `http://nextstageksa.com/cards/api/orders/chick`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: 'Bearer ' + api_token,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            id: id
-          }),
+      let response = await fetch(`http://192.168.1.46:8000/api/orders/type`, {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + api_token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      );
-      // let responseJson = await response.json();
+        body: JSON.stringify({
+          id: id,
+        }),
+      });
+      let responseJson = await response.json();
 
-      // console.log('responseOrderNowwww--', responseJson);
-      // console.log('yey Id', id)
-      //  let screen = responseJson.screen
-      //  console.log('screen1', screen)
-      //  if(screen === 1){
-      //    return navigation.navigate('Pubg', {id: id})
+    
+      let screen = responseJson.screen;
+      console.log('screen333', screen);
+      if (screen === 1) {
+        return navigation.navigate('Pubg', {id: id});
+      } else if (screen === 2) {
+        return navigation.navigate('PubgInt', {id: id});
+      } else if (screen === 3) {
+        return navigation.navigate('FreeFire', {id: id});
+      } else if (screen === 4) {
+        return navigation.navigate('Screen4', {id: id});
+      } else if (screen === 5) {
+        return navigation.navigate('Screen5', {id: id});
+      } else {
+        return navigation.navigate('Order', {id: id});
+      }
 
-      //  }else if(screen === 2){
-      //    return navigation.navigate('PubgInt', {id: id})
-
-      //  }else if(screen === 3){
-      //    return navigation.navigate('FreeFire', {id: id})
-      //  }else if(screen === 4){
-      //    return navigation.navigate('Screen4',{id: id} )
-
-      //  }else if(screen === 5){
-      //    return navigation.navigate('Screen5', {id: id})
-
-      //  }else{
-      //    return navigation.navigate('Order', {id: id})
-      //  }
-
-       
-     
-      // let subcategories = responseJson.subcategories;
-      // setCategories(subcategories);
+      
     } catch (error) {
       console.log(error);
     }
+
   };
+
+  const fetchOrderId = async () =>{
+
+      const api_token = await AsyncStorage.getItem('api_token');
+      console.log('chrvll',id)
+      let response1 = await fetch(
+        `http://192.168.1.46:8000/api/orders/orderNow`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: 'Bearer '+api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({id: id})
+        ,
+        }
+      );
+      console.log('dsfs',response1);
+      let responseJson = await response1.json();
+      console.log('OrderById@@@@@',responseJson.order.id)
+      console.log('OrderById@@@@@1111',responseJson);
+    
+
+  }
   useEffect(() => {
     fetchCategories10();
+    fetchOrderId();
   }, []);
+
+ 
+
 
   return (
     <>
       <View style={styles.container}>
-        <TouchableOpacity onPress={  ()=>navigation.navigate('Pubg', {id: id})}>
+        {/* <TouchableOpacity onPress={  ()=>navigation.navigate('Pubg', {id: id})}>
           <Text>Pubg</Text>
 
         </TouchableOpacity>
@@ -99,9 +116,7 @@ const OrderScreen = ({route}) => {
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>navigation.navigate('Screen5', {id: id})}>
           <Text>Screen 5</Text>
-        </TouchableOpacity>
-
-
+        </TouchableOpacity> */}
 
         {/* <FlatList
           data={orders}
