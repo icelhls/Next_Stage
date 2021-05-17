@@ -17,18 +17,18 @@ import {
 import {Button} from 'react-native';
 import {SafeAreaView} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-community/async-storage';
 import {useNavigation} from '@react-navigation/native';
 
 export default function PubgInternatiolScreen({route}) {
+  
   const order_id = route.params.id2;
   console.log('order_id', order_id)
   const [selectedValue, setSelectedValue] = useState('java');
-  const [text, onChangeText] = React.useState('');
-  const [Password, setPassword] = React.useState('');
   const navigation = useNavigation();
 
   const [data, setData] = React.useState({
-    name: '',
+    email: '',
     password: '',
 
     check_textInputChange: false,
@@ -39,46 +39,19 @@ export default function PubgInternatiolScreen({route}) {
   const [subOrder, setSubOrder] = useState([]);
 
 
-  const fetchOrder = async () => {
-    try {
-      // console.log('Data@@ subOrder', data)
-      let response = await fetch(
-        `http://192.168.1.46:8000/api/info/add`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: 'Bearer ' + api_token,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            order_id: id,
-          }),
-        },
-      );
-      let responseJson = await response.json();
 
-      console.log('responseSubOrder--', responseJson);
-      console.log('screen id', id);
-
-      // let subcategories = responseJson.subcategories;
-      // setCategories(subcategories);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const textChange = val => {
     if (val.length !== 0) {
       setData({
         ...data,
-        name: val,
+        email: val,
         check_textInputChange: true,
       });
     } else {
       setData({
         ...data,
-        name: val,
+        email: val,
         check_textInputChange: false,
       });
     }
@@ -91,9 +64,39 @@ export default function PubgInternatiolScreen({route}) {
     });
   };
 
+  const submitOrder = async newData => {
+    console.log('fetch order_id', order_id);
+    console.log('newdata fetch', newData);
+
+    try {
+      const api_token = await AsyncStorage.getItem('api_token');
+      let response = await fetch(`http://192.168.1.46:8000/api/info/add`, {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + api_token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          order_id: order_id,
+          email: newData.email,
+          password: newData.password,
+        }),
+      });
+      let responseJson = await response.json();
+      console.log('response', responseJson);
+       navigation.navigate('Purchase');
+    
+
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   const handleSubmit = () => {
-    if (data.name.length == 0 || data.password.length == 0) {
+    if (data.email.length == 0 || data.password.length == 0) {
       Alert.alert(
         'Wrong Input!',
         'Facebook or Password fields cannot be empty.',
@@ -101,17 +104,24 @@ export default function PubgInternatiolScreen({route}) {
       );
       return;
     }
+
+    console.log('submit id@@@', order_id);
+
+    let newData = {
+      email: data.email,
+      password: data.password,
+    };
+    console.log('newData', newData);
+    submitOrder(newData);
     navigation.navigate('Purchase');
+    console.log('you submit  screen2');
 
-
-    fetchOrder();
-    console.log('you submit  Pubg screen1');
   };
 
   
 
   useEffect(() => {
-    // fetchOrder();
+    submitOrder();
   }, []);
   return (
     <SafeAreaView>
@@ -152,7 +162,7 @@ export default function PubgInternatiolScreen({route}) {
 
           <TouchableOpacity
             style={styles.commandButton}
-            onPress={() => handleSubmit(data.name, data.password)}>
+            onPress={() => handleSubmit(data.email, data.password)}>
             <Text style={styles.panelButtonTitle}>Submit</Text>
           </TouchableOpacity>
         </View>
