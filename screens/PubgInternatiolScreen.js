@@ -20,6 +20,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 
 export default function PubgInternatiolScreen({route}) {
+  const order_id = route.params.id2;
+  console.log('order_id', order_id)
   const [selectedValue, setSelectedValue] = useState('java');
   const [text, onChangeText] = React.useState('');
   const [Password, setPassword] = React.useState('');
@@ -35,8 +37,8 @@ export default function PubgInternatiolScreen({route}) {
   });
 
   const [subOrder, setSubOrder] = useState([]);
-  const id = route.params.id;
-  console.log('id order@@@@@', id);
+
+
   const fetchOrder = async () => {
     try {
       // console.log('Data@@ subOrder', data)
@@ -109,7 +111,7 @@ export default function PubgInternatiolScreen({route}) {
   
 
   useEffect(() => {
-    fetchOrder();
+    // fetchOrder();
   }, []);
   return (
     <SafeAreaView>

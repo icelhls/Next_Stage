@@ -86,12 +86,92 @@ const OrderScreen = ({route}) => {
       let responseJson = await response1.json();
       console.log('OrderById@@@@@',responseJson.order.id)
       console.log('OrderById@@@@@1111',responseJson);
+      //  console.log('Screen', screen )
+      // let id2 = responseJson.order.id
+      // console.log('orderId', id2)
+
+  
     
 
   }
+
+  const fetchOrderScreens = async () => {
+
+    const api_token = await AsyncStorage.getItem('api_token');
+    console.log('chrvll',id)
+    let response1 = await fetch(
+      `http://192.168.1.46:8000/api/orders/orderNow`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer '+api_token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id: id})
+      ,
+      }
+    );
+    console.log('dsfs',response1);
+    let responseJson = await response1.json();
+    console.log('OrderById@@@@@',responseJson.order.id)
+    console.log('OrderById@@@@@2222',responseJson);
+    let id2 = responseJson.order.id
+    console.log('id2', id2)
+
+
+    try {
+    
+
+      const api_token = await AsyncStorage.getItem('api_token');
+      let response = await fetch(`http://192.168.1.46:8000/api/orders/type`, {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + api_token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: id,
+        }),
+      });
+
+      console.log('id2@@@@@@@', id2)
+      let responseJson = await response.json();
+
+    
+      let screen = responseJson.screen;
+      console.log('screen4444', screen);
+      if (screen === 1) {
+        return navigation.navigate('Pubg', {id2: id2});
+      } else if (screen === 2) {
+        return navigation.navigate('PubgInt', {id2: id2});
+      } else if (screen === 3) {
+        return navigation.navigate('FreeFire', {id: id});
+      } else if (screen === 4) {
+        return navigation.navigate('Screen4', {id: id});
+      } else if (screen === 5) {
+        return navigation.navigate('Screen5', {id: id});
+      } else {
+        return navigation.navigate('Order', {id: id});
+      }
+
+      
+    } catch (error) {
+      console.log(error);
+    }
+
+
+
+  };
+
+
+
+
   useEffect(() => {
-    fetchCategories10();
-    fetchOrderId();
+    // fetchCategories10();
+    // fetchOrderId();
+    fetchOrderScreens();
   }, []);
 
  
