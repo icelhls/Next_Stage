@@ -68,7 +68,11 @@ export default function VerticalList({title}) {
                 />
                 {/* <Title>{item.name_ar }</Title> */}
                 {/* <Title>{item.name_ar}</Title> */}
-                <Title>{item.name_en}</Title>
+                <View style={{marginTop: 80}}>
+                <Title >{item.name_en}</Title>
+
+                </View>
+                
               </View>
             </Card>
           </TouchableOpacity>
