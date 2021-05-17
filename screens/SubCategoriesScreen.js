@@ -52,7 +52,10 @@ const SubCategoriesScreen = ({route}) => {
             type ? () => navigation.navigate('Order', {id: item.id}) : null
           }>
           <Card>
-            {/* <Card.Divider/> */}
+            <Card.Title style={{fontSize: 11, color: '#a52a2a'}}>
+              {item.name_en}
+            </Card.Title>
+            <Card.Divider />
 
             <View style={styles.user}>
               <Image
@@ -74,12 +77,15 @@ const SubCategoriesScreen = ({route}) => {
       return (
         <TouchableOpacity onPress={() => alert('Buy Now')}>
           <Card>
-            {/* <Card.Divider/> */}
+            <Card.Title style={{fontSize: 11, color: '#a52a2a'}}>
+              {item.name_en}
+            </Card.Title>
+            <Card.Divider />
 
             <View style={styles.user}>
               <Image
                 style={styles.image}
-                resizeMode="cover"
+                // resizeMode="cover"
                 source={{
                   uri: `https://nextstageksa.com/cards/storage/uploades/${
                     item.image
@@ -87,7 +93,7 @@ const SubCategoriesScreen = ({route}) => {
                 }}
               />
             </View>
-
+            <Card.Title style={{color: 'green'}}>{item.price} JD</Card.Title>
             <Card.Title>Buy Now</Card.Title>
           </Card>
         </TouchableOpacity>
@@ -129,11 +135,11 @@ const styles = StyleSheet.create({
   //   width: 110,
   //   height: 145,
   // },
-   image: {
+  image: {
     width: 120,
     height: 161,
     margin: 10,
     borderBottomWidth: 1,
-
+    resizeMode: 'cover',
   },
 });
