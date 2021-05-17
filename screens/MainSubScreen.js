@@ -72,12 +72,13 @@ const renderItemSubs = ({item}) => {
           type ? () => navigation.navigate('Order', {id: item.id}) : null
         }>
         <Card>
-          {/* <Card.Divider/> */}
+        <Card.Title style={{fontSize: 11}}>{item.name_en}</Card.Title>
+          <Card.Divider/>
 
           <View style={styles.user}>
             <Image
               style={styles.image}
-              resizeMode="cover"
+              // resizeMode="cover"
               source={{
                 uri: `https://nextstageksa.com/cards/storage/uploades/${
                   item.image
@@ -99,7 +100,7 @@ const renderItemSubs = ({item}) => {
           <View style={styles.user}>
             <Image
               style={styles.image}
-              resizeMode="cover"
+              // resizeMode="cover"
               source={{
                 uri: `https://nextstageksa.com/cards/storage/uploades/${
                   item.image
@@ -143,7 +144,7 @@ const renderItemSubs = ({item}) => {
                       }}>
                       <Image
                         style={styles.imageMainCard}
-                        resizeMode="cover"
+                        // resizeMode="cover"
                         source={{
                           uri: `https://nextstageksa.com/cards/storage/uploades/${
                             item.image
@@ -185,6 +186,8 @@ const styles = StyleSheet.create({
     height: 161,
     margin: 10,
     borderBottomWidth: 1,
+    resizeMode: "center"
+
 
   },
   imageMainCard: {
@@ -192,5 +195,6 @@ const styles = StyleSheet.create({
     height: 145,
     margin: 10,
     borderBottomWidth: 1,
+    resizeMode: "center"
   },
 });
