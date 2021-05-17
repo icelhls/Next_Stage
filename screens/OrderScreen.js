@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
+  TouchableOpacity,
+  Text
 
 } from 'react-native';
 
@@ -62,7 +64,7 @@ const OrderScreen = ({route}) => {
       let screen = responseJson.screen;
       console.log('screen4444', screen);
       if (screen === 1) {
-        return navigation.navigate('Pubg', {id2: id2});
+        return navigation.navigate('Screen5', {id2: id2});
       } else if (screen === 2) {
         return navigation.navigate('PubgInt', {id2: id2});
       } else if (screen === 3) {
@@ -70,7 +72,7 @@ const OrderScreen = ({route}) => {
       } else if (screen === 4) {
         return navigation.navigate('Screen4', {id: id});
       } else if (screen === 5) {
-        return navigation.navigate('Screen5', {id: id});
+        return navigation.navigate('Pubg', {id: id});
       } else {
         return navigation.navigate('Order', {id: id});
       }
@@ -100,7 +102,7 @@ const OrderScreen = ({route}) => {
         <TouchableOpacity onPress={()=>navigation.navigate('Screen4', {id: id})}>
           <Text>Screen 4</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('Screen5', {id: id})}>
+        <TouchableOpacity onPress={()=>navigation.navigate('pubg', {id: id})}>
           <Text>Screen 5</Text>
         </TouchableOpacity> */}
 

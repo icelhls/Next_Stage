@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {
   StyleSheet,
@@ -17,24 +17,27 @@ import AsyncStorage from '@react-native-community/async-storage';
 import RNFetchBlob from 'rn-fetch-blob';
 
 
-export default function OrderScreen5() {
+export default function OrderScreen5({route}) {
+  const order_id = route.params.id2;
+  console.log('order_id', order_id);
+
     const navigation = useNavigation();
 
     const [data, setData] = React.useState({
-      name: '',
+      id: '',
       check_textInputChange: false,
     });
     const textChange = val => {
       if (val.length !== 0) {
         setData({
           ...data,
-          name: val,
+          id: val,
           check_textInputChange: true,
         });
       } else {
         setData({
           ...data,
-          name: val,
+          id: val,
           check_textInputChange: false,
         });
       }
@@ -62,12 +65,66 @@ export default function OrderScreen5() {
         await updatePicture(data);
       }
 
-      const handleSubmit = () => {
-
-      
+      const submitOrder = async newData => {
+        console.log('fetch order_id', order_id);
+        console.log('newdata fetch', newData);
     
-        console.log('you submit  Pubg screen 5');
+        try {
+          const api_token = await AsyncStorage.getItem('api_token');
+          let response = await fetch(`http://192.168.1.46:8000/api/info/add`, {
+            method: 'POST',
+            headers: {
+              Authorization: 'Bearer ' + api_token,
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              order_id: order_id,
+              id: newData.id,
+           
+            }),
+          });
+          let responseJson = await response.json();
+          console.log('response', responseJson);
+           navigation.navigate('Purchase');
+        
+    
+    
+        } catch (error) {
+          console.log(error);
+        }
       };
+
+
+ 
+
+
+      const handleSubmit = () => {
+        if (data.id.length == 0 ) {
+          Alert.alert(
+            'Wrong Input!',
+            'Id player fields cannot be empty.',
+            [{text: 'Okay'}],
+          );
+          return;
+        }
+    
+        console.log('submit id@@@', order_id);
+    
+        let newData = {
+          id: data.id,
+         
+        };
+        console.log('newData', newData);
+        submitOrder(newData);
+        navigation.navigate('Purchase');
+        console.log('you submit  screen1');
+    
+      };
+
+      useEffect(() => {
+        submitOrder();
+      }, []);
 
 
 
@@ -79,7 +136,7 @@ export default function OrderScreen5() {
             - Order Details -
           </Headline>
             <TextInput
-            placeholder="Player Name"
+            placeholder="Player Id"
             style={styles.input}
             autoCapitalize="none"
             onChangeText={val => textChange(val)}
@@ -90,7 +147,7 @@ export default function OrderScreen5() {
 
           <TouchableOpacity
             style={styles.commandButton}
-            onPress={() => handleSubmit(data.name)}>
+            onPress={() => handleSubmit(data.id)}>
             <Text style={styles.panelButtonTitle}>Submit</Text>
           </TouchableOpacity>
 
