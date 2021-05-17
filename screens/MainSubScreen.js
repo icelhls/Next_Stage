@@ -72,7 +72,7 @@ const renderItemSubs = ({item}) => {
           type ? () => navigation.navigate('Order', {id: item.id}) : null
         }>
         <Card>
-        <Card.Title style={{fontSize: 11}}>{item.name_en}</Card.Title>
+        <Card.Title style={{fontSize: 11, color: '#a52a2a'}}>{item.name_en}</Card.Title>
           <Card.Divider/>
 
           <View style={styles.user}>
@@ -86,7 +86,7 @@ const renderItemSubs = ({item}) => {
               }}
             />
           </View>
-
+          <Card.Title style={{color: 'green'}}>{item.price} JD</Card.Title>
           <Card.Title>Order Now</Card.Title>
         </Card>
       </TouchableOpacity>
@@ -95,7 +95,8 @@ const renderItemSubs = ({item}) => {
     return (
       <TouchableOpacity onPress={() => alert('Buy Now')}>
         <Card>
-          {/* <Card.Divider/> */}
+        <Card.Title style={{fontSize: 11, color: '#a52a2a'}}>{item.name_en}</Card.Title>
+          <Card.Divider/>
 
           <View style={styles.user}>
             <Image
@@ -108,7 +109,7 @@ const renderItemSubs = ({item}) => {
               }}
             />
           </View>
-          {/* <Card.Title style={{color: 'green'}}>{item.price} $</Card.Title> */}
+          <Card.Title style={{color: 'green'}}>{item.price} JD</Card.Title>
           <Card.Title>Buy Now</Card.Title>
         </Card>
       </TouchableOpacity>
