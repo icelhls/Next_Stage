@@ -68,7 +68,7 @@ const SubCategoriesScreen = ({route}) => {
                 }}
               />
             </View>
-
+            <Card.Title style={{color: 'green'}}>{item.price} JD</Card.Title>
             <Card.Title>Order Now</Card.Title>
           </Card>
         </TouchableOpacity>
