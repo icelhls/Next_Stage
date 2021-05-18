@@ -7,8 +7,10 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  Text,
 } from 'react-native';
 import {Card, ListItem, Icon} from 'react-native-elements';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {useNavigation} from '@react-navigation/native';
 const SubCategoriesScreen = ({route}) => {
@@ -75,7 +77,7 @@ const SubCategoriesScreen = ({route}) => {
       );
     } else if (type === false) {
       return (
-        <TouchableOpacity onPress={() => alert('Buy Now')}>
+        <TouchableOpacity onPress={() => submitOrder1({item})}>
           <Card>
             <Card.Title style={{fontSize: 11, color: '#a52a2a'}}>
               {item.name_en}
@@ -94,10 +96,51 @@ const SubCategoriesScreen = ({route}) => {
               />
             </View>
             <Card.Title style={{color: 'green'}}>{item.price} JD</Card.Title>
-            <Card.Title>Buy Now</Card.Title>
+
+            {item.count ? (
+              <Card.Title>Buy Now</Card.Title>
+            ) : (
+              <Card.Title>Not found</Card.Title>
+            )}
           </Card>
         </TouchableOpacity>
       );
+    }
+  };
+
+  const submitOrder1 = ({item}) => {
+    if (item.count) {
+      // call API
+      console.log('TRIX', item.id);
+      submitOrder2({item});
+    } else {
+      alert('Not found');
+    }
+  };
+
+  const submitOrder2 = async ({item}) => {
+    try {
+      const api_token = await AsyncStorage.getItem('api_token');
+      let response = await fetch(
+        `http://192.168.1.46:8000/api/orders/orderNow`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: item.id,
+          }),
+        },
+      );
+      let responseJson = await response.json();
+      alert(responseJson.message1);
+      console.log('response', responseJson);
+      navigation.navigate('Purchase');
+    } catch (error) {
+      console.log(error);
     }
   };
 
