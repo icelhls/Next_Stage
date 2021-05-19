@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-
 } from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import {
@@ -18,6 +17,10 @@ import {
 import {Button} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {useNavigation} from '@react-navigation/native';
+import {useTheme} from 'react-native-paper';
+
+import ImagePicker from 'react-native-image-crop-picker';
+import RNFetchBlob from 'rn-fetch-blob';
 
 export default function PubgKoreaScreen({route}) {
   const order_id = route.params.id2;
@@ -26,6 +29,10 @@ export default function PubgKoreaScreen({route}) {
   const navigation = useNavigation();
 
   const [selectedValue, setSelectedValue] = useState('java');
+
+  const [nameo, setNameo] = useState('');
+  const [imageo, setImageo] = useState('');
+  const [exto, setExto] = useState('');
 
   // const [data, setData] = React.useState({
   //   email: '',
@@ -112,7 +119,7 @@ export default function PubgKoreaScreen({route}) {
   // useEffect(() => {
   //   submitOrder();
   // }, []);
-
+  const [image, setImage] = useState('');
   const [data, setData] = React.useState({
     name: '',
     check_textInputChange: false,
@@ -133,6 +140,55 @@ export default function PubgKoreaScreen({route}) {
     }
   };
 
+  const updatePicture = async ({data}) => {
+    //console.log('DATA', data);
+    if(imageo){
+
+    
+
+    try {
+      // console.log(' TTTTTTT ', newData.name)
+      console.log(' TTTTTTT ', order_id);
+      console.log(' TTTTTTT ', exto);
+      console.log(' TTTTTTT ', imageo);
+      console.log('TTTTTTT', nameo)
+      const api_token = await AsyncStorage.getItem('api_token');
+      let response = await fetch('http://192.168.1.46:8000/api/info/add', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          Authorization: 'Bearer ' + api_token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          image: imageo,
+          ext: exto,
+          order_id: order_id,
+          name: nameo
+        }),
+      });
+
+      let responseJson = await response.json();
+
+      console.log('response api', responseJson);
+      navigation.navigate('Purchase');
+     
+    } catch (error) {
+      console.log('errors Image', error);
+    }
+  }else{
+    alert('please select photo')
+  }
+  };
+
+  useEffect(() => {
+    // handleRecharge();
+    // updatePicture();
+  }, []);
+
+  const {colors} = useTheme();
+
   const choosePhotoFromLibrary = async () => {
     const file = await ImagePicker.openPicker({
       width: 300,
@@ -145,66 +201,69 @@ export default function PubgKoreaScreen({route}) {
     const result = await RNFetchBlob.fs.readFile(file.path, 'base64');
 
     console.log('result', result);
-
+    setImageo(result)
+    setExto('jpg')
     const data = {
       image: result,
-      ext: 'jpj',
-      amount: amount,
+      ext: 'jpg',
+      // name: data.name
     };
 
-    await updatePicture(data);
+    console.log('data', data);
+
+    // await updatePicture(data);
   };
 
-  const submitOrder = async newData => {
-    console.log('fetch order_id', order_id);
-    console.log('newdata fetch', newData);
+  // const submitOrder = async newData => {
+  //   console.log('fetch order_id', order_id);
+  //   console.log('newdata fetch', newData);
 
-    try {
-      const api_token = await AsyncStorage.getItem('api_token');
-      let response = await fetch(`http://192.168.1.46:8000/api/info/add`, {
-        method: 'POST',
-        headers: {
-          Authorization: 'Bearer ' + api_token,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          order_id: order_id,
-          name: newData.name,
-        }),
-      });
-      let responseJson = await response.json();
-      console.log('response', responseJson);
-      navigation.navigate('Purchase');
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //   try {
+  //     const api_token = await AsyncStorage.getItem('api_token');
+  //     let response = await fetch(`http://192.168.1.46:8000/api/info/add`, {
+  //       method: 'POST',
+  //       headers: {
+  //         Authorization: 'Bearer ' + api_token,
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         order_id: order_id,
+  //         name: newData.name,
+  //       }),
+  //     });
+  //     let responseJson = await response.json();
+  //     console.log('response', responseJson);
+  //     navigation.navigate('Purchase');
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const handleSubmit = () => {
-    // if (data.id.length == 0 ) {
-    //   Alert.alert(
-    //     'Wrong Input!',
-    //     'Id player fields cannot be empty.',
-    //     [{text: 'Okay'}],
-    //   );
-    //   return;
-    // }
+  // const handleSubmit = () => {
+  //   // if (data.id.length == 0 ) {
+  //   //   Alert.alert(
+  //   //     'Wrong Input!',
+  //   //     'Id player fields cannot be empty.',
+  //   //     [{text: 'Okay'}],
+  //   //   );
+  //   //   return;
+  //   // }
 
-    console.log('submit id@@@', order_id);
+  //   console.log('submit id@@@', order_id);
 
-    let newData = {
-      name: data.name,
-    };
-    console.log('newData', newData);
-    submitOrder(newData);
-    navigation.navigate('Purchase');
-    console.log('you submit  screen1');
-  };
+  //   let newData = {
+  //     name: data.name,
+  //   };
+  //   console.log('newData', newData);
+  //   submitOrder(newData);
+  //   navigation.navigate('Purchase');
+  //   console.log('you submit  screen1');
+  // };
 
-  useEffect(() => {
-    submitOrder();
-  }, []);
+  // useEffect(() => {
+  //   submitOrder();
+  // }, []);
 
   return (
     <View>
@@ -216,19 +275,18 @@ export default function PubgKoreaScreen({route}) {
         "
         style={styles.input}
         autoCapitalize="none"
-        onChangeText={val => textChange(val)}
-      />     
-          <Text>صورة - (اجباري)</Text> 
-                     <TouchableOpacity onPress={choosePhotoFromLibrary } style={styles.commandButtonFile}>
-                      
-             
-           <Text style={styles.panelButtonTitle}>Choose File</Text>
-               
-          </TouchableOpacity>
+        onChangeText={val => setNameo(val)}
+      />
+      <Text>صورة - (اجباري)</Text>
+      <TouchableOpacity
+        onPress={choosePhotoFromLibrary}
+        style={styles.commandButtonFile}>
+        <Text style={styles.panelButtonTitle}>Choose File</Text>
+      </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.commandButton}
-        onPress={() => handleSubmit(data.name)}>
+        onPress={() => updatePicture({data})}>
         <Text style={styles.panelButtonTitle}>تأكيد الدفع </Text>
       </TouchableOpacity>
     </View>
@@ -265,5 +323,4 @@ const styles = StyleSheet.create({
 
     alignSelf: 'center',
   },
-
 });

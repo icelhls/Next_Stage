@@ -9,6 +9,7 @@ import {
   TextInput,
   TouchableOpacity,
   Button,
+  Alert,
 } from 'react-native';
 import { Headline} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
@@ -22,6 +23,9 @@ export default function OrderScreen5({route}) {
   console.log('order_id', order_id);
 
     const navigation = useNavigation();
+    const [imageo, setImageo] = useState('');
+    const [exto, setExto] = useState('');
+  
 
     const [data, setData] = React.useState({
       id: '',
@@ -43,33 +47,45 @@ export default function OrderScreen5({route}) {
       }
     };
 
-    const choosePhotoFromLibrary = async () => {
-        const file = await ImagePicker.openPicker({
-          width: 300,
-          height: 300,
-          cropping: true,
-          compressImageQuality: 0.7,
-        });
-    
-        console.log('imageBase', file);
-        const result = await RNFetchBlob.fs.readFile(file.path, 'base64');
-    
-        console.log('result', result);
-    
-        const data = {
-          image: result,
-          ext: 'jpj',
-          amount: amount
-        };
-    
-        await updatePicture(data);
-      }
+/////
+
+const choosePhotoFromLibrary = async () => {
+  const file = await ImagePicker.openPicker({
+    width: 300,
+    height: 300,
+    cropping: true,
+    compressImageQuality: 0.7,
+  });
+
+  console.log('imageBase', file);
+  const result = await RNFetchBlob.fs.readFile(file.path, 'base64');
+
+  console.log('result', result);
+  setImageo(result)
+  setExto('jpg')
+  const data = {
+    image: result,
+    ext: 'jpg',
+    // name: data.name
+  };
+
+  console.log('data', data);
+
+  // await updatePicture(data);
+};
 
       const submitOrder = async newData => {
+
+       if(newData.id){
         console.log('fetch order_id', order_id);
         console.log('newdata fetch', newData);
     
         try {
+          console.log('TTTTT',imageo )
+          console.log('TTTTT',exto )
+          console.log('TTTTT',order_id )
+          console.log('TTTTT',newData.id )
+
           const api_token = await AsyncStorage.getItem('api_token');
           let response = await fetch(`http://192.168.1.46:8000/api/info/add`, {
             method: 'POST',
@@ -81,6 +97,8 @@ export default function OrderScreen5({route}) {
             body: JSON.stringify({
               order_id: order_id,
               id: newData.id,
+              ext:exto,
+              image: imageo
            
             }),
           });
@@ -93,6 +111,10 @@ export default function OrderScreen5({route}) {
         } catch (error) {
           console.log(error);
         }
+
+      }else{
+        alert('please select photo')
+      }
       };
 
 
@@ -123,7 +145,7 @@ export default function OrderScreen5({route}) {
       };
 
       useEffect(() => {
-        submitOrder();
+        //submitOrder();
       }, []);
 
 
