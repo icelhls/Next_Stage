@@ -39,16 +39,19 @@ const ForgotPasswordScreen = ({navigation}) => {
       console.log('Data', data);
       if(data.email === 1){
         navigation.navigate('Code1', {email: email})
+      
       }else{
         alert(' the email is not found ')
       }
     
     } catch (error) {
-      console.log('errors profile', error);
+      console.log('errors forget', error);
     }
   }else{
     alert(' please write your email')
   }
+
+  setEmail('')
   
   };
 
