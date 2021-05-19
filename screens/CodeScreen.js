@@ -48,7 +48,7 @@ const CodeScreen = ({route}) => {
       let data = responseJson;
       console.log('Data code', data);
       if (data.code === 1) {
-        navigation.navigate('ChangePas');
+        navigation.navigate('ChangePas', {code: code});
       } else {
         alert('Please check code');
       }

@@ -17,7 +17,7 @@ const ForgotPasswordScreen = ({navigation}) => {
  
 
   const callapi = async newdata => {
-    console.log('mustaf forget', data, email)
+    console.log('email forget',  email)
 
 
     if(email){

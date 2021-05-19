@@ -62,7 +62,7 @@ const SubCategoriesScreen = ({route}) => {
             <View style={styles.user}>
               <Image
                 style={styles.image}
-                resizeMode="cover"
+                resizeMode="center"
                 source={{
                   uri: `https://nextstageksa.com/cards/storage/uploades/${
                     item.image
