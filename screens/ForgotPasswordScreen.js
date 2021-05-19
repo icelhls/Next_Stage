@@ -5,8 +5,6 @@ import {Input} from 'react-native-elements';
 import {Headline} from 'react-native-paper';
 import {createStackNavigator} from '@react-navigation/stack';
 import LinearGradient from 'react-native-linear-gradient';
-import AsyncStorage from '@react-native-community/async-storage';
-
 
 const ForgotPasswordScreen = ({navigation}) => {
 
@@ -36,10 +34,9 @@ const ForgotPasswordScreen = ({navigation}) => {
       });
 
       let responseJson = await response.json();
-      // console.log('responseJsonUpdateProfile---', responseJson.data);
       let data = responseJson;
       console.log('Data', data);
-      if(data.email){
+      if(data.email === 1){
         navigation.navigate('Code')
       }else{
         alert(' the email is not found ')
@@ -55,41 +52,11 @@ const ForgotPasswordScreen = ({navigation}) => {
   };
 
 
- 
 
-
-   
-
-
-  const emailInputChange = val => {
-    if (val.length !== 0) {
-      setData({
-        ...data,
-        email: val,
-        check_textInputChange: true,
-      });
-    } else {
-      setData({
-        ...data,
-        email: val,
-        check_textInputChange: false,
-      });
-    }
-  };
-
-  const forgotHandle = email => {
-    if (data.email.length == 0) {
-      Alert.alert('Wrong Input!', 'Phone field cannot be empty.', [
-        {text: 'Okay'},
-      ]);
-      return;
-    }
-  };
 
   return (
     <View style={styles.container}>
-      {/* <Text>Change password</Text> */}
-      <Headline style={styles.titleStyle}>Reset Password</Headline>
+      <Headline style={styles.titleStyle}>Forget Password</Headline>
       <Input
         style={styles.textInput}
         placeholder="  Email"
@@ -111,7 +78,7 @@ const ForgotPasswordScreen = ({navigation}) => {
                 color: '#fff',
               },
             ]}>
-             Reset Password
+             Forget Password
           </Text>
         </LinearGradient>
       </TouchableOpacity>
@@ -120,10 +87,6 @@ const ForgotPasswordScreen = ({navigation}) => {
     </View>
   );
 };
-// const Stack = createStackNavigator();
-// <Stack.Navigator>
-//   <Stack.Screen name="Forgot" component={ForgotPasswordScreen} />
-// </Stack.Navigator>
 
 export default ForgotPasswordScreen;
 

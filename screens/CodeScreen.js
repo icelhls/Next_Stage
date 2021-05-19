@@ -32,7 +32,6 @@ const CodeScreen = () => {
       });
 
       let responseJson = await response.json();
-      // console.log('responseJsonUpdateProfile---', responseJson.data);
       let data = responseJson;
       console.log('Data', data);
       navigation.navigate('ChangePas')
