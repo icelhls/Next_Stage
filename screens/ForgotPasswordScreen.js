@@ -14,6 +14,7 @@ const ForgotPasswordScreen = ({navigation}) => {
   });
 
   const [email, setEmail] = useState('')
+ 
 
   const callapi = async newdata => {
     console.log('mustaf forget', data, email)
@@ -37,7 +38,7 @@ const ForgotPasswordScreen = ({navigation}) => {
       let data = responseJson;
       console.log('Data', data);
       if(data.email === 1){
-        navigation.navigate('Code')
+        navigation.navigate('Code1', {email: email})
       }else{
         alert(' the email is not found ')
       }

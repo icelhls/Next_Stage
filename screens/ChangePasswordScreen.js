@@ -24,7 +24,7 @@ const ChangePasswordScreen = () => {
 
       <Button
         color="#7e102c"
-        title="CHANGE"
+        title="CHANGE PASSWORD"
         onPress={() => navigation.navigate('SignInScreen')}
       />
     </View>

@@ -5,86 +5,73 @@ import {Input} from 'react-native-elements';
 import {Headline} from 'react-native-paper';
 import {createStackNavigator} from '@react-navigation/stack';
 import LinearGradient from 'react-native-linear-gradient';
-import AsyncStorage from '@react-native-community/async-storage';
 import {useNavigation} from '@react-navigation/native';
 
-const CodeScreen = () => {
+
+const CodeScreen = ({route}) => {
+    const email = route.params.email;
+    console.log('email', email)
     const navigation = useNavigation();
   
-  const [data, setData] = React.useState({
-      email: '',
-  });
+//   const [data, setData] = React.useState({
+//       email: '',
+//   });
 
-  const [email, setEmail] = useState('')
 
-  const callapi = async newdata => {
+  const [code, setCode] = useState('')
 
-    if(email){
+//   const handlesubmit = async =>{
+ 
+    
+
+
+//       console.log('hhhhh', code)
+//   }
+  
+
+  const fetchHandleSubmit = async newdata => {
+      console.log('Codeeee', code)
+      console.log('email Api', email)
+
+  
     try {
-     
-      let response = await fetch('http://192.168.1.46:8000/api/password/forgot', {
+    
+      let response = await fetch('http://192.168.1.46:8000/api/password/checkCode', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: email
+        body: JSON.stringify({
+            code: code,
+            email: email
+          })
       });
 
       let responseJson = await response.json();
-      let data = responseJson;
-      console.log('Data', data);
-      navigation.navigate('ChangePas')
+      console.log('res', responseJson)
+    //   let data = responseJson;
+    //   console.log('Data', data);
+    // //   navigation.navigate('ChangePas')
     
     } catch (error) {
-      console.log('errors profile', error);
+      console.log('errors Code', error);
     }
-  }else{
-    alert(' please write your email')
-  }
+  
   
   };
 
 
  
 
-
-   
-
-
-  const emailInputChange = val => {
-    if (val.length !== 0) {
-      setData({
-        ...data,
-        email: val,
-        check_textInputChange: true,
-      });
-    } else {
-      setData({
-        ...data,
-        email: val,
-        check_textInputChange: false,
-      });
-    }
-  };
-
-  const forgotHandle = email => {
-    if (data.email.length == 0) {
-      Alert.alert('Wrong Input!', 'Phone field cannot be empty.', [
-        {text: 'Okay'},
-      ]);
-      return;
-    }
-  };
-
   return (
     <View style={styles.container}>
-      {/* <Text>Change password</Text> */}
-      <Headline style={styles.titleStyle}>Codeeeeee</Headline>
+      <Text>{code}</Text>
+      <Headline style={styles.titleStyle}>Code </Headline>
       <Input
         style={styles.textInput}
-        placeholder="  Email"
-        onChangeText={val => setEmail(val)}
+        placeholder="Code"
+        onChangeText={val => setCode(val)}
       />
 
 
@@ -92,7 +79,10 @@ const CodeScreen = () => {
       <TouchableOpacity
         style={styles.signIn}
         onPress={() => {
-          callapi(data.email);
+            fetchHandleSubmit();
+      
+    
+      
         }}>
         <LinearGradient colors={['#7e102c', '#7e102c']} style={styles.signIn}>
           <Text
@@ -111,10 +101,7 @@ const CodeScreen = () => {
     </View>
   );
 };
-// const Stack = createStackNavigator();
-// <Stack.Navigator>
-//   <Stack.Screen name="Forgot" component={ForgotPasswordScreen} />
-// </Stack.Navigator>
+
 
 export default CodeScreen;
 
