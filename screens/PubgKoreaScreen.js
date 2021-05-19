@@ -182,10 +182,7 @@ export default function PubgKoreaScreen({route}) {
   }
   };
 
-  useEffect(() => {
-    // handleRecharge();
-    // updatePicture();
-  }, []);
+
 
   const {colors} = useTheme();
 
