@@ -6,10 +6,10 @@ import {Headline} from 'react-native-paper';
 import {createStackNavigator} from '@react-navigation/stack';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-community/async-storage';
+import {useNavigation} from '@react-navigation/native';
 
-
-const ForgotPasswordScreen = ({navigation}) => {
-
+const CodeScreen = () => {
+    const navigation = useNavigation();
   
   const [data, setData] = React.useState({
       email: '',
@@ -18,8 +18,6 @@ const ForgotPasswordScreen = ({navigation}) => {
   const [email, setEmail] = useState('')
 
   const callapi = async newdata => {
-    console.log('mustaf forget', data, email)
-
 
     if(email){
     try {
@@ -30,20 +28,14 @@ const ForgotPasswordScreen = ({navigation}) => {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          email: email
-        })
+        body: email
       });
 
       let responseJson = await response.json();
       // console.log('responseJsonUpdateProfile---', responseJson.data);
       let data = responseJson;
       console.log('Data', data);
-      if(data.email){
-        navigation.navigate('Code')
-      }else{
-        alert(' the email is not found ')
-      }
+      navigation.navigate('ChangePas')
     
     } catch (error) {
       console.log('errors profile', error);
@@ -89,7 +81,7 @@ const ForgotPasswordScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       {/* <Text>Change password</Text> */}
-      <Headline style={styles.titleStyle}>Reset Password</Headline>
+      <Headline style={styles.titleStyle}>Codeeeeee</Headline>
       <Input
         style={styles.textInput}
         placeholder="  Email"
@@ -111,7 +103,7 @@ const ForgotPasswordScreen = ({navigation}) => {
                 color: '#fff',
               },
             ]}>
-             Reset Password
+             Code
           </Text>
         </LinearGradient>
       </TouchableOpacity>
@@ -125,7 +117,7 @@ const ForgotPasswordScreen = ({navigation}) => {
 //   <Stack.Screen name="Forgot" component={ForgotPasswordScreen} />
 // </Stack.Navigator>
 
-export default ForgotPasswordScreen;
+export default CodeScreen;
 
 const styles = StyleSheet.create({
   container: {

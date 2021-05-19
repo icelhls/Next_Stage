@@ -74,13 +74,15 @@ const OrderScreen = ({route}) => {
       } else if (screen === 5) {
         return navigation.navigate('Pubg', {id2: id2});
         
-      } else {
-        return navigation.navigate('Order', {id: id});
+      } else if(screen === 0) {
+        return navigation.navigate('Purchase', {id: id});
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+
 
   useEffect(() => {
     fetchOrderScreens();

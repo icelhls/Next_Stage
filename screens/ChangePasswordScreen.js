@@ -3,8 +3,10 @@ import {View, Text, Button, StyleSheet, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Input} from 'react-native-elements';
 import {Headline} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 
-const ChangePasswordScreen = ({navigation}) => {
+const ChangePasswordScreen = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       {/* <Text>Change password</Text> */}
@@ -23,7 +25,7 @@ const ChangePasswordScreen = ({navigation}) => {
       <Button
         color="#7e102c"
         title="CHANGE"
-        onPress={() => navigation.navigate('Home')}
+        onPress={() => navigation.navigate('SignInScreen')}
       />
     </View>
   );

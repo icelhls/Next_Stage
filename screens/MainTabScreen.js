@@ -158,7 +158,7 @@ const HomeStackScreen = ({navigation}) => (
         ),
       }}
     />
-    <HomeStack.Screen
+    {/* <HomeStack.Screen
       name="Change"
       component={ChangePasswordScreen}
       options={{
@@ -180,7 +180,7 @@ const HomeStackScreen = ({navigation}) => (
           />
         ),
       }}
-    />
+    /> */}
 
     <HomeStack.Screen
       name="Purchase"
