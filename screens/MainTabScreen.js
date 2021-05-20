@@ -34,6 +34,7 @@ import PubgInternatiolScreen from './PubgInternatiolScreen'
 import FreeFireScreen from './FreeFireScreen'
 import OrderScreen4 from './OrderScreen4'
 import OrderScreen5 from './OrderScreen5'
+import NotificationScreen from './NotificationScreen'
 
 
 // Create Stack
@@ -121,6 +122,17 @@ const HomeStackScreen = ({navigation}) => (
             backgroundColor="#7e102c"
             onPress={() => navigation.openDrawer()}
           />
+        ),
+        headerRight: () => (
+          <View style={{marginRight: 10}}>
+            <MaterialCommunityIcons.Button
+              name="bell"
+              size={25}
+              backgroundColor="#7e102c"
+              // color={colors.text}
+              onPress={() => navigation.navigate('Notification')}
+            />
+          </View>
         ),
       }}
     />
@@ -458,7 +470,38 @@ const HomeStackScreen = ({navigation}) => (
             backgroundColor="#7e102c"
             onPress={() => navigation.openDrawer()}
           />
+
+
         ),
+
+
+        headerRight: () => (
+          <Icon.Button
+            name="chevron-left"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.goBack()}
+          />
+        ),
+      }}
+    />
+
+<HomeStack.Screen
+      name="Notification"
+      component={NotificationScreen}
+      options={{
+        title: 'Notications',
+        headerLeft: () => (
+          <Icon.Button
+            name="menu"
+            size={25}
+            backgroundColor="#7e102c"
+            onPress={() => navigation.openDrawer()}
+          />
+
+
+        ),
+
 
         headerRight: () => (
           <Icon.Button
