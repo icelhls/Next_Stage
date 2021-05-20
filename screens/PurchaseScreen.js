@@ -22,6 +22,9 @@ import {ListItem} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import Pendings from '../components/Pendings';
 import Completed from '../components/Completed';
+import InvoiceOrder from '../components/InvoiceOrder';
+// import InvoiceOrder from '../'
+
 import { Button } from 'react-native';
 
 const PurchaseScreen = () => {
@@ -41,6 +44,8 @@ const PurchaseScreen = () => {
 
   const [isPendings, setPendings] = useState(false)
   const [isCompleted, setCompleted] = useState(false)
+  const [isInvoice, setInvoice] = useState(false)
+ 
 
   const toggleCompleted =()=>{
     setCompleted(!isCompleted)
@@ -49,6 +54,12 @@ const PurchaseScreen = () => {
 const togglePendings = ()=>{
   setPendings(!isPendings)
 }
+
+const toggleInvoice =()=>{
+  setInvoice(!isInvoice)
+}
+
+
 
   const fetchWallet = async () => {
     try {
@@ -83,38 +94,6 @@ const togglePendings = ()=>{
 
   }, []);
 
-  // const list = [
-  //   {
-  //     title: 'Orders Name',
-  //     subTitle: 'Description.....',
-  //     price: 50,
-  //   },
-  //   {
-  //     title: 'Orders Name',
-  //     subTitle: 'Description.....',
-  //     price: 25,
-  //   },
-  //   {
-  //     title: 'Orders Name',
-  //     subTitle: 'description.....',
-  //     price: 30,
-  //   },
-  //   {
-  //     title: 'Orders Name',
-  //     subTitle: 'Description.....',
-  //     price: 15,
-  //   },
-  //   {
-  //     title: 'Orders Name',
-  //     subTitle: 'Description.....',
-  //     price: 50,
-  //   },
-  //   {
-  //     title: 'Orders Name',
-  //     subTitle: 'description.....',
-  //     price: 50,
-  //   },
-  // ];
 
   return (
     <>
@@ -161,8 +140,8 @@ const togglePendings = ()=>{
           </View>
           <View style={styles.infoBoxWrapper}>
             <View style={styles.infoBox}>
-              <TouchableOpacity onPress={() => toggleCompleted()}>
-                <Title>Completed Bills</Title>
+              <TouchableOpacity onPress={() => toggleInvoice()}>
+                <Title>Invoice Order</Title>
               </TouchableOpacity>
             </View>
           </View>
@@ -188,6 +167,8 @@ const togglePendings = ()=>{
           {/* /> */}
            {isCompleted && (<Completed />)}
            {isPendings && (<Pendings />)}
+           {isInvoice && (<InvoiceOrder />)}
+           
        
   
         </ScrollView>
