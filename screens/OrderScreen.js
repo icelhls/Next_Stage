@@ -75,7 +75,7 @@ const OrderScreen = ({route}) => {
         return navigation.navigate('Pubg', {id2: id2});
         
       } else if(screen === 0) {
-        return navigation.navigate('Purchase', {id: id});
+        return navigation.navigate('Purchase', {id2: id2});
       }
     } catch (error) {
       console.log(error);

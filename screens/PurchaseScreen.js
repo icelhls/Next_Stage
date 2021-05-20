@@ -159,6 +159,13 @@ const togglePendings = ()=>{
               </TouchableOpacity>
             </View>
           </View>
+          <View style={styles.infoBoxWrapper}>
+            <View style={styles.infoBox}>
+              <TouchableOpacity onPress={() => toggleCompleted()}>
+                <Title>Completed Bills</Title>
+              </TouchableOpacity>
+            </View>
+          </View>
 
           <Headline style={{fontSize: 25}}>Orders History</Headline>
           {/* <Subheading style={{alignSelf: 'flex-end'}}>price</Subheading> */}
