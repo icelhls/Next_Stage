@@ -1,11 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Text
-
-} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 // const url = 'https://nextstageksa.com/cards/api/category/index';
@@ -26,7 +20,9 @@ const OrderScreen = ({route}) => {
     const api_token = await AsyncStorage.getItem('api_token');
     console.log('chrvll', id);
     let response1 = await fetch(
-      `http://192.168.1.46:8000/api/orders/orderNow`,
+      // `http://192.168.1.46:8000/api/orders/orderNow`,
+      // change to Server 
+       `https://nextstageksa.com/cards/api/orders/orderNow`, 
       {
         method: 'POST',
         headers: {
@@ -46,7 +42,12 @@ const OrderScreen = ({route}) => {
 
     try {
       const api_token = await AsyncStorage.getItem('api_token');
-      let response = await fetch(`http://192.168.1.46:8000/api/orders/type`, {
+      let response = await fetch(
+        // `http://192.168.1.46:8000/api/orders/type`,
+         // Change to server
+          `https://nextstageksa.com/cards/api/orders/type`,
+
+         {
         method: 'POST',
         headers: {
           Authorization: 'Bearer ' + api_token,
@@ -73,16 +74,13 @@ const OrderScreen = ({route}) => {
         return navigation.navigate('Screen4', {id2: id2});
       } else if (screen === 5) {
         return navigation.navigate('Pubg', {id2: id2});
-        
-      } else if(screen === 0) {
+      } else if (screen === 0) {
         return navigation.navigate('Purchase', {id2: id2});
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-
 
   useEffect(() => {
     fetchOrderScreens();
