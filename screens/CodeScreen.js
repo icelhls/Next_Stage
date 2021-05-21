@@ -29,7 +29,9 @@ const CodeScreen = ({route}) => {
 
     try {
       let response = await fetch(
-        'http://192.168.1.46:8000/api/password/checkCode',
+        // 'http://192.168.1.46:8000/api/password/checkCode',
+        // change to server
+         'https://nextstageksa.com/cards/api/password/checkCode',
         {
           method: 'POST',
           headers: {

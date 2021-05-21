@@ -18,7 +18,9 @@ const ChangePasswordScreen = ({route}) => {
 
     try {
       let response = await fetch(
-        'http://192.168.1.46:8000/api/password/chaingPassword',
+        // 'http://192.168.1.46:8000/api/password/chaingPassword',
+        // change to server
+         'https://nextstageksa.com/cards/api/password/chaingPassword',
         {
           method: 'POST',
           headers: {
