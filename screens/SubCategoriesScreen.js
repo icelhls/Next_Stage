@@ -122,7 +122,9 @@ const SubCategoriesScreen = ({route}) => {
     try {
       const api_token = await AsyncStorage.getItem('api_token');
       let response = await fetch(
-        `http://192.168.1.46:8000/api/orders/orderNow`,
+        // `http://192.168.1.46:8000/api/orders/orderNow`,
+         `https://nextstageksa.com/cards/api/orders/orderNow`,
+
         {
           method: 'POST',
           headers: {
