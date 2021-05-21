@@ -1,5 +1,13 @@
-import React,{useEffect, useState} from 'react';
-import {View, Text, Button, StyleSheet, Platform, Alert, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Platform,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Input} from 'react-native-elements';
 import {Headline} from 'react-native-paper';
@@ -7,56 +15,50 @@ import {createStackNavigator} from '@react-navigation/stack';
 import LinearGradient from 'react-native-linear-gradient';
 
 const ForgotPasswordScreen = ({navigation}) => {
-
-  
   const [data, setData] = React.useState({
-      email: '',
+    email: '',
   });
 
-  const [email, setEmail] = useState('')
- 
+  const [email, setEmail] = useState('');
 
   const callapi = async newdata => {
-    console.log('email forget',  email)
+    console.log('email forget', email);
 
+    if (email) {
+      try {
+        let response = await fetch(
+          // 'http://192.168.1.46:8000/api/password/forgot',
+           // change to server
+          'https://nextstageksa.com/cards/api/password/forgot',
+          {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: email,
+            }),
+          },
+        );
 
-    if(email){
-    try {
-     
-      let response = await fetch('http://192.168.1.46:8000/api/password/forgot', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email
-        })
-      });
-
-      let responseJson = await response.json();
-      let data = responseJson;
-      console.log('Data', data);
-      if(data.email === 1){
-        navigation.navigate('Code1', {email: email})
-      
-      }else{
-        alert(' the email is not found ')
+        let responseJson = await response.json();
+        let data = responseJson;
+        console.log('Data', data);
+        if (data.email === 1) {
+          navigation.navigate('Code1', {email: email});
+        } else {
+          alert(' the email is not found ');
+        }
+      } catch (error) {
+        console.log('errors forget', error);
       }
-    
-    } catch (error) {
-      console.log('errors forget', error);
+    } else {
+      alert(' please write your email');
     }
-  }else{
-    alert(' please write your email')
-  }
 
-  setEmail('')
-  
+    setEmail('');
   };
-
-
-
 
   return (
     <View style={styles.container}>
@@ -67,26 +69,24 @@ const ForgotPasswordScreen = ({navigation}) => {
         onChangeText={val => setEmail(val)}
       />
 
-
-      <View style={styles.button} >
-      <TouchableOpacity
-        style={styles.signIn}
-        onPress={() => {
-          callapi(data.email);
-        }}>
-        <LinearGradient colors={['#7e102c', '#7e102c']} style={styles.signIn}>
-          <Text
-            style={[
-              styles.textSign,
-              {
-                color: '#fff',
-              },
-            ]}>
-             Forget Password
-          </Text>
-        </LinearGradient>
-      </TouchableOpacity>
-
+      <View style={styles.button}>
+        <TouchableOpacity
+          style={styles.signIn}
+          onPress={() => {
+            callapi(data.email);
+          }}>
+          <LinearGradient colors={['#7e102c', '#7e102c']} style={styles.signIn}>
+            <Text
+              style={[
+                styles.textSign,
+                {
+                  color: '#fff',
+                },
+              ]}>
+              Forget Password
+            </Text>
+          </LinearGradient>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -115,8 +115,8 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     marginTop: 50,
-    margin: 18
-},
+    margin: 18,
+  },
 
   signIn: {
     width: 210,
@@ -127,6 +127,6 @@ const styles = StyleSheet.create({
   },
   textSign: {
     fontSize: 18,
-    fontWeight: 'bold'
-}
+    fontWeight: 'bold',
+  },
 });
