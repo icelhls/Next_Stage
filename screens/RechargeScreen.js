@@ -21,7 +21,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
 const url = 'http://nextstageksa.com/cards/api/user/update';
 import {useNavigation} from '@react-navigation/native';
-import { Button } from 'react-native';
+import {Button} from 'react-native';
 const RechargeScreen = () => {
   const navigation = useNavigation();
   const [data, setData] = React.useState({
@@ -31,86 +31,49 @@ const RechargeScreen = () => {
   const [amount, setAmount] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [image, setImage] = useState('');
+  const [imageo, setImageo] = useState('');
+  const [exto, setExto] = useState('');
 
-  // const handleRecharge = async newdata => {
-  //   let amount = newdata.amount;
-  //   console.log('amount', amount);
-  //   try {
-  //     api_token = await AsyncStorage.getItem('api_token');
-  //     let response = await fetch('http://192.168.1.46:8000/api/charge/recharge', {
-  //       method: 'POST',
-  //       headers: {
-  //         Authorization: 'Bearer ' + api_token,
-  //         Accept: 'application/json',
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         amount: amount,
-  //       }),
-  //     });
 
-  //     let responseJson = await response.json();
-  //     console.log('responseJsonHandleResponse---', responseJson);
-  //   } catch (error) {
-  //     console.log('errors profile', error);
-  //   }
-  // };
 
-  const changeAmountInput = val => {
-    setData({
-      ...data,
-      amount: val,
-    });
-  };
-
-  // const handleSubmit = () => {
-  //   const newData = {
-  //     amount: data.amount,
-  //   };
-  //   console.log('newdata', newData);
-  //   handleRecharge(newData);
-  //   navigation.navigate('Home');
-  // };
-
-  const updatePicture = async data => {
-    console.log('check base 64', data);
-
-    try {
-      const api_token = await AsyncStorage.getItem('api_token');
-      let response = await fetch(
-        'http://nextstageksa.com/cards/api/charge/recharge',
-        {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            Authorization: 'Bearer ' + api_token,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
+  const updatePicture = async ({data}) => {
+    //console.log('DATA', data);
+    if (imageo && amount) {
+      try {
+        console.log(' ext ', exto);
+        console.log(' image ', imageo);
+        console.log('Amount', amount);
+        const api_token = await AsyncStorage.getItem('api_token');
+        let response = await fetch(
+          'https://nextstageksa.com/cards/api/charge/recharge',
+          {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              Authorization: 'Bearer ' + api_token,
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              image: imageo,
+              ext: exto,
+              amount: amount,
+            }),
           },
-          body: JSON.stringify({
-            image: data.image,
-            ext: data.ext,
-            amount: data.amount
-          
-          }),
-        },
-      );
+        );
 
-      let responseJson = await response.json();
-      setAmount('')
-      console.log('responseReCHARGE@@@@@@', responseJson);
-      let image = responseJson.chargeData.image
-      setImage(image)
-      navigation.navigate('Home')
-    } catch (error) {
-      console.log('errors Image', error);
+        let responseJson = await response.json();
+
+        console.log('response api recharge@@', responseJson);
+        navigation.navigate('Home');
+        setAmount('');
+      } catch (error) {
+        console.log('errors Image', error);
+      }
+    } else {
+      alert('please select photo and amount');
     }
   };
-
-  useEffect(() => {
-    // handleRecharge();
-    updatePicture();
-  }, []);
 
   const {colors} = useTheme();
 
@@ -126,32 +89,25 @@ const RechargeScreen = () => {
     const result = await RNFetchBlob.fs.readFile(file.path, 'base64');
 
     console.log('result', result);
-
+    setImageo(result);
+    setExto('jpg');
     const data = {
       image: result,
-      ext: 'jpj',
-      amount: amount
+      ext: 'jpg',
     };
 
-    await updatePicture(data);
+    console.log('data', data);
   };
 
   renderInner = () => (
     <View style={styles.panel}>
-      <View style={{alignItems: 'center'}}>
-        <Text style={styles.panelTitle}>Upload Photo</Text>
-        <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
-      </View>
+      <View style={{alignItems: 'center'}} />
+
       {/* <TouchableOpacity
-        style={styles.panelButton}
-        onPress={choosePhotoFromLibrary}>
-        <Text style={styles.panelButtonTitle}>Choose From Library</Text>
-      </TouchableOpacity> */}
-      <TouchableOpacity
         style={styles.panelButton}
         onPress={() => this.bs.current.snapTo(1)}>
         <Text style={styles.panelButtonTitle}>Cancel</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 
@@ -191,96 +147,13 @@ const RechargeScreen = () => {
                 borderRadius: 15,
                 justifyContent: 'center',
                 alignItems: 'center',
-              }}>
-              {/* <ImageBackground
-                source={{
-                  uri: image,
-                }}
-                style={{height: 100, width: 100}}
-                imageStyle={{borderRadius: 15}}>
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Icon
-                    name="camera"
-                    size={35}
-                    color="#fff"
-                    style={{
-                      opacity: 0.7,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      borderWidth: 1,
-                      borderColor: '#fff',
-                      borderRadius: 10,
-                    }}
-                  />
-                </View>
-              </ImageBackground> */}
-            </View>
+              }}
+            />
           </TouchableOpacity>
           <Text style={{marginTop: 10, fontSize: 18, fontWeight: 'bold'}}>
             {/* {data.name_en} */} Recharge Account
           </Text>
         </View>
-
-        {/* <View style={styles.action}>
-          <FontAwesome name="user-o" color={colors.text} size={20} />
-          <TextInput
-            placeholder="Name English"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            // value={data.name_en}
-            onChangeText={val => textInputChange(val)}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View> */}
-        {/* <View style={styles.action}>
-          <FontAwesome name="user-o" color={colors.text} size={20} />
-          <TextInput
-            placeholder="Trade Name"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            value={data.trade_name}
-            onChangeText={val => changeTradeInput(val)}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View> */}
-        {/* <View style={styles.action}>
-          <Feather name="phone" color={colors.text} size={20} />
-          <TextInput
-            placeholder="Phone"
-            placeholderTextColor="#666666"
-            keyboardType="number-pad"
-            // value={data.phone}
-            onChangeText={val => changePhoneInput(val)}
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View> */}
-        {/* <Button
-        title="Choose photo"
-        onPress={choosePhotoFromLibrary}
-        style={{width: 5, height: 50}}
-
-         /> */}
         <View style={styles.action}>
           <FontAwesome name="money" color={colors.text} size={20} />
           <TextInput
@@ -289,7 +162,7 @@ const RechargeScreen = () => {
             // keyboardType="email-address"
             value={amount}
             autoCorrect={false}
-            onChangeText={setAmount}
+            onChangeText={val => setAmount(val)}
             keyboardType="numeric"
             style={[
               styles.textInput,
@@ -299,38 +172,16 @@ const RechargeScreen = () => {
             ]}
           />
         </View>
-        {/* <View style={styles.action}>
-          <FontAwesome name="globe" color={colors.text} size={20} />
-          <TextInput
-            placeholder="Country"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View> */}
-        {/* <View style={styles.action}>
-          <Icon name="map-marker-outline" color={colors.text} size={20} />
-          <TextInput
-            placeholder="City"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View> */}
         <TouchableOpacity
           style={styles.commandButton}
-          onPress={ choosePhotoFromLibrary}>
+          onPress={choosePhotoFromLibrary}>
           <Text style={styles.panelButtonTitle}>Choose Photo</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.commandButton}
+          onPress={() => updatePicture({data})}>
+          <Text style={styles.panelButtonTitle}> Recharge Account </Text>
         </TouchableOpacity>
       </Animated.View>
     </View>
