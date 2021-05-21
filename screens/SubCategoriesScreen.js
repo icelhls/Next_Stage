@@ -25,7 +25,7 @@ const SubCategoriesScreen = ({route}) => {
       };
       console.log('data subCategories', data);
       let response = await fetch(
-        `http://nextstageksa.com/cards/api/sub/byMainId`,
+        `https://nextstageksa.com/cards/api/sub/byMainId`,
         {
           method: 'POST',
           headers: {
