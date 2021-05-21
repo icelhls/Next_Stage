@@ -20,18 +20,7 @@ const AboutScreen = ({navigation}) => {
         وخالية من المتاعب. يتمتع فريقنا بسنوات من الخبرة في مجال التجارة
         الإلكترونية والتجارة الدولية وتصنيف رضا العملاء من فئة الخمس نجوم. .{' '}
       </Paragraph>
-      {/* <Button title="go mainsub" onPress={()=>navigation.navigate('MainSub')} />
-      <Button title="sub categories" onPress={()=>navigation.navigate('SubCategories')} /> */}
-      {/* <MainSubCard>
-        <Text> hello word</Text>
-        <Text> hello word</Text>
-        <Text> hello word</Text>
-      </MainSubCard> */}
-      {/* {dataPayment.map((item)=>(
-        <Text>{item.title}</Text>
-        // <Image >{item.img}</Image>
 
-      ))} */}
     </View>
   );
 };
