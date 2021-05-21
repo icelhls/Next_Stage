@@ -142,47 +142,45 @@ export default function PubgKoreaScreen({route}) {
 
   const updatePicture = async ({data}) => {
     //console.log('DATA', data);
-    if(imageo){
+    if (imageo) {
+      try {
+        // console.log(' TTTTTTT ', newData.name)
+        console.log(' TTTTTTT ', order_id);
+        console.log(' TTTTTTT ', exto);
+        console.log(' TTTTTTT ', imageo);
+        console.log('TTTTTTT', nameo);
+        const api_token = await AsyncStorage.getItem('api_token');
+        let response = await fetch(
+          // 'http://192.168.1.46:8000/api/info/add',
+          // change to server
+            'https://nextstageksa.com/cards/api/info/add',
+           {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            Authorization: 'Bearer ' + api_token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            image: imageo,
+            ext: exto,
+            order_id: order_id,
+            name: nameo,
+          }),
+        });
 
-    
+        let responseJson = await response.json();
 
-    try {
-      // console.log(' TTTTTTT ', newData.name)
-      console.log(' TTTTTTT ', order_id);
-      console.log(' TTTTTTT ', exto);
-      console.log(' TTTTTTT ', imageo);
-      console.log('TTTTTTT', nameo)
-      const api_token = await AsyncStorage.getItem('api_token');
-      let response = await fetch('http://192.168.1.46:8000/api/info/add', {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          Authorization: 'Bearer ' + api_token,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          image: imageo,
-          ext: exto,
-          order_id: order_id,
-          name: nameo
-        }),
-      });
-
-      let responseJson = await response.json();
-
-      console.log('response api', responseJson);
-      navigation.navigate('Purchase');
-     
-    } catch (error) {
-      console.log('errors Image', error);
+        console.log('response api', responseJson);
+        navigation.navigate('Purchase');
+      } catch (error) {
+        console.log('errors Image', error);
+      }
+    } else {
+      alert('please select photo');
     }
-  }else{
-    alert('please select photo')
-  }
   };
-
-
 
   const {colors} = useTheme();
 
@@ -198,8 +196,8 @@ export default function PubgKoreaScreen({route}) {
     const result = await RNFetchBlob.fs.readFile(file.path, 'base64');
 
     console.log('result', result);
-    setImageo(result)
-    setExto('jpg')
+    setImageo(result);
+    setExto('jpg');
     const data = {
       image: result,
       ext: 'jpg',
