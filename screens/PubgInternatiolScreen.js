@@ -21,9 +21,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {useNavigation} from '@react-navigation/native';
 
 export default function PubgInternatiolScreen({route}) {
-  
   const order_id = route.params.id2;
-  console.log('order_id', order_id)
+  console.log('order_id', order_id);
   const [selectedValue, setSelectedValue] = useState('java');
   const navigation = useNavigation();
 
@@ -37,9 +36,6 @@ export default function PubgInternatiolScreen({route}) {
   });
 
   const [subOrder, setSubOrder] = useState([]);
-
-
-
 
   const textChange = val => {
     if (val.length !== 0) {
@@ -70,7 +66,11 @@ export default function PubgInternatiolScreen({route}) {
 
     try {
       const api_token = await AsyncStorage.getItem('api_token');
-      let response = await fetch(`http://192.168.1.46:8000/api/info/add`, {
+      let response = await fetch(
+        `http://192.168.1.46:8000/api/info/add`, 
+        // change to server
+         `https://nextstageksa.com/cards/api/info/add`, 
+        {
         method: 'POST',
         headers: {
           Authorization: 'Bearer ' + api_token,
@@ -85,15 +85,11 @@ export default function PubgInternatiolScreen({route}) {
       });
       let responseJson = await response.json();
       console.log('response', responseJson);
-       navigation.navigate('Purchase');
-    
-
-
+      navigation.navigate('Purchase');
     } catch (error) {
       console.log(error);
     }
   };
-
 
   const handleSubmit = () => {
     if (data.email.length == 0 || data.password.length == 0) {
@@ -115,10 +111,7 @@ export default function PubgInternatiolScreen({route}) {
     submitOrder(newData);
     navigation.navigate('Purchase');
     console.log('you submit  screen2');
-
   };
-
-  
 
   useEffect(() => {
     submitOrder();
