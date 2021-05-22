@@ -40,9 +40,9 @@ export default function CartItem() {
       <Title>{item.new_price} JD</Title>
            <Image
                         style={styles.image}
-                        resizeMode="cover"
+                        resizeMode="center"
                         source={{
-                          uri: `http://nextstageksa.com/cards/storage/uploades/${
+                          uri: `https://nextstageksa.com/cards/storage/uploades/${
                            item.sub_category.image
                           }`,
                         }}
@@ -78,8 +78,8 @@ export default function CartItem() {
 }
 const styles = StyleSheet.create({
   image: {
-    width: 100,
-    height: 93,
+    width: 110,
+    height: 135,
     margin: 10,
     borderBottomWidth: 1,
     marginTop: 1
