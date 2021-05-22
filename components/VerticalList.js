@@ -62,7 +62,7 @@ export default function VerticalList({title}) {
                   style={styles.image}
                  
                   source={{
-                    uri: `http://nextstageksa.com/cards/storage/uploades/${
+                    uri: `https://nextstageksa.com/cards/storage/uploades/${
                       item.image
                     }`,
                   }}
